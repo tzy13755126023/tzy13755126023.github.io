@@ -1,9 +1,3 @@
-@media screen and (min-width: 768px) {
-    #page-header #site-title {
-        color: chocolate;
-    }
-}
-
 #subtitle {
     background-image: -webkit-linear-gradient(left, #3498db, #f47920 10%, #d71345 20%, #f7acbc 30%, #ffd400 40%, #3498db 50%, #f47920 60%, #d71345 70%, #f7acbc 80%, #ffd400 90%, #3498db);
     background-size: 400% 400%;
@@ -21,6 +15,10 @@
     border-top-right-radius: 10px;
 }
 
+#page-header #site-title {
+    color: chocolate
+}
+
 @keyframes Gradient {
     0% {
         background-position: 0 50%;
@@ -33,6 +31,122 @@
     }
 }
 
+[data-theme='dark'] #nav #site-name {
+    color: rgba(247, 8, 175, .8)
+}
+
+
+/* 搜索添加动画 及icon颜色 */
+
+@media screen and (min-width: 768px) {
+    #search-button .search .fa-search {
+        -webkit-animation: float 2s linear infinite;
+        animation: float 2s linear infinite
+    }
+}
+
+[data-theme='dark'] #search-button .search .fa-search,
+[data-theme='dark'] #search-button .search span {
+    color: #04f809;
+}
+
+[data-theme='dark'] .fa-home,
+[data-theme='dark'] .fa-home+span {
+    color: #4890f7
+}
+
+[data-theme='dark'] .fa-archive,
+[data-theme='dark'] .fa-archive+span {
+    color: #ffec03;
+}
+
+[data-theme='dark'] .fa-tags,
+[data-theme='dark'] .fa-tags+span {
+    /* color: #09d3a7 */
+    color: #39ffd4;
+}
+
+[data-theme='dark'] .fa-folder-open,
+[data-theme='dark'] .fa-folder-open+span {
+    color: #ff4800;
+}
+
+[data-theme='dark'] .fa-list,
+[data-theme='dark'] .fa-youtube,
+[data-theme='dark'] .fa-video,
+[data-theme='dark'] .fa-book,
+[data-theme='dark'] .fa-gamepad,
+[data-theme='dark'] .fa-list+span,
+[data-theme='dark'] .fa-youtube+span,
+[data-theme='dark'] .fa-video+span,
+[data-theme='dark'] .fa-book+span,
+[data-theme='dark'] .fa-gamepad+span,
+[data-theme='dark'] #nav .menus_items .menus_item .expand,
+[data-theme='dark'] #sidebar #sidebar-menus .menus_items .expand {
+    color: #9cfa06;
+}
+
+[data-theme='dark'] .fa-comments,
+[data-theme='dark'] .fa-comments+span {
+    color: #eee;
+}
+
+[data-theme='dark'] .fa-link,
+[data-theme='dark'] .fa-link+span {
+    color: #f708af;
+}
+
+[data-theme='dark'] .fa-bars {
+    color: #4890f7;
+}
+
+
+/* recent-posts start */
+
+[data-theme='dark'] .recent-posts .recent-post-item .recent-post-info a.article-title {
+    color: #09d3a7 !important
+}
+
+[data-theme='dark'] .recent-posts .recent-post-item .recent-post-info .post-meta-date,
+[data-theme='dark'] .recent-posts .recent-post-item .recent-post-info .article-meta i,
+[data-theme='dark'] .recent-posts .recent-post-item .recent-post-info .article-meta a,
+[data-theme='dark'] .recent-posts .recent-post-item .recent-post-info .article-meta__separator {
+    color: rgb(255, 100, 0) !important
+}
+
+[data-theme='dark'] .recent-posts .recent-post-item .recent-post-info .content {
+    color: rgba(255, 255, 255, 0.8) !important
+}
+
+
+/* recent-posts end */
+
+
+/* .card-content  start */
+
+[data-theme='dark'] .card-content .author-info__name {
+    color: rgba(252, 5, 5, .85)
+}
+
+[data-theme='dark'] .card-content .author-info__description {
+    color: #ddd;
+}
+
+[data-theme='dark'] .card-content .card-info-data>div:first-child .headline,
+[data-theme='dark'] .card-content .card-info-data>div:first-child .length-num {
+    color: #00bf03 !important
+}
+
+[data-theme='dark'] .card-content .card-info-data>div:nth-child(2) .headline,
+[data-theme='dark'] .card-content .card-info-data>div:nth-child(2) .length-num {
+    color: #ff4800 !important
+}
+
+[data-theme='dark'] .card-content .card-info-data>div:nth-child(3) .headline,
+[data-theme='dark'] .card-content .card-info-data>div:nth-child(3) .length-num {
+    color: #10a4ff !important
+}
+
 
 /* 修改crad板块中的github font-size */
 
@@ -40,6 +154,16 @@
     margin: 0 0.5rem;
     font-size: 1.4em;
     cursor: pointer;
+}
+
+[data-theme='dark'] .card-content .fa-github,
+[data-theme='dark'] .card-content .fa-github+span {
+    color: #09d3a7;
+}
+
+.fa-heart,
+.fa-heart+span {
+    color: #fc0505
 }
 
 .fa-qq {
@@ -59,12 +183,155 @@
 }
 
 .fa-rss {
-    color: #d68650
+    color: #e66c1b
 }
 
-.fa-heart {
-    color: red
+
+/* 公告 */
+
+[data-theme='dark'] .fa-bullhorn+span {
+    color: #f00;
 }
+
+[data-theme='dark'] .announcement_content {
+    color: #eee;
+}
+
+
+/* Pixiv日榜Top50 */
+
+[data-theme='dark'] .card-pixiv .fa-image,
+[data-theme='dark'] .card-pixiv .fa-image+span {
+    color: #ff4800 !important;
+}
+
+
+/* 网站地图 */
+
+[data-theme='dark'] .card-map .fa-globe-asia,
+[data-theme='dark'] .card-map .fa-globe-asia+span {
+    color: #10a4ff !important;
+}
+
+
+/* 最新文章 */
+
+[data-theme='dark'] .card-recent-post .fa-history,
+[data-theme='dark'] .card-recent-post .fa-history+span,
+[data-theme='dark'] .card-recent-post .aside-list .aside-list-item time,
+[data-theme='dark'] .card-recent-post .aside-list .aside-list-item a {
+    /* color: #f66bff !important; */
+    color: #f708af !important;
+}
+
+
+/* 分类 */
+
+[data-theme='dark'] .card-category-list .card-category-list-item a {
+    color: #ff4800 !important;
+}
+
+
+/* 归档 */
+
+[data-theme='dark'] .card-archives .fa-archive,
+[data-theme='dark'] .card-archives .fa-archive+span,
+[data-theme='dark'] .card-archives .card-archive-list a {
+    color: rgb(236, 218, 16) !important;
+}
+
+
+/* 网站资讯 */
+
+[data-theme='dark'] .card-webinfo .fa-chart-line,
+[data-theme='dark'] .card-webinfo .fa-chart-line+span,
+[data-theme='dark'] .card-webinfo .webinfo .webinfo-item .item-count,
+[data-theme='dark'] .card-webinfo .webinfo .webinfo-item .item-name {
+    /* color: #96eb0f !important; */
+    color: #00d0ff !important;
+}
+
+
+/* 目录 */
+
+[data-theme='dark'] #aside_content #card-toc .item-headline .fa-stream,
+[data-theme='dark'] #aside_content #card-toc .fa-stream+span,
+[data-theme='dark'] #aside_content #card-toc .toc-content .toc .toc-item,
+[data-theme='dark'] #aside_content #card-toc .toc-content:before,
+[data-theme='dark'] #aside_content #card-toc .toc-content .toc-link {
+    color: #96eb0f;
+}
+
+[data-theme='dark'] #aside_content #card-toc .toc-content .toc-link.active {
+    color: #fff;
+}
+
+
+/* .card-content end */
+
+
+/* rightside > rightside-config-hide start */
+
+
+/* 阅读模式  放大字体 缩小字体 简繁转换 浅色和深色模式转换 单栏和双栏切换 设置 在线聊天 直达评论 回到顶部*/
+
+[data-theme='dark'] #rightside #rightside-config-hide #readmode i {
+    color: #04f809;
+}
+
+[data-theme='dark'] #rightside #rightside-config-hide #font-plus i {
+    color: #4890f7;
+}
+
+[data-theme='dark'] #rightside #rightside-config-hide #font-minus i {
+    color: #ffec03;
+}
+
+[data-theme='dark'] #rightside #rightside-config-hide #translateLink {
+    color: #39ffd4;
+}
+
+[data-theme='dark'] #rightside #rightside-config-hide #darkmode i {
+    color: #ff4800;
+}
+
+[data-theme='dark'] #rightside #rightside-config-hide #hide-aside-btn i,
+[data-theme='dark'] #rightside #rightside-config-show #mobile-toc-button i {
+    color: #f708af;
+}
+
+[data-theme='dark'] #rightside #rightside-config-show #rightside_config i {
+    color: #fc0505;
+}
+
+[data-theme='dark'] #rightside #rightside-config-show #chat_btn i {
+    color: #00d0ff;
+}
+
+[data-theme='dark'] #rightside #rightside-config-show #to_comment i {
+    color: #04f809;
+}
+
+[data-theme='dark'] #rightside #rightside-config-show #go-up i {
+    color: #eee;
+}
+
+
+/* rightside > rightside-config-hide end */
+
+
+/* footer */
+
+[data-theme='dark'] #footer-wrap {
+    color: #ddd;
+}
+
+#footer-wrap .framework-info a {
+    color: red;
+}
+
+
+/* .card-content  End */
 
 body {
     cursor: url(https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/curcor1.png), auto;
@@ -408,21 +675,6 @@ p.top {
     animation: horizontal 3s ease infinite
 }
 
-#search-button .search .fa-search {
-    -webkit-animation: float 2s linear infinite;
-    animation: float 2s linear infinite
-}
-
-
-/* github icon font-size */
-
-#aside_content .social-icon {
-    margin: 0 0.5rem;
-    color: var(--font-color);
-    font-size: 1.4em;
-    cursor: pointer;
-}
-
 #aside_content .card-archives ul.card-archive-list>.card-archive-list-item a span,
 #aside_content .card-categories ul.card-category-list>.card-category-list-item a span,
 #aside_content .card-info .card-info-data>.card-info-data-item a .headline,
@@ -647,8 +899,6 @@ hr:before {
     padding: 0
 }
 
-
-/* 
 #article-container figure.highlight .line:before {
     display: inline-block;
     padding: 0 .3rem 0 0;
@@ -713,7 +963,7 @@ blockquote a {
 }
 
 blockquote p {
-    margin: 0!important;
+    margin: 0 !important;
     padding: .5rem 0
 }
 
@@ -729,7 +979,7 @@ blockquote footer cite:before {
 #article-container code,
 #article-container pre {
     font-size: 16px;
-    font-family: consolas, Menlo, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif!important
+    font-family: consolas, Menlo, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif !important
 }
 
 #article-container code {
@@ -828,11 +1078,11 @@ blockquote footer cite:before {
     -o-transition: all .3s;
     -ms-transition: all .3s;
     transition: all .3s;
-    -webkit-transform: rotate(-90deg)!important;
-    -moz-transform: rotate(-90deg)!important;
-    -o-transform: rotate(-90deg)!important;
-    -ms-transform: rotate(-90deg)!important;
-    transform: rotate(-90deg)!important
+    -webkit-transform: rotate(-90deg) !important;
+    -moz-transform: rotate(-90deg) !important;
+    -o-transform: rotate(-90deg) !important;
+    -ms-transform: rotate(-90deg) !important;
+    transform: rotate(-90deg) !important
 }
 
 #article-container .highlight-tools .code-lang {
@@ -918,11 +1168,11 @@ blockquote footer cite:before {
     -o-transition: all .3s;
     -ms-transition: all .3s;
     transition: all .3s;
-    -webkit-transform: rotate(90deg)!important;
-    -moz-transform: rotate(90deg)!important;
-    -o-transform: rotate(90deg)!important;
-    -ms-transform: rotate(90deg)!important;
-    transform: rotate(90deg)!important
+    -webkit-transform: rotate(90deg) !important;
+    -moz-transform: rotate(90deg) !important;
+    -o-transform: rotate(90deg) !important;
+    -ms-transform: rotate(90deg) !important;
+    transform: rotate(90deg) !important
 }
 
 #article-container figure.highlight .highlight-tools .expand~.copy-notice {
@@ -934,9 +1184,8 @@ blockquote footer cite:before {
 }
 
 #article-container figure.highlight .highlight-tools .code-lang {
-    left: 3.8rem!important
+    left: 3.8rem !important
 }
-
 
 #article-container {
     word-wrap: break-word;
@@ -961,7 +1210,7 @@ blockquote footer cite:before {
 
 #article-container iframe {
     margin: 0 0 1rem
-} */
+}
 
 #article-container ol,
 #article-container ul {
@@ -1093,3 +1342,26 @@ blockquote footer cite:before {
 #article-container .tip a {
     color: #e6eaed
 } */
+
+#article-container .aplayer ol,
+#article-container .aplayer ul {
+    margin: 0;
+    padding: 0
+}
+
+#article-container .aplayer ol li,
+#article-container .aplayer ul li {
+    margin: 0;
+    padding: 0 15px
+}
+
+#article-container .aplayer ol li:before,
+#article-container .aplayer ul li:before {
+    content: none
+}
+
+#article-container .tip a {
+    color: #e6eaed
+}
+
+*/ */

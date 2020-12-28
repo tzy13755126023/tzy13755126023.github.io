@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Ethan</title>
+  <title>Ethanの博客</title>
   
-  <subtitle>唐志远的小小博客</subtitle>
+  <subtitle>唐志远的小小站点</subtitle>
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-25T09:32:07.203Z</updated>
+  <updated>2020-12-28T13:33:26.183Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,18 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Markdown语法支持的Emoji表情</title>
+    <link href="http://example.com/2020/12/28/Markdown%E8%AF%AD%E6%B3%95%E6%94%AF%E6%8C%81%E7%9A%84Emoji%E8%A1%A8%E6%83%85/"/>
+    <id>http://example.com/2020/12/28/Markdown%E8%AF%AD%E6%B3%95%E6%94%AF%E6%8C%81%E7%9A%84Emoji%E8%A1%A8%E6%83%85/</id>
+    <published>2020-12-28T08:28:37.000Z</published>
+    <updated>2020-12-28T13:33:26.183Z</updated>
+    
+    
+    <summary type="html">Markdown语法支持添加 emoji 表情，输入不同的符号码（两个冒号包围的字符）可以显示出不同的表情。</summary>
+    
+    
+    
+    <category term="Markdown" scheme="http://example.com/categories/Markdown/"/>
+    
+    
+    <category term="Markdown" scheme="http://example.com/tags/Markdown/"/>
+    
+    <category term="Emoji表情" scheme="http://example.com/tags/Emoji%E8%A1%A8%E6%83%85/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Vue后台管理系统模板推荐</title>
     <link href="http://example.com/2020/12/21/Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%9D%BF%E6%8E%A8%E8%8D%90/"/>
     <id>http://example.com/2020/12/21/Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%9D%BF%E6%8E%A8%E8%8D%90/</id>
     <published>2020-12-21T12:15:33.000Z</published>
-    <updated>2020-12-25T09:32:07.203Z</updated>
+    <updated>2020-12-28T13:34:07.584Z</updated>
     
     
     <summary type="html">在我们进行网站管理时一个好的后台管理模板是非常重要的，推荐几款后台模板给大家，也是自己常用的模板。</summary>
     
     
     
-    <category term="Vue后台管理系统模板" scheme="http://example.com/categories/Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%9D%BF/"/>
+    <category term="Vue后台管理系统" scheme="http://example.com/categories/Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
     
     
     <category term="Vue" scheme="http://example.com/tags/Vue/"/>
