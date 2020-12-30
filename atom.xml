@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-28T13:33:26.183Z</updated>
+  <updated>2020-12-30T14:27:56.673Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Node.js：nvm、npm与nrm</title>
+    <link href="http://example.com/2020/12/30/Node-js%EF%BC%9Anvm%E3%80%81npm%E4%B8%8Enrm/"/>
+    <id>http://example.com/2020/12/30/Node-js%EF%BC%9Anvm%E3%80%81npm%E4%B8%8Enrm/</id>
+    <published>2020-12-30T07:55:35.000Z</published>
+    <updated>2020-12-30T14:27:56.673Z</updated>
+    
+    
+    <summary type="html">Node.js必备：nvm、npm与nrm</summary>
+    
+    
+    
+    <category term="Node.js" scheme="http://example.com/categories/Node-js/"/>
+    
+    
+    <category term="Node.js" scheme="http://example.com/tags/Node-js/"/>
+    
+    <category term="nvm" scheme="http://example.com/tags/nvm/"/>
+    
+    <category term="npm" scheme="http://example.com/tags/npm/"/>
+    
+    <category term="nrm" scheme="http://example.com/tags/nrm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Markdown语法支持的Emoji表情</title>
     <link href="http://example.com/2020/12/28/Markdown%E8%AF%AD%E6%B3%95%E6%94%AF%E6%8C%81%E7%9A%84Emoji%E8%A1%A8%E6%83%85/"/>
     <id>http://example.com/2020/12/28/Markdown%E8%AF%AD%E6%B3%95%E6%94%AF%E6%8C%81%E7%9A%84Emoji%E8%A1%A8%E6%83%85/</id>
     <published>2020-12-28T08:28:37.000Z</published>
-    <updated>2020-12-28T13:33:26.183Z</updated>
+    <updated>2020-12-30T08:27:58.616Z</updated>
     
     
     <summary type="html">Markdown语法支持添加 emoji 表情，输入不同的符号码（两个冒号包围的字符）可以显示出不同的表情。</summary>
@@ -42,7 +67,7 @@
     <link href="http://example.com/2020/12/21/Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%9D%BF%E6%8E%A8%E8%8D%90/"/>
     <id>http://example.com/2020/12/21/Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%9D%BF%E6%8E%A8%E8%8D%90/</id>
     <published>2020-12-21T12:15:33.000Z</published>
-    <updated>2020-12-28T13:34:07.584Z</updated>
+    <updated>2020-12-30T08:26:22.749Z</updated>
     
     
     <summary type="html">在我们进行网站管理时一个好的后台管理模板是非常重要的，推荐几款后台模板给大家，也是自己常用的模板。</summary>

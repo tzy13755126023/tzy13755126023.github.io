@@ -4,19 +4,18 @@
  * @Author: tzy1997
  * @Date: 2020-12-14 21:26:14
  * @LastEditors: tzy1997
- * @LastEditTime: 2020-12-23 16:11:33
+ * @LastEditTime: 2020-12-29 19:28:54
  */
 
 /* 手机侧边栏默认不展开 */
-var mobile_sidebar_menus = document.getElementById("mobile-sidebar-menus");
+var mobile_sidebar_menus = document.getElementById("sidebar-menus");
 if (mobile_sidebar_menus) {
     var menus_item_child = mobile_sidebar_menus.getElementsByClassName(
         "menus_item_child"
     );
-    var menus_expand = mobile_sidebar_menus.getElementsByClassName("menus-expand");
+    var menus_expand = mobile_sidebar_menus.getElementsByClassName("expand");
     for (var i = 0; i < menus_item_child.length; i++) {
         menus_item_child[i].style.display = "none";
-        menus_expand[i].className += " menus-closed";
     }
 }
 
