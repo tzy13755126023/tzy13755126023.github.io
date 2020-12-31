@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-30T14:27:56.673Z</updated>
+  <updated>2020-12-31T11:01:16.687Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,21 +17,21 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Node.js：nvm、npm与nrm</title>
-    <link href="http://example.com/2020/12/30/Node-js%EF%BC%9Anvm%E3%80%81npm%E4%B8%8Enrm/"/>
-    <id>http://example.com/2020/12/30/Node-js%EF%BC%9Anvm%E3%80%81npm%E4%B8%8Enrm/</id>
+    <title>nvm,npm与nrm</title>
+    <link href="http://example.com/2020/12/30/nvm,npm%E4%B8%8Enrm/"/>
+    <id>http://example.com/2020/12/30/nvm,npm%E4%B8%8Enrm/</id>
     <published>2020-12-30T07:55:35.000Z</published>
-    <updated>2020-12-30T14:27:56.673Z</updated>
+    <updated>2020-12-31T11:01:16.687Z</updated>
     
     
-    <summary type="html">Node.js必备：nvm、npm与nrm</summary>
+    <summary type="html">Node必备：nvm、npm与nrm</summary>
     
     
     
-    <category term="Node.js" scheme="http://example.com/categories/Node-js/"/>
+    <category term="Node" scheme="http://example.com/categories/Node/"/>
     
     
-    <category term="Node.js" scheme="http://example.com/tags/Node-js/"/>
+    <category term="Node" scheme="http://example.com/tags/Node/"/>
     
     <category term="nvm" scheme="http://example.com/tags/nvm/"/>
     

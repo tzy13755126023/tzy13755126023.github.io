@@ -62,7 +62,6 @@
 
 [data-theme='dark'] .fa-tags,
 [data-theme='dark'] .fa-tags+span {
-    /* color: #09d3a7 */
     color: #39ffd4;
 }
 
