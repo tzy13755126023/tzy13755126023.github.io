@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-05T10:30:42.760Z</updated>
+  <updated>2021-01-06T10:37:56.309Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2021/01/05/%E5%9F%BA%E4%BA%8EButterfly%E7%9A%84%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE%E5%BC%95%E5%85%A5/"/>
     <id>http://example.com/2021/01/05/%E5%9F%BA%E4%BA%8EButterfly%E7%9A%84%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE%E5%BC%95%E5%85%A5/</id>
     <published>2021-01-05T08:14:02.000Z</published>
-    <updated>2021-01-05T10:30:42.760Z</updated>
+    <updated>2021-01-06T10:37:56.309Z</updated>
     
     
     <summary type="html">基于Butterfly的外挂标签引入</summary>
