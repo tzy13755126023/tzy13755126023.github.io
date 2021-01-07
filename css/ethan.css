@@ -149,6 +149,7 @@ color: #ff63d0;
     }
 }
 
+.ethan_tzy_no_th_bg table thead,
 .ethan_tzy_table table thead,
 #article-container .ethan_tzy_table code {
     background: transparent !important;
@@ -1042,7 +1043,7 @@ blockquote footer cite:before {
 }
 
 #article-container img {
-    margin: 0 auto .8rem
+    margin: .4rem auto
 }
 
 #article-container p {
@@ -1204,3 +1205,88 @@ blockquote footer cite:before {
 #article-container .tip a {
     color: #e6eaed
 }
+
+
+/* 代码块颜色 */
+
+figure.highlight pre .addition {
+    color: #00bf03 !important;
+}
+
+[data-theme='dark'] .tip.cogs code {
+    background: rgba(27, 31, 35, .05) !important;
+}
+
+[data-theme=dark] #article-container code {
+    background: rgba(27, 31, 35, .05) !important;
+}
+
+
+/* 拓展内容-使用纯css实现仿徽标样式 START */
+
+
+/*标签整体样式*/
+
+.github-badge {
+    margin-left: 5px;
+    display: inline-block;
+    border-radius: 4px;
+    text-shadow: none;
+    color: #fff;
+    line-height: 15px;
+    background-color: #abbac3;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+
+/* 超链接下划线隐藏 */
+
+.github-badge a {
+    text-decoration: none;
+}
+
+
+/* 标签左侧样式 */
+
+.github-badge .badge-subject {
+    background-color: #4d4d4d;
+    padding: 4px 4px 4px 6px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+
+/* 标签右侧样式 */
+
+.github-badge .badge-value {
+    padding: 4px 6px 4px 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+/* 标签背景色，随意自定义，渐变色也可以 */
+
+.github-badge .bg-blue {
+    background-color: #007ec6;
+}
+
+.github-badge .bg-green {
+    background-color: #4dc820;
+}
+
+.github-badge .bg-orange {
+    background-color: orange;
+}
+
+.github-badge .bg-gradient {
+    background: linear-gradient(to right, #3ca5f6, #a86af9);
+}
+
+.github-badge .bg-violet {
+    background-color: #8833d7;
+}
+
+
+/* 拓展内容-使用纯css实现仿徽标样式 END */
