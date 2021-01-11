@@ -7747,6 +7747,12 @@ _:future,
 #vcomment .vbtn:hover {
   background: var(--btn-hover-color);
 }
+#vcomment textarea {
+  background: url("https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/comment_f/comment_bg.jpg") 100% 100% no-repeat;
+}
+#vcomment textarea:focus {
+  background-image: none;
+}
 #vcomment .vimg {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;

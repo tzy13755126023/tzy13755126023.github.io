@@ -2,6 +2,18 @@
     margin: .6rem auto .1rem !important;
 }
 
+.site-card-group img {
+    margin: 0 auto .1rem !important;
+}
+
+.site-card-group .info a img {
+    margin-right: 10px !important;
+}
+
+.site-card-group .info .desc {
+    margin-top: 4px !important;
+}
+
 @keyframes Gradient {
     0% {
         background-position: 0 50%;
@@ -72,58 +84,6 @@
 [data-theme='dark'] #aside_content #card-toc .toc-content .toc-link.active {
     color: #fff;
 }
-
-
-/* rightside > rightside-config-hide start */
-
-
-/* 阅读模式  放大字体 缩小字体 简繁转换 浅色和深色模式转换 单栏和双栏切换 设置 在线聊天 直达评论 回到顶部*/
-
-
-/* [data-theme='dark'] #rightside #rightside-config-hide #readmode i {
-    color: #04f809;
-}
-
-[data-theme='dark'] #rightside #rightside-config-hide #font-plus i {
-    color: #4890f7;
-}
-
-[data-theme='dark'] #rightside #rightside-config-hide #font-minus i {
-    color: #ffec03;
-}
-
-[data-theme='dark'] #rightside #rightside-config-hide #translateLink {
-    color: #39ffd4;
-}
-
-[data-theme='dark'] #rightside #rightside-config-hide #darkmode i {
-    color: #ff4800;
-}
-
-[data-theme='dark'] #rightside #rightside-config-hide #hide-aside-btn i,
-[data-theme='dark'] #rightside #rightside-config-show #mobile-toc-button i {
-    color: #f708af;
-}
-
-[data-theme='dark'] #rightside #rightside-config-show #rightside_config i {
-    color: #fc0505;
-}
-
-[data-theme='dark'] #rightside #rightside-config-show #chat_btn i {
-    color: #00d0ff;
-}
-
-[data-theme='dark'] #rightside #rightside-config-show #to_comment i {
-    color: #04f809;
-}
-
-[data-theme='dark'] #rightside #rightside-config-show #go-up i {
-color: #ff63d0;
-}
-*/
-
-
-/* rightside > rightside-config-hide end */
 
 
 /* footer */
@@ -1287,6 +1247,9 @@ figure.highlight pre .addition {
 .github-badge .bg-violet {
     background-color: #8833d7;
 }
+
+
+/* 拓展内容-使用纯css实现仿徽标样式 END */
 
 
 /* 拓展内容-使用纯css实现仿徽标样式 END */
