@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2020-12-14 21:26:14
  * @LastEditors: tzy1997
- * @LastEditTime: 2021-01-12 18:13:58
+ * @LastEditTime: 2021-01-12 18:52:13
  */
 /* 手机侧边栏默认不展开 */
 var mobile_sidebar_menus = document.getElementById("sidebar-menus");
@@ -15,14 +15,6 @@ if (mobile_sidebar_menus) {
     var menus_expand = mobile_sidebar_menus.getElementsByClassName("expand");
     for (var i = 0; i < menus_item_child.length; i++) {
         menus_item_child[i].style.display = "none";
-    }
-}
-
-// 默认图片找不到时 替换图片
-if (location.href.indexOf("link") !== -1) {
-    var imgObj = document.getElementsByTagName("img");
-    for (i = 0; i < imgObj.length; i++) {　　
-        imgObj[i].onerror = function() { this.src = "https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/friend_404.gif" }
     }
 }
 
