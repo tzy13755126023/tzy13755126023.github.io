@@ -9681,7 +9681,7 @@ div.videos[col='4'] iframe {
 .site-card .info .title {
   font-weight: 600;
   font-size: $fontsize-list;
-  color: #444;
+  color: #1f2d3d;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -9699,7 +9699,7 @@ div.videos[col='4'] iframe {
   font-size: $fontsize-footnote;
   word-wrap: break-word;
   line-height: 1.2;
-  color: #888;
+  color: #1f2d3d;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
