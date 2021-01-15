@@ -100,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://ethant.top/img/siteicon/README.html</loc>
+    <loc>https://ethant.top/img/siteicon/manifest.json</loc>
     
     <lastmod>2020-12-22</lastmod>
     
   </url>
   
   <url>
-    <loc>https://ethant.top/img/siteicon/manifest.json</loc>
+    <loc>https://ethant.top/img/siteicon/README.html</loc>
     
     <lastmod>2020-12-22</lastmod>
     
@@ -165,13 +165,6 @@
   </url>
   
   <url>
-    <loc>https://ethant.top/tags/workbook/</loc>
-    <lastmod>2021-01-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ethant.top/tags/Vue/</loc>
     <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
@@ -180,6 +173,13 @@
   
   <url>
     <loc>https://ethant.top/tags/%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2021-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ethant.top/tags/workbook/</loc>
     <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -223,14 +223,14 @@
   </url>
   
   <url>
-    <loc>https://ethant.top/categories/%F0%9F%93%91%E5%B7%A5%E4%BD%9C%E6%89%8B%E5%86%8C/</loc>
+    <loc>https://ethant.top/categories/%F0%9F%92%98Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://ethant.top/categories/%F0%9F%92%98Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</loc>
+    <loc>https://ethant.top/categories/%F0%9F%93%91%E5%B7%A5%E4%BD%9C%E6%89%8B%E5%86%8C/</loc>
     <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -13,6 +13,14 @@
     margin-right: 10px !important;
 }
 
+[data-theme='dark'] .site-card-group .site-card .info .title {
+    color: #f0f0f0 !important;
+}
+
+[data-theme='dark'] .site-card-group .site-card .info .desc {
+    color: rgba(255, 255, 255, .7) !important;
+}
+
 .site-card-group .info .desc {
     margin-top: 4px !important;
 }
