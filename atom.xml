@@ -6,7 +6,7 @@
   <link href="https://ethant.top/atom.xml" rel="self"/>
   
   <link href="https://ethant.top/"/>
-  <updated>2021-01-20T11:39:27.280Z</updated>
+  <updated>2021-01-23T11:16:36.313Z</updated>
   <id>https://ethant.top/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue-cli3.0打包时如何去掉console打印信息</title>
+    <link href="https://ethant.top/articles/p520xyz8/"/>
+    <id>https://ethant.top/articles/p520xyz8/</id>
+    <published>2021-01-23T10:28:07.000Z</published>
+    <updated>2021-01-23T11:16:36.313Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;div class=&quot;tip cogs faa-horizontal animated&quot;&gt;&lt;p&gt;我们在进行项目开发过程中，一般会用到console.log打印信息。但是如何生产环境打包时去掉所有consloe打印的信息呢？以下是解决办法，自己也一直使用此种方法。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;步骤&quot;&gt;&lt;a href=&quot;#步骤&quot; class=&quot;headerlink&quot; title=&quot;步骤&quot;&gt;&lt;/a&gt;步骤&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt; 安装插件 babel-plugin-transform-remove-console&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install babel-plugin-transform-remove-console --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;修改 babel.config.js（如果没有自己创建）&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/no-console-log/new-babel.jpg&quot; alt=&quot;请在根目录下创建babel.config.js&quot;&gt;&lt;/div&gt;&lt;span class=&quot;image-caption&quot;&gt;请在根目录下创建babel.config.js&lt;/span&gt;&lt;/div&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; plugins = []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (process.env.NODE_ENV === &lt;span class=&quot;string&quot;&gt;&#39;production&#39;&lt;/span&gt;) {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//exclude(忽略)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    plugins.push([&lt;span class=&quot;string&quot;&gt;&quot;transform-remove-console&quot;&lt;/span&gt;, { &lt;span class=&quot;string&quot;&gt;&quot;exclude&quot;&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;&quot;error&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;warn&quot;&lt;/span&gt;] }])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    presets: [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&#39;@vue/app&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ],&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    plugins&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;div class=&quot;note red icon modern&quot;&gt;&lt;i class=&quot;note-icon fas</summary>
+        
+      
+    
+    
+    
+    <category term="🤡 Vue" scheme="https://ethant.top/categories/%F0%9F%A4%A1-Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://ethant.top/tags/Vue/"/>
+    
+  </entry>
   
   <entry>
     <title>Ethanの工作手册</title>
@@ -40,7 +72,7 @@
     <link href="https://ethant.top/articles/kfwr2gpa/"/>
     <id>https://ethant.top/articles/kfwr2gpa/</id>
     <published>2021-01-07T10:36:00.000Z</published>
-    <updated>2021-01-20T11:38:59.642Z</updated>
+    <updated>2021-01-23T10:40:48.285Z</updated>
     
     
     <summary type="html">添加github徽标</summary>
@@ -61,7 +93,7 @@
     <link href="https://ethant.top/articles/0xiipgum/"/>
     <id>https://ethant.top/articles/0xiipgum/</id>
     <published>2021-01-05T08:14:02.000Z</published>
-    <updated>2021-01-20T11:38:53.893Z</updated>
+    <updated>2021-01-23T11:10:28.152Z</updated>
     
     
     <summary type="html">基于Butterfly的外挂标签引入</summary>
@@ -82,7 +114,7 @@
     <link href="https://ethant.top/articles/9r95s1wt/"/>
     <id>https://ethant.top/articles/9r95s1wt/</id>
     <published>2020-12-30T07:55:35.000Z</published>
-    <updated>2021-01-20T11:38:30.684Z</updated>
+    <updated>2021-01-23T10:41:29.892Z</updated>
     
     
     <summary type="html">Node必备：nvm、npm与nrm</summary>
@@ -107,7 +139,7 @@
     <link href="https://ethant.top/articles/hyeccjmu/"/>
     <id>https://ethant.top/articles/hyeccjmu/</id>
     <published>2020-12-28T08:28:37.000Z</published>
-    <updated>2021-01-20T11:38:41.457Z</updated>
+    <updated>2021-01-23T10:41:08.676Z</updated>
     
     
     <summary type="html">Markdown语法支持添加 emoji 表情，输入不同的符号码（两个冒号包围的字符）可以显示出不同的表情。</summary>
@@ -128,7 +160,7 @@
     <link href="https://ethant.top/articles/xi2mpxmd/"/>
     <id>https://ethant.top/articles/xi2mpxmd/</id>
     <published>2020-12-21T12:15:33.000Z</published>
-    <updated>2021-01-20T11:38:35.913Z</updated>
+    <updated>2021-01-23T10:41:24.757Z</updated>
     
     
     <summary type="html">在我们进行网站管理时一个好的后台管理模板是非常重要的，推荐几款后台模板给大家，也是自己常用的模板。</summary>

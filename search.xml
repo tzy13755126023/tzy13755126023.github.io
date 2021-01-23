@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Vue-cli3.0打包时如何去掉console打印信息</title>
+      <link href="articles/p520xyz8/"/>
+      <url>articles/p520xyz8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><div class="tip cogs faa-horizontal animated"><p>我们在进行项目开发过程中，一般会用到console.log打印信息。但是如何生产环境打包时去掉所有consloe打印的信息呢？以下是解决办法，自己也一直使用此种方法。</p></div><h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><ol><li> 安装插件 babel-plugin-transform-remove-console<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">npm install babel-plugin-transform-remove-console --save</span><br></pre></td></tr></tbody></table></figure></li><li>修改 babel.config.js（如果没有自己创建）<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/no-console-log/new-babel.jpg" alt="请在根目录下创建babel.config.js"></div><span class="image-caption">请在根目录下创建babel.config.js</span></div><figure class="highlight js"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> plugins = []</span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) {</span><br><span class="line">    <span class="comment">//exclude(忽略)</span></span><br><span class="line">    plugins.push([<span class="string">"transform-remove-console"</span>, { <span class="string">"exclude"</span>: [<span class="string">"error"</span>, <span class="string">"warn"</span>] }])</span><br><span class="line">}</span><br><span class="line"><span class="built_in">module</span>.exports = {</span><br><span class="line">    presets: [</span><br><span class="line">        <span class="string">'@vue/app'</span></span><br><span class="line">    ],</span><br><span class="line">    plugins</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><div class="note red icon modern"><i class="note-icon fas fa-fan"></i><p>然后打包好部署到生产环境，打开控制台，可以看到线上打印信息已经全被清除。</p></div></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 🤡 Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ethanの工作手册</title>
       <link href="articles/ic67xik4/"/>
       <url>articles/ic67xik4/</url>

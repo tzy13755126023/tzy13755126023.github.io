@@ -33,6 +33,13 @@
     display: inline-block;
 }
 
+@media screen and (max-width: 768px) {
+    .v[data-class=v] .vcontent .emoji[alt|=menhera],
+    .v[data-class=v] .vcontent .vemoji[alt|=menhera] {
+        max-width: calc( 100% - 30px) !important;
+    }
+}
+
 
 /* 标签外挂 网站卡片 end */
 
