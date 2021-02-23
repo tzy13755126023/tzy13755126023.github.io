@@ -7974,7 +7974,7 @@ div.btns a:not([href]) {
   color: inherit;
 }
 div.btns a[href]:hover {
-  background: rgba(255,87,34,0.15);
+  text-decoration: none;
 }
 div.btns a[href]:hover > i:first-child {
   background: #ff5722;
@@ -8083,11 +8083,6 @@ div.btns a[href]:hover b {
 }
 div.btns a[href]:hover > img:first-child,
 div.btns a[href]:hover > i:first-child {
-  -webkit-transform: scale(1.1) translateY(-8px);
-  -moz-transform: scale(1.1) translateY(-8px);
-  -o-transform: scale(1.1) translateY(-8px);
-  -ms-transform: scale(1.1) translateY(-8px);
-  transform: scale(1.1) translateY(-8px);
   -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
 }

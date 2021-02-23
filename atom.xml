@@ -6,7 +6,7 @@
   <link href="https://ethant.top/atom.xml" rel="self"/>
   
   <link href="https://ethant.top/"/>
-  <updated>2021-01-26T10:22:09.076Z</updated>
+  <updated>2021-02-23T10:14:50.598Z</updated>
   <id>https://ethant.top/</id>
   
   <author>
@@ -15,6 +15,194 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>uni-app</title>
+    <link href="https://ethant.top/articles/uni235xy/"/>
+    <id>https://ethant.top/articles/uni235xy/</id>
+    <published>2021-02-23T07:12:31.000Z</published>
+    <updated>2021-02-23T10:14:50.598Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;div class=&quot;note info flat&quot;&gt;&lt;p&gt;&lt;a href=&quot;https://uniapp.dcloud.net.cn/&quot;&gt;uni-app官网地址&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;什么是-uni-app&quot;&gt;&lt;a href=&quot;#什么是-uni-app&quot; class=&quot;headerlink&quot; title=&quot;什么是 uni-app&quot;&gt;&lt;/a&gt;什么是 uni-app&lt;/h1&gt;&lt;p&gt;&lt;code&gt;uni-app&lt;/code&gt; 是一个使用 &lt;a href=&quot;https://vuejs.org/&quot;&gt;Vue.js&lt;/a&gt; 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DCloud&lt;/code&gt;公司拥有800万开发者用户，几十万应用案例、12亿手机端月活用户，数千款uni-app插件、70+微信/qq群。阿里小程序工具官方内置uni-app（&lt;a href=&quot;https://docs.alipay.com/mini/ide/0.70-stable&quot;&gt;详见&lt;/a&gt;），腾讯课堂官方为uni-app录制培训课程（&lt;a href=&quot;https://ask.dcloud.net.cn/article/35640&quot;&gt;详见&lt;/a&gt;），开发者可以放心选择。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;uni-app&lt;/code&gt;在手，做啥都不愁。即使不跨端，&lt;code&gt;uni-app&lt;/code&gt;也是更好的小程序开发框架（&lt;a href=&quot;https://ask.dcloud.net.cn/article/35947&quot;&gt;详见&lt;/a&gt;）、更好的App跨平台框架、更方便的H5开发框架。不管领导安排什么样的项目，你都可以快速交付，不需要转换开发思维、不需要更改开发习惯。&lt;/p&gt;
+&lt;h2 id=&quot;快速体验&quot;&gt;&lt;a href=&quot;#快速体验&quot; class=&quot;headerlink&quot; title=&quot;快速体验&quot;&gt;&lt;/a&gt;快速体验&lt;/h2&gt;&lt;p&gt;一套代码编到10个平台，这不是梦想。眼见为实，扫描10个二维码，亲自体验最全面的跨平台效果！&lt;/p&gt;
+&lt;div class=&quot;tzy_uni&quot;&gt;
+&lt;div class=&quot;btns grid5&quot;&gt;
+            &lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/7c946930-bcf2-11ea-b997-9918a5dda011.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;Android版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://itunes.apple.com/cn/app/hello-uni-app/id1417078253?mt=8&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/7c910dd0-bcf2-11ea-b680-7980c8a877b8.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;iOS版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://hellouniapp.dcloud.net.cn/&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uni-h5-hosting-qr.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;Web版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/gh_33446d7f7a26_430.jpg&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;微信小程序版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/30112940-bcf2-11ea-a30b-e311646dfaf2.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;支付宝小程序版&lt;/b&gt;
+&lt;/a&gt;
+          &lt;/div&gt;
+
+&lt;div class=&quot;btns grid5&quot;&gt;
+            &lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/e7fc6700-bcf1-11ea-b680-7980c8a877b8.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;百度小程序版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/mp-toutiao.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;字节跳动小程序版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/hello-uni-qq.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;QQ小程序版&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://m3w.cn/uniapp&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/hello-uni-qa-union.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;快应用&lt;/b&gt;
+&lt;/a&gt;
+&lt;a href=&quot;https://so.mp.360.cn/mp.html?appid=qh4j181qqtru354st6&quot;&gt;
+  &lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/hello-uni-mp-360-qr.png&quot; style=&quot;height:90px !important;width:90px !important&quot;&gt;
+  &lt;b&gt;360小程序&lt;/b&gt;
+&lt;/a&gt;
+          &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;注：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;某些平台不能提交简单demo，故补充了一些其他功能；hello uni-app示例代码可从&lt;a href=&quot;https://github.com/dcloudio/hello-uniapp&quot;&gt;github&lt;/a&gt;获取&lt;/li&gt;
+&lt;li&gt;快应用仅支持 vivo 、oppo、华为&lt;/li&gt;
+&lt;li&gt;360小程序仅 windows平台支持，需要在360浏览器中打开&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;uni-app视频介绍&quot;&gt;&lt;a href=&quot;#uni-app视频介绍&quot; class=&quot;headerlink&quot; title=&quot;uni-app视频介绍&quot;&gt;&lt;/a&gt;uni-app视频介绍&lt;/h2&gt;&lt;p&gt;方便你快速了解 &lt;code&gt;uni-app&lt;/code&gt; 的主要特征，精心准备了一个简单的十分钟介绍视频&lt;/p&gt;
+&lt;div class=&quot;video&quot;&gt;&lt;video controls=&quot;&quot; preload=&quot;&quot;&gt;&lt;source src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/a876efc0-4f35-11eb-97b7-0dc4655d6e68.mp4&quot; type=&quot;video/mp4&quot;&gt;Your browser does not support the video tag.&lt;/video&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;为什么要选择uni-app？&quot;&gt;&lt;a href=&quot;#为什么要选择uni-app？&quot; class=&quot;headerlink&quot; title=&quot;为什么要选择uni-app？&quot;&gt;&lt;/a&gt;为什么要选择uni-app？&lt;/h2&gt;&lt;p&gt;&lt;code&gt;uni-app&lt;/code&gt;在开发者数量、案例、跨端抹平度、扩展灵活性、性能体验、周边生态、学习成本、开发成本等8大关键指标上拥有更强的优势。&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;开发者/案例数量更多：&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;几十万应用、uni统计月活12亿、70+微信/qq群、更高的百度指数&lt;/li&gt;
+&lt;li&gt;跨端完善度更高，真正落地的提高生产力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;平台能力不受限：&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在跨端的同时，通过条件编译+平台特有API调用，可以优雅的为某平台写个性化代码，调用专有能力而不影响其他平台。&lt;/li&gt;
+&lt;li&gt;支持原生代码混写和原生sdk集成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;性能体验优秀：&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;加载新页面速度更快、自动diff更新数据。&lt;/li&gt;
+&lt;li&gt;App端支持原生渲染，可支撑更流畅的用户体验。&lt;/li&gt;
+&lt;li&gt;小程序端的性能优于市场其他框架。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;周边生态丰富：&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://ext.dcloud.net.cn/?orderBy=WeekDownload&quot;&gt;插件市场&lt;/a&gt;数千款插件。&lt;/li&gt;
+&lt;li&gt;支持NPM、支持小程序组件和SDK。&lt;/li&gt;
+&lt;li&gt;微信生态的各种sdk可直接用于跨平台App。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;学习成本低：&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于通用的前端技术栈，采用vue语法+微信小程序api，无额外学习成本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;开发成本低：&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不止开发成本，招聘、管理、测试各方面成本都大幅下降。&lt;/li&gt;
+&lt;li&gt;HBuilderX是高效开发神器，熟练掌握后研发效率至少翻倍（即便只开发一个平台）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;功能框架&quot;&gt;&lt;a href=&quot;#功能框架&quot; class=&quot;headerlink&quot; title=&quot;功能框架&quot;&gt;&lt;/a&gt;功能框架&lt;/h2&gt;&lt;p&gt;从下面&lt;code&gt;uni-app&lt;/code&gt;功能框架图可看出，&lt;code&gt;uni-app&lt;/code&gt;在跨平台的过程中，不牺牲平台特色，可优雅的调用平台专有能力，真正做到海纳百川、各取所长。&lt;/p&gt;
+&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/87a0a0d0-60aa-11eb-8ff1-d5dcf8779628.png&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;一套代码，运行到多个平台&quot;&gt;&lt;a href=&quot;#一套代码，运行到多个平台&quot; class=&quot;headerlink&quot; title=&quot;一套代码，运行到多个平台&quot;&gt;&lt;/a&gt;一套代码，运行到多个平台&lt;/h2&gt;&lt;p&gt;&lt;code&gt;uni-app&lt;/code&gt;实现了一套代码，同时运行到多个平台；如下图所示，一套代码，同时运行到iOS模拟器、Android模拟器、H5、微信开发者工具、支付宝小程序Studio、百度开发者工具、字节跳动开发者工具、QQ开发者工具（底部8个终端选项卡代表8个终端模拟器）：&lt;/p&gt;
+&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/efd8e280-60a9-11eb-a16f-5b3e54966275.jpg&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;实际运行效果如下（点击图片可放大）：&lt;/p&gt;
+&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/4869eb60-60aa-11eb-b680-7980c8a877b8.jpg&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;uni-app的由来&quot;&gt;&lt;a href=&quot;#uni-app的由来&quot; class=&quot;headerlink&quot; title=&quot;uni-app的由来&quot;&gt;&lt;/a&gt;uni-app的由来&lt;/h1&gt;&lt;p&gt;uni，读 &lt;code&gt;you ni&lt;/code&gt;，是统一的意思。&lt;/p&gt;
+&lt;p&gt;很多人以为小程序是微信先推出的，其实，DCloud才是这个行业的开创者。&lt;/p&gt;
+&lt;p&gt;DCloud于2012年开始研发小程序技术，优化webview的功能和性能，并加入W3C和HTML5中国产业联盟，推出了HBuilder开发工具，为后续产业化做准备。&lt;/p&gt;
+&lt;p&gt;2015年，DCloud正式商用了自己的小程序，产品名为“流应用”，它不是&lt;code&gt;B/S&lt;/code&gt;模式的轻应用，而是能接近原生功能、性能的动态App，并且即点即用。&lt;/p&gt;
+&lt;p&gt;为将该技术发扬光大，DCloud将技术标准捐献给工信部旗下的HTML5中国产业联盟，并推进各家流量巨头接入该标准，开展小程序业务。&lt;/p&gt;
+&lt;p&gt;360手机助手率先接入，在其3.4版本实现应用的秒开运行。&lt;/p&gt;
+&lt;img src= &quot;https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/loading.gif&quot; data-lazy-src=&quot;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-uni-app-doc/b857dc90-4f3c-11eb-8ff1-d5dcf8779628.png&quot; style=&quot;max-width:100%&quot;&gt;
+
+&lt;p&gt;随后DCloud推动大众点评、携程、京东、有道词典、唯品会等众多开发者为流应用平台提供应用。&lt;/p&gt;
+&lt;p&gt;在2015年9月，DCloud推进微信团队开展小程序业务，演示了流应用的秒开应用、扫码获取应用、分享链接获取应用等众多场景案例，以及分享了webview体验优化的经验。&lt;/p&gt;
+&lt;p&gt;微信团队经过分析，于2016年初决定上线小程序业务，但其没有接入联盟标准，而是订制了自己的标准。&lt;/p&gt;
+&lt;p&gt;DCloud持续在业内普及小程序理念，推进各大流量巨头，包括手机厂商，陆续上线类似小程序/快应用等业务。&lt;/p&gt;
+&lt;p&gt;部分公司接入了联盟标准，但更多公司因利益纷争严重，标准难以统一。&lt;/p&gt;
+&lt;p&gt;技术是纯粹的，不应该因为商业利益而分裂。开发者面对如此多的私有标准不是一件正确的事情。&lt;/p&gt;
+&lt;p&gt;造成混乱的局面非DCloud所愿。于是我们决定开发一个免费开源的框架。&lt;/p&gt;
+&lt;p&gt;既然各巨头无法在标准上达成一致，那么就通过这个框架为开发者抹平各平台差异。&lt;/p&gt;
+&lt;p&gt;这，就是uni-app的由来。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因为多年积累，所以DCloud拥有400多万开发者，并不意外&lt;/li&gt;
+&lt;li&gt;因为DCloud一直都有小程序的iOS、Android引擎，所以uni-app的App端和小程序端保持高度一致，并不意外&lt;/li&gt;
+&lt;li&gt;因为DCloud在引擎上的持续投入，所以uni-app的App端功能、性能比大多数小程序引擎都优秀，并不意外&lt;/li&gt;
+&lt;li&gt;因为DCloud对各家小程序太了解了，所以做好抹平各端差异的跨端框架，并不意外&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在，uni-app已经是业内最风靡的应用框架，支撑着9亿活跃手机用户的庞大生态。&lt;/p&gt;
+&lt;p&gt;世界兜兜转转，当你踏出第一步时，随后很多事不会按你的预期发展。但只要你不忘初心，你想要的那个目标，最终会换个方式实现。&lt;/p&gt;
+&lt;p&gt;DCloud的初心是什么？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为开发者提供免费、高效的开发工具，让天下没有难做的应用&lt;/li&gt;
+&lt;li&gt;改进应用形态，让用户更方便的获取数字服务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;DCloud也再次承诺不会对uni-app、HBuilderX等工具收费，感谢数百万开发者的一路陪伴，也请一直监督我们不忘初心！&lt;/p&gt;
+&lt;h1 id=&quot;如何学习&quot;&gt;&lt;a href=&quot;#如何学习&quot; class=&quot;headerlink&quot; title=&quot;如何学习&quot;&gt;&lt;/a&gt;如何学习&lt;/h1&gt;&lt;p&gt;建议第一步，看完&lt;a href=&quot;https://uniapp.dcloud.io/&quot;&gt;uni-app官网&lt;/a&gt;的首页介绍。&lt;/p&gt;
+&lt;p&gt;建议第二步，通过&lt;a href=&quot;https://uniapp.dcloud.io/quickstart&quot;&gt;快速上手&lt;/a&gt;，亲身体验下uni-app。&lt;/p&gt;
+&lt;p&gt;建议第三步，看完&lt;a href=&quot;https://ke.qq.com/course/3169971&quot;&gt;《uni-app官方教程》&lt;/a&gt;，出品人：DCloud，课时：共3节。&lt;/p&gt;
+&lt;p&gt;如果你熟悉h5，但不熟悉vue和小程序&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;看完这篇白话&lt;a href=&quot;http://ask.dcloud.net.cn/article/35657&quot;&gt;uni-app&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DCloud与vue合作，在&lt;a href=&quot;https://cn.vuejs.org/v2/guide/&quot;&gt;vue.js官网&lt;/a&gt;提供了免费视频教程，也可以直达教程地址：&lt;a href=&quot;https://learning.dcloud.io/&quot;&gt;https://learning.dcloud.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;不需要专门去学习小程序的语法，uni-app使用的是vue的语法，不是小程序自定义的语法。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果你使用过mpvue&lt;/p&gt;
+&lt;p&gt;几乎不用学习，uni-app对vue语法的支持是mpvue的超集。这里有篇&lt;a href=&quot;http://ask.dcloud.net.cn/article/34945&quot;&gt;mpvue转uni-app指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果你熟悉小程序，但不熟悉vue&lt;/p&gt;
+&lt;p&gt;参考三方总结&lt;a href=&quot;https://segmentfault.com/a/1190000015684864&quot;&gt;https://segmentfault.com/a/1190000015684864&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;三方培训机构视频&lt;/p&gt;
+&lt;p&gt;如下是三方专业培训机构的视频教程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://ke.qq.com/course/379043?from=800006421&quot;&gt;《uni-app 商业级应用实战》&lt;/a&gt;，出品人：腾讯课堂NEXT学院。亮点：腾讯课堂官方出品；不懂 vue 的工程师也可快速学习；从入门到实战都包括。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.hcoder.net/course/info_242.html&quot;&gt;《uni-app 跨平台应用开发教程》&lt;/a&gt;，出品人：hcoder 刘海君，课时：共25节。亮点：讲师经验丰富，也是graceui框架作者。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ke.qq.com/course/364262?tuin=4f8da6&quot;&gt;《uni-app 实战教程 - “悦读”项目实战》&lt;/a&gt;，出品人：hcoder 刘海君，点击领取专享优惠劵&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://study.163.com/course/introduction.htm?courseId=1209188809&amp;amp;_trace_c_p_k2_=4b765abfb2f946039c8ea6230737f6af&quot;&gt;《uni-app实战社区交友类app开发》&lt;/a&gt;，出品人：帝莎IT学院。适用人群：具备Html+Css+Javascript基础知识。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://study.163.com/course/courseMain.htm?courseId=1209401825&amp;amp;share=2&amp;amp;shareId=480000001892585&quot;&gt;《uni-app仿小米商城实战》&lt;/a&gt;，出品人：帝莎IT学院。首页使用nvue开发，目前支持app端和小程序端。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://study.163.com/course/courseMain.htm?courseId=1209401924&amp;amp;share=2&amp;amp;shareId=480000001892585&quot;&gt;《uni-app多端调试环境配置》&lt;/a&gt;，出品人：帝莎IT学院。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://study.163.com/course/courseMain.htm?courseId=1209487898&amp;amp;share=2&amp;amp;shareId=480000001892585&quot;&gt;《uni-app实战仿微信app全栈开发》&lt;/a&gt;，出品人：帝莎IT学院。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://study.163.com/course/courseMain.htm?courseId=1209644880&amp;amp;share=2&amp;amp;shareId=480000001892585&quot;&gt;《uni-app实战视频点播app小程序》&lt;/a&gt;，出品人：帝莎IT学院。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://study.163.com/course/introduction.htm?courseId=1209978085#/courseDetail?tab=1&quot;&gt;《0基础学unicloud开发，跨端serverless技术》&lt;/a&gt;，出品人：林举&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.imooc.com/learn/1215&quot;&gt;《uni-app 5小时快速入门》&lt;/a&gt;，出品人：meHaoTian&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://coding.imooc.com/class/433.html&quot;&gt;《uni-app 快速入门 从零开始实现新闻资讯类跨端应用》&lt;/a&gt;，出品人：meHaoTian&lt;/li&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="uni-app" scheme="https://ethant.top/categories/uni-app/"/>
+    
+    
+    <category term="uni-app" scheme="https://ethant.top/tags/uni-app/"/>
+    
+  </entry>
   
   <entry>
     <title>一种自动化生成骨架屏的方案</title>
@@ -388,7 +576,7 @@
     <link href="https://ethant.top/articles/xi2mpxmd/"/>
     <id>https://ethant.top/articles/xi2mpxmd/</id>
     <published>2020-12-21T12:15:33.000Z</published>
-    <updated>2021-01-23T10:41:24.757Z</updated>
+    <updated>2021-02-23T07:56:00.392Z</updated>
     
     
     <summary type="html">在我们进行网站管理时一个好的后台管理模板是非常重要的，推荐几款后台模板给大家，也是自己常用的模板。</summary>

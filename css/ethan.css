@@ -36,7 +36,7 @@
 @media screen and (max-width: 768px) {
     .v[data-class=v] .vcontent .emoji[alt|=menhera],
     .v[data-class=v] .vcontent .vemoji[alt|=menhera] {
-        max-width: calc( 100% - 30px) !important;
+        max-width: calc(100% - 30px) !important;
     }
 }
 
@@ -1275,4 +1275,8 @@ figure.highlight pre .addition {
 
 .github-badge .bg-violet {
     background-color: #8833d7;
+}
+
+.tzy_uni div.btns a img {
+    margin: 0 auto !important;
 }
