@@ -151,6 +151,13 @@
   </url>
   
   <url>
+    <loc>https://ethant.top/tags/uni-app/</loc>
+    <lastmod>2021-03-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ethant.top/tags/Node/</loc>
     <lastmod>2021-03-01</lastmod>
     <changefreq>daily</changefreq>
@@ -173,13 +180,6 @@
   
   <url>
     <loc>https://ethant.top/tags/nrm/</loc>
-    <lastmod>2021-03-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ethant.top/tags/uni-app/</loc>
     <lastmod>2021-03-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -251,14 +251,14 @@
   </url>
   
   <url>
-    <loc>https://ethant.top/categories/%F0%9F%90%ACNode/</loc>
+    <loc>https://ethant.top/categories/uni-app/</loc>
     <lastmod>2021-03-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://ethant.top/categories/uni-app/</loc>
+    <loc>https://ethant.top/categories/%F0%9F%90%ACNode/</loc>
     <lastmod>2021-03-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
