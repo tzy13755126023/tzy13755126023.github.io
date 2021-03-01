@@ -1,0 +1,554 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ethanの博客 - 唐志远的小小站点</title><meta name="keywords" content="Ethan,Tzy,IT,程序员,互联网,Vue,前端"><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="2020年的理想实现了吗？">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ethanの博客">
+<meta property="og:url" content="https://ethant.top/index.html">
+<meta property="og:site_name" content="Ethanの博客">
+<meta property="og:description" content="2020年的理想实现了吗？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/avater.jpg">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="Ethan,Tzy,IT,程序员,互联网,Vue,前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/avater.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/favicon.ico"><link rel="canonical" href="https://ethant.top/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: '/',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-03-01 15:06:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}const fontSizeVal = saveToLocal.get('global-font-size')
+if (fontSizeVal !== undefined) {
+  document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+}})()</script><style type="text/css">#toggle-sidebar {bottom:70px}</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/css/ethan.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/css/dl.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/css/gitcalendar.css"><head><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"><meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Ethanの博客" type="application/atom+xml">
+</head></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/avater.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home faa-float animated"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive faa-float animated"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags faa-float animated"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open faa-float animated"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list faa-float animated"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/"><i class="fa-fw fab fa-youtube faa-float animated"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video faa-float animated"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book faa-float animated"></i><span> 书单</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad faa-float animated"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comments faa-float animated"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link faa-float animated"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation faa-float animated"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/main.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Ethanの博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home faa-float animated"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive faa-float animated"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags faa-float animated"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open faa-float animated"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list faa-float animated"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/"><i class="fa-fw fab fa-youtube faa-float animated"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video faa-float animated"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book faa-float animated"></i><span> 书单</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad faa-float animated"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comments faa-float animated"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link faa-float animated"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation faa-float animated"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div class="dengl"><div class="d-box"><div class="d1"><span></span><span><p></p></span><ul><li></li><li> </li><li><span></span></li><li> </li><li> </li></ul></div><div class="d2"><span></span><span><p></p></span><ul><li></li><li> </li><li><span></span></li><li> </li><li> </li></ul></div></div><div class="d-box1"><div class="d1"><span></span><span><p></p></span><ul><li></li><li> </li><li><span></span></li><li> </li><li> </li></ul></div><div class="d2"><span></span><span><p></p></span><ul><li></li><li> </li><li><span></span></li><li> </li><li>  </li></ul></div></div></div><div id="site-info"><h1 id="site-title">Ethanの博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq faa-float animated"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/wechat.jpg" target="_blank" title="Wechat"><i class="fab fa-weixin faa-float animated"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/alipay.jpg" target="_blank" title=""><i class="fab fa-alipay faa-float animated"></i></a><a class="social-icon" href="https://weibo.com/u/5685180078" target="_blank" title="Sina Weibo"><i class="fab fa-weibo faa-float animated"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss faa-float animated"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item" style="width:100%"><div class="calendar" id="calendar"><div :style="{top:y+px,left:x+px,position: fixed,zIndex:9999}"><div class="angle-wrapper"><span>{{span1}} &nbsp;</span><span>{{span2}} 次上传</span></div></div><div class="position-relative"><div class="border py-2 graph-before-activity-overview"><div class="js-calendar-graph mx-md-2 mx-3 d-flex flex-column flex-items-end flex-xl-items-center overflow-hidden pt-1 is-graph-loading graph-canvas calendar-graph height-full text-center" data-graph-url="/users/Zfour/contributions?to=2020-10-29" data-url="/Zfour" data-from="2019-10-27 00:00:00 UTC" data-to="2020-10-29 23:59:59 UTC" data-org><svg class="js-calendar-graph-svg" width="100%" viewBox="0 0 770 128"><text class="month" :x="32 + monthindex*64" y="20" v-for="(month,monthindex) in monthchange">{{month}}</text><text class="wday" text-anchor="start" dx="0" dy="40"> 日</text><text class="wday" text-anchor="start" dx="0" dy="65"> 二</text><text class="wday" text-anchor="start" dx="0" dy="90"> 四</text><text class="wday" text-anchor="start" dx="0" dy="115">六</text><g v-for="(weekitem,weekIndex) in data" :transform="'translate('+ (16 + weekIndex*14) + ',' + '0)'"><rect @mouseover="selectStyle(dayitem,$event)" @mouseleave="outStyle()" v-for="(dayitem,dayIndex) in weekitem" :style="{fill:thiscolor(dayitem.count),shapeRendering:crispedges}" :data-score="dayitem.count" :data-date="dayitem.date" x="0" :y=" 30 + dayIndex*13 " width="11" height="11"></rect></g></svg></div><div class="contrib-footer clearfix mt-1 mx-3 px-3 pb-1"><div class="float-left text-gray">数据来源 <a :href="'https://github.com/'+ user " target="blank">@{{user}}</a></div><div class="contrib-legend text-gray" title="A summary of pull requests, issues opened, and commits to the default and gh-pages branches.">Less<ul class="legend"><li :style="{backgroundColor:color[0]}"></li><li :style="{backgroundColor:color[2]}"></li><li :style="{backgroundColor:color[4]}"></li><li :style="{backgroundColor:color[6]}"></li><li :style="{backgroundColor:color[8]}"></li></ul>More</div></div></div></div><div class="contrib-column contrib-column-first table-column"><span class="text-muted">过去一年提交</span><span class="contrib-number">{{total}}</span><span class="text-muted">{{oneyearbeforeday}}&nbsp;-&nbsp;{{thisday}}</span></div><div class="contrib-column table-column"><span class="text-muted">最近一月提交</span><span class="contrib-number">{{thisweekdatacore}}</span><span class="text-muted">{{amonthago}}&nbsp;-&nbsp;{{thisday}}</span></div><div class="contrib-column table-column"><span class="text-muted">最近一周提交</span><span class="contrib-number">{{weekdatacore}}</span><span class="text-muted">{{aweekago}}&nbsp;-&nbsp;{{thisday}}</span></div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/articles/0xiipgum/" title="基于Butterfly的外挂标签引入">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/butterfly-tags/20201230_05_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="基于Butterfly的外挂标签引入"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/0xiipgum/" title="基于Butterfly的外挂标签引入">基于Butterfly的外挂标签引入</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-05T08:14:02.000Z" title="发表于 2021-01-05 16:14:02">2021-01-05</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%A6%8BButterfly/">🦋Butterfly</a></span></div><div class="content">本文摘自：Akilarの外挂标签引入
+
+
+ 点开查看外挂标签配置教程 
+              
+              下载资源文件         下载Tag_Plugins_v1.5.zip       将下载的Tag_Plugins.zip解压得到butterfly文件夹。将butterfly文件夹复制到[Blogroot]\themes\目录下，覆盖当前的butterfly主题文件夹，提示重复则选择替换。(如果担心覆盖自己的其他魔改内容，可以根据静态文件内容自主比对修改)修改[Blogroot]\_config.butterfly.yml的inject配置项，添加CDN依赖项。由于issues写入timeline和site-card标签要用到jquery，请务必根据注释指示的版本决定是否添加。inject:  head:    - &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/articles/xi2mpxmd/" title="Vue后台管理系统模板推荐">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/vue-admin-temp/20201230_00_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="Vue后台管理系统模板推荐"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/xi2mpxmd/" title="Vue后台管理系统模板推荐">Vue后台管理系统模板推荐</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-21T12:15:33.000Z" title="发表于 2020-12-21 20:15:33">2020-12-21</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%92%98Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">💘Vue后台管理系统</a></span></div><div class="content">前言Vue.js 是一个目前比较流行的前端框架，已经到了前端人人都会的地步，今天这里为大家罗列一下基于 Vue 的后端管理的框架。目前比较流行和 Vue 搭配的 UI组件 有Element-UI、iview、Bootstrap-Vue、Ant-Design-Vue，另外还有Vuetify、Buefy （Bulma css）、Vue Material 等等。基于这些组件库封装的后台管理模板，推荐一些常用 VUE后台模板 给大家。按照 Github 星标数量来依次介绍。
+
+
+vue-element-admin (63.3k)Vue-Element-Admin（github上的标星数为63.3k）是一个后台前端解决方案，它基于 Vue 和 Element-UI 实现。它使用了最新的前端技术栈，内置了 i18 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。
+
+文档地址：Document Address
+集成方案：vue-element-admin
+基础模板：vue-admin-template
+桌面终端：electro ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/articles/ic67xik4/" title="Ethanの工作手册">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/my-workbook/20201230_14_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="Ethanの工作手册"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/ic67xik4/" title="Ethanの工作手册">Ethanの工作手册</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-12T10:55:01.000Z" title="发表于 2021-01-12 18:55:01">2021-01-12</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%93%91%E5%B7%A5%E4%BD%9C%E6%89%8B%E5%86%8C/">📑工作手册</a></span></div><div class="content">前言自己工作或学习中常用到的网站 ，整理一遍分享给大家 ，如果大家有觉得好用的网址，可以评论进行补充喔~ 💓💓💓
+
+
+前端常用
+HTML参考手册在本手册中，您可以查找到HTML的使用方法。
+
+CSS参考手册CSS 指层叠样式表（Cascading Style Sheets）。
+
+JavaScript 教程属于 web 的语言，被设计为向 HTML 页面增加交互性。
+
+SassMature stable and powerful professional grade CSS extension language in the world.
+
+LessIt's CSS with just a little more.
+
+StylusEXPRESSIVE DYNAMIC ROBUST CSS.
+
+JQuery一个快速，小型且功能丰富的JavaScript库。通过易于使用的API（可在多种浏览器中使用），它使HTML文档的遍历和操作，事件处理，动画和Ajax等事情变得更加简单。兼具多功能性和可扩展性，jQuery改变了数百万人编写JavaScript的方式。
+
+ECMAScript6Th ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/articles/e13t14zy/" title="一种自动化生成骨架屏的方案">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/skeleton-screen/20201230_16_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="一种自动化生成骨架屏的方案"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/e13t14zy/" title="一种自动化生成骨架屏的方案">一种自动化生成骨架屏的方案</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-25T12:28:15.000Z" title="发表于 2021-01-25 20:28:15">2021-01-25</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E9%AA%A8%E6%9E%B6%E5%B1%8F/">骨架屏</a></span></div><div class="content">今天分享的主题是：「一种自动化生成骨架屏的方案」， 先看下市场上常见的骨架屏优化效果。
+
+某宝 PC端
+某东 PC端
+某推 APP
+某博 APP
+
+
+今天的分享主要分为三个部分：
+
+首屏加载状态演进
+如何构建骨架屏
+将骨架屏打包的项目中
+
+首屏加载的演进我们先来看一些权威机构所做的研究报告。
+一份是 Akamai 的研究报告，当时总共采访了大约 1048 名网上购物者，得出了这样的结论：
+
+大约有 47% 的用户期望他们的页面在两秒之内加载完成。
+
+如果页面加载时间超过 3s，大约有 40% 的用户选择离开或关闭页面。
+
+
+
+
+这是 TagMan 和眼镜零售商 Glasses Direct 合作进行的测试，研究页面加载速度和最终转化率的关系：
+
+
+在这份测试报告中，发现了网页加载速度和转化率呈现明显的负相关性，在页面加载时间为1~2 秒时的转化率是最高的，而当加载时间继续增长，转化率开始呈现一个下降的趋势，大约页面加载时间每增加 1s 转化率下降6.7个百分点。
+另外一份研究报告是 MIT 神经科学家在 2014 年做的研究，人类可以在 13ms 内感知到离散图片的存在，并将图片的大概 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/articles/uni235xy/" title="uni-app">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/uni-app/20201230_19_uni_desc.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="uni-app"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/uni235xy/" title="uni-app">uni-app</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-02-23T07:12:31.000Z" title="发表于 2021-02-23 15:12:31">2021-02-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/uni-app/">uni-app</a></span></div><div class="content">uni-app官网地址
+
+
+什么是 uni-appuni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。
+DCloud公司拥有800万开发者用户，几十万应用案例、12亿手机端月活用户，数千款uni-app插件、70+微信/qq群。阿里小程序工具官方内置uni-app（详见），腾讯课堂官方为uni-app录制培训课程（详见），开发者可以放心选择。
+uni-app在手，做啥都不愁。即使不跨端，uni-app也是更好的小程序开发框架（详见）、更好的App跨平台框架、更方便的H5开发框架。不管领导安排什么样的项目，你都可以快速交付，不需要转换开发思维、不需要更改开发习惯。
+快速体验一套代码编到10个平台，这不是梦想。眼见为实，扫描10个二维码，亲自体验最全面的跨平台效果！
+
+
+            
+  
+  Android版
+
+
+  
+  iOS版
+
+
+  
+  Web版
+
+
+  
+  微信小程序版
+
+
+  
+  支付宝小程序版
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/articles/p520xyz8/" title="Vue-Cli3.0打包时如何去掉console打印信息">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/no-console-log/20201230_11_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="Vue-Cli3.0打包时如何去掉console打印信息"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/p520xyz8/" title="Vue-Cli3.0打包时如何去掉console打印信息">Vue-Cli3.0打包时如何去掉console打印信息</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-23T10:28:07.000Z" title="发表于 2021-01-23 18:28:07">2021-01-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%A4%A1-Vue/">🤡 Vue</a></span></div><div class="content">前言我们在进行项目开发过程中，一般会用到console.log打印某些信息。但是如何生产环境打包时去掉所有consloe打印信息呢？以下是解决办法，也是自己一直使用的方法。
+
+
+步骤
+ 安装插件 babel-plugin-transform-remove-consolenpm install babel-plugin-transform-remove-console --save
+修改 babel.config.js（如果没有自己创建）请在根目录下创建babel.config.js
+const plugins = []if (process.env.NODE_ENV === 'production') {    //exclude(忽略)    plugins.push(["transform-remove-console", { "exclude": ["error", "warn"] }])}module.exports = {    presets: [        '@vue/app'    ],    plugins}
+然后打包好部署到生产环境，打开控制台，可以看到线上打印 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/articles/hyeccjmu/" title="Markdown语法支持的Emoji表情">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/md-emoji/20201230_01_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="Markdown语法支持的Emoji表情"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/hyeccjmu/" title="Markdown语法支持的Emoji表情">Markdown语法支持的Emoji表情</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-28T08:28:37.000Z" title="发表于 2020-12-28 16:28:37">2020-12-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%91%BBMarkdown/">👻Markdown</a></span></div><div class="content">前言Markdown 🏃 语法支持添加 emoji 表情喔 😋，快来试试吧 ~ 💓💓💓
+
+
+通用代码 Unicode使用格式UnicodeMarkdown语法及效果预览&amp;#x + unicode + ;
+例如：&amp;#x1F601;
+U+1F600
+U+1F495
+U+1F49E
+U+1F4AF
+U+1F645
+U+1F647
+U+1F9DC
+U+1F69A
+U+1F6A2
+U+1F383
+……
+
+
+
+
+
+😀 &amp;#x1F600;
+💕 &amp;#x1F495;
+
+
+
+💞 &amp;#x1F49E;
+🙇 &amp;#x1F647;
+
+
+💯 &amp;#x1F4AF;
+🙅 &amp;#x1F645;
+
+
+🧜 &amp;#x1F9DC;
+🚚 &amp;#x1F69A;
+
+
+🚢 &amp;#x1F6A2;
+🎃 &amp;#x1F383;
+
+
+🤢 &amp;#x1F922;
+🥵 &amp;#x1F975;
+
+
+🥶 &amp;#x1F976;
+🤠 &amp;#x1F920;
+
+
+🥳 &amp;#x1F973;
+🥶 &amp;#x1F92 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/articles/9r95s1wt/" title="nvm,npm与nrm">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/nvm-npm-nrm/20201230_06_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="nvm,npm与nrm"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/9r95s1wt/" title="nvm,npm与nrm">nvm,npm与nrm</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-30T07:55:35.000Z" title="发表于 2020-12-30 15:55:35">2020-12-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%90%ACNode/">🐬Node</a></span></div><div class="content">nvmnvm（Node Version Manager）是 Nodejs 版本管理器，它能让我们方便的对 Node.js 的版本进行切换。💓
+
+
+
+Mac 版
+Windows 版
+
+windows 版安装
+进入项目地址 找到安装包：
+
+
+按照引导安装即可。
+
+
+
+
+输入 nvm -v 查看是否安装成功，成功的话如下图所示。如果提示找不到命令，请看这里：传送门
+
+
+
+
+nvm 常用命令nvm off                  // 禁用 Node.js 版本管理(不卸载任何东西)nvm on                   // 启用 Node.js 版本管理nvm v || nvm version     // 查看 nvm 版本 nvm use &lt;version&gt;        // 切换使用指定的版本 nodenvm ls                   // 列出所有安装的版本nvm list available       // 显示可以安装的所有 Node.js 的版本nvm ls-remote            // 列出所以远程服务器的版 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/articles/kfwr2gpa/" title="添加github徽标">     <img class="post_bg" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/github-hs/20201230_04_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="添加github徽标"></a></div><div class="recent-post-info"><a class="article-title" href="/articles/kfwr2gpa/" title="添加github徽标">添加github徽标</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack article-meta__icon sticky"></i><span class="sticky">置顶</span><span class="article-meta__separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-07T10:36:00.000Z" title="发表于 2021-01-07 18:36:00">2021-01-07</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%F0%9F%A6%8BButterfly/">🦋Butterfly</a></span></div><div class="content">本文摘自：Akilarの添加github徽标
+
+
+github徽标
+github徽标可以直接通过shields.io在线生成。
+理论上可以放在页面的任何地方。教程案例是添加在页脚。
+工具网站包括：
+徽标生成网站:shields
+图标查询网站:simpleicons
+html压缩网站:htmlpack
+转义字符查询
+
+
+预览效果:
+
+
+
+具体步骤
+通过shields.io在线生成。
+label:标签，徽标左侧内容
+message:信息，徽标右侧内容
+color:色值,支持支持十六进制、rgb、rgba、hsl、hsla和 css 命名颜色。十六进制记得删除前面的#号
+
+
+输入相关信息后，点击make badge即可得到徽标的URL。可以用img标签引用，写法简单。不过正式写法建议用object标签引用，写法示例如下。&lt;!-- label=Frame，Message=Hexo，color=blue --&gt;https://img.shields.io/badge/Frame-Hexo-blue&lt;!-- 在页面上可以使用img标签来引用 --&gt;&lt;img src=" ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/avater.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/friend_404.gif'" alt="avatar"/><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2020年的理想实现了吗？</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tzy13755126023"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq faa-float animated"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/wechat.jpg" target="_blank" title="Wechat"><i class="fab fa-weixin faa-float animated"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/alipay.jpg" target="_blank" title=""><i class="fab fa-alipay faa-float animated"></i></a><a class="social-icon" href="https://weibo.com/u/5685180078" target="_blank" title="Sina Weibo"><i class="fab fa-weibo faa-float animated"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss faa-float animated"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content"><img src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/gallery_f/ACG/20210108_06.jpg"/><span style='display:inline-block;text-indent:2em'>时光悠然，来去匆匆。取一宛琉璃四溢的红袖，遣散在早已注定的宿命，连着绵绵春雨倾斜在悠悠岁月中，风化了一地的悲跄。</span></div></div></div><div class="card-widget card-pixiv"><div class="card-content"><div class="item-headline"><i class="fa fa-image" aria-hidden="true"></i><span>Pixiv日榜Top50</span><iframe src="https://cloud.mokeyjay.com/pixiv" frameborder="0" style="width:99%;height:380px;margin:0;"></iframe></div></div></div><div class="card-widget card-map"><div class="card-content"><div class="item-headline"><i class="fa fa-globe-asia" aria-hidden="true"></i><span>网站地图</span></div><script id="clstr_globe" type="text/javascript" defer="defer" src="//clustrmaps.com/globe.js?d=yHenxa3qhWz0fcvtmuUqcp9x58Ca5D4wbe6UHeSWi5I"></script></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/uni235xy/" title="uni-app"><img data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/uni-app/20201230_19_uni_desc.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="uni-app"/></a><div class="content"><a class="title" href="/articles/uni235xy/" title="uni-app">uni-app</a><time datetime="2021-02-23T07:12:31.000Z" title="发表于 2021-02-23 15:12:31">2021-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/e13t14zy/" title="一种自动化生成骨架屏的方案"><img data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/skeleton-screen/20201230_16_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="一种自动化生成骨架屏的方案"/></a><div class="content"><a class="title" href="/articles/e13t14zy/" title="一种自动化生成骨架屏的方案">一种自动化生成骨架屏的方案</a><time datetime="2021-01-25T12:28:15.000Z" title="发表于 2021-01-25 20:28:15">2021-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/p520xyz8/" title="Vue-Cli3.0打包时如何去掉console打印信息"><img data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/no-console-log/20201230_11_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="Vue-Cli3.0打包时如何去掉console打印信息"/></a><div class="content"><a class="title" href="/articles/p520xyz8/" title="Vue-Cli3.0打包时如何去掉console打印信息">Vue-Cli3.0打包时如何去掉console打印信息</a><time datetime="2021-01-23T10:28:07.000Z" title="发表于 2021-01-23 18:28:07">2021-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/ic67xik4/" title="Ethanの工作手册"><img data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/my-workbook/20201230_14_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="Ethanの工作手册"/></a><div class="content"><a class="title" href="/articles/ic67xik4/" title="Ethanの工作手册">Ethanの工作手册</a><time datetime="2021-01-12T10:55:01.000Z" title="发表于 2021-01-12 18:55:01">2021-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/kfwr2gpa/" title="添加github徽标"><img data-lazy-src="https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/blog_f/github-hs/20201230_04_cover.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/404.jpg'" alt="添加github徽标"/></a><div class="content"><a class="title" href="/articles/kfwr2gpa/" title="添加github徽标">添加github徽标</a><time datetime="2021-01-07T10:36:00.000Z" title="发表于 2021-01-07 18:36:00">2021-01-07</time></div></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/uni-app/"><span class="card-category-list-name">uni-app</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%AA%A8%E6%9E%B6%E5%B1%8F/"><span class="card-category-list-name">骨架屏</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%F0%9F%90%ACNode/"><span class="card-category-list-name">🐬Node</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%F0%9F%91%BBMarkdown/"><span class="card-category-list-name">👻Markdown</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%F0%9F%92%98Vue%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><span class="card-category-list-name">💘Vue后台管理系统</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%F0%9F%93%91%E5%B7%A5%E4%BD%9C%E6%89%8B%E5%86%8C/"><span class="card-category-list-name">📑工作手册</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%F0%9F%A4%A1-Vue/"><span class="card-category-list-name">🤡 Vue</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%F0%9F%A6%8BButterfly/"><span class="card-category-list-name">🦋Butterfly</span><span class="card-category-list-count">2</span></a></li>
+            
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Vue/" style="font-size: 1.5em; color: rgb(198, 171, 164)">Vue</a><a href="/tags/Node/" style="font-size: 1.1em; color: rgb(109, 13, 41)">Node</a><a href="/tags/nvm/" style="font-size: 1.1em; color: rgb(189, 136, 172)">nvm</a><a href="/tags/npm/" style="font-size: 1.1em; color: rgb(131, 130, 154)">npm</a><a href="/tags/nrm/" style="font-size: 1.1em; color: rgb(73, 94, 148)">nrm</a><a href="/tags/uni-app/" style="font-size: 1.1em; color: rgb(142, 196, 108)">uni-app</a><a href="/tags/%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86/" style="font-size: 1.1em; color: rgb(181, 16, 89)">后台管理</a><a href="/tags/%E9%AA%A8%E6%9E%B6%E5%B1%8F/" style="font-size: 1.1em; color: rgb(45, 72, 9)">骨架屏</a><a href="/tags/Skeleton-Screen/" style="font-size: 1.1em; color: rgb(162, 113, 129)">Skeleton Screen</a><a href="/tags/%F0%9F%93%81Hexo/" style="font-size: 1.5em; color: rgb(115, 128, 8)">📁Hexo</a><a href="/tags/%F0%9F%A6%8BButterfly/" style="font-size: 1.5em; color: rgb(29, 127, 49)">🦋Butterfly</a><a href="/tags/Markdown/" style="font-size: 1.1em; color: rgb(175, 159, 177)">Markdown</a><a href="/tags/Emoji%E8%A1%A8%E6%83%85/" style="font-size: 1.1em; color: rgb(101, 83, 127)">Emoji表情</a><a href="/tags/workbook/" style="font-size: 1.1em; color: rgb(87, 20, 185)">workbook</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/02/"><span class="card-archive-list-date">二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/01/"><span class="card-archive-list-date">一月 2021</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/12/"><span class="card-archive-list-date">十二月 2020</span><span class="card-archive-list-count">3</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">9</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2020-12-09T16:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">31.8k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-03-01T07:06:28.614Z"></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/theme_f/main.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 <i id="heartbeat" class="fa fas fa-heartbeat"></i> Ethan.Tzy</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://demo.jerryc.me/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://metroui.org.ua/index.html "><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat_btn" type="button" title="在线聊天"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/main.js"></script><script src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "窗外有月色和雨&#44;而我在想你。,There is moonlight and rain outside the window, and I miss you.".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = '窗外有月色和雨&#44;而我在想你。'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="aplayer no-destroy" data-id="720305850" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/issues.js"></script><script async src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/ethan_tzy.js"></script><script async src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/cursor.js"></script><script data-pjax defer src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script data-pjax defer src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/gitcalendar.js"></script><script data-pjax defer src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/chocolate.js"></script><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config_change',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  //- document.querySelectorAll('script[data-pjax]').forEach(item => {
+  document.querySelectorAll('script[data-pjax], .pjax-reload script').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})</script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script><div class="pjax-reload"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInX');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer="defer" src="https://cdn.jsdelivr.net/gh/graingert/wow@1.3.0/dist/wow.min.js"></script><script defer="defer" src="https://cdn.jsdelivr.net/gh/tzy13755126023/tzy13755126023.github.io/js/wow_init.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":20,"vOffset":-20},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
