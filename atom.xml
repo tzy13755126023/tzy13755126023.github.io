@@ -6,7 +6,7 @@
   <link href="https://ethant.top/atom.xml" rel="self"/>
   
   <link href="https://ethant.top/"/>
-  <updated>2021-03-06T02:38:46.716Z</updated>
+  <updated>2021-03-06T07:03:32.732Z</updated>
   <id>https://ethant.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://ethant.top/articles/hexo541u/"/>
     <id>https://ethant.top/articles/hexo541u/</id>
     <published>2021-03-03T09:06:47.000Z</published>
-    <updated>2021-03-06T02:38:46.716Z</updated>
+    <updated>2021-03-06T07:03:32.732Z</updated>
     
     
       
@@ -300,6 +300,9 @@
 &lt;div class=&quot;note info flat&quot;&gt;&lt;p&gt;此步骤适用于安装了&lt;code&gt;hexo-tag-aplayer&lt;/code&gt;插件的人&lt;/p&gt;
 &lt;/div&gt;
 
+&lt;p&gt;安装依赖命令（在博客根目录打开CMD窗口使用下面的指令安装就行）&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm i hexo-tag-aplayer --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
 &lt;h3 id=&quot;关闭-asset-inject&quot;&gt;&lt;a href=&quot;#关闭-asset-inject&quot; class=&quot;headerlink&quot; title=&quot;关闭 asset_inject&quot;&gt;&lt;/a&gt;关闭 asset_inject&lt;/h3&gt;&lt;p&gt;由于需要全局都插入aplayer和meting资源，为了防止插入重复的资源，需要把asset_inject设为&lt;code&gt;false&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;在Hexo的配置文件中(_config.yml)&lt;/p&gt;
 &lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;aplayer:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;attr&quot;&gt;meting:&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;attr&quot;&gt;asset_inject:&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -322,83 +325,83 @@
 &lt;/thead&gt;
 &lt;tbody&gt;&lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-id&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;require&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;song id / playlist id / album id / search keyword&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-server&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;require&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;music platform: netease, tencent, kugou, xiami, baidu&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-type&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;require&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;song, playlist, album, search, artist&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-fixed&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;false&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;enable fixed mode&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-mini&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;false&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;enable mini mode&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-autoplay&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;false&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;audio autoplay&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-theme&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;#2980b9&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;main color&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-loop&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;all&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;player loop play, values: ‘all’, ‘one’, ‘none’&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-order&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;list&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;player play order, values: ‘list’, ‘random’&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-preload&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;auto&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;values: ‘none’, ‘metadata’, ‘auto’&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-volume&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;0.7&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;default volume, notice that player will remember user setting, default volume will not work after user set volume themselves&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-mutex&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;true&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;prevent to play multiple player at the same time, pause other players when this player start play&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-lrctype&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;0&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;lyric type&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-listfolded&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;false&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;indicate whether list should folded at first&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-listmaxheight&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;340px&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;list max height&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;data-storagename&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
 &lt;td align=&quot;left&quot;&gt;metingjs&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;localStorage key that store player setting&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;
 &lt;div class=&quot;note info flat&quot;&gt;&lt;p&gt;&lt;code&gt;require&lt;/code&gt;代表着这些参数是必须要使用的，其它的参数则可以根据自己需要配置。&lt;/p&gt;
