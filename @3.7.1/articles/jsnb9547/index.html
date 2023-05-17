@@ -1,0 +1,670 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>深入理解函数式编程（下） | 唐志远の博客</title><meta name="keywords" content="JavaScript,js,JS,前端进阶"><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="前文回顾在上篇中，我们分析了函数式编程的起源和基本特性，并通过每一个特性的示例来演示这种特性的实际效果。首先，函数式编程起源于数理逻辑，起源于λ演算，这是一种演算法，它定义一些基础的数据结构，然后通过归约和代换来实现更复杂的数据结构，而函数本身也是它的一种数据。其次，我们探讨了很多函数式编程的特性，比如：  First Class 纯函数 引用透明 表达式 高阶函数 柯里化 函数组合 poin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解函数式编程（下）">
+<meta property="og:url" content="https://fe32.top/articles/jsnb9547/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="前文回顾在上篇中，我们分析了函数式编程的起源和基本特性，并通过每一个特性的示例来演示这种特性的实际效果。首先，函数式编程起源于数理逻辑，起源于λ演算，这是一种演算法，它定义一些基础的数据结构，然后通过归约和代换来实现更复杂的数据结构，而函数本身也是它的一种数据。其次，我们探讨了很多函数式编程的特性，比如：  First Class 纯函数 引用透明 表达式 高阶函数 柯里化 函数组合 poin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/12/04/638caada75585.png">
+<meta property="article:published_time" content="2022-12-06T07:28:26.000Z">
+<meta property="article:modified_time" content="2022-12-11T15:47:56.132Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="前端进阶">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/12/04/638caada75585.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/jsnb9547/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/index.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/fortawesome.all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/2.10.5/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/2.10.5/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/animate.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/@3.7.1/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#6f42c1","position":"top-left"},
+  source: {
+    jQuery: 'https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-11 23:47:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom:70px}</style><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/ethan.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/plane_v2.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu.css"><meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/@3.7.1/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div></a><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/06/09/62a0e5cc8bfd2.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/@3.7.1/">唐志远の博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深入理解函数式编程（下）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-06T07:28:26.000Z" title="发表于 2022-12-06 15:28:26">2022-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-11T15:47:56.132Z" title="更新于 2022-12-11 23:47:56">2022-12-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/@3.7.1/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深入理解函数式编程（下）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="tzy-post">
+
+<h2 id="前文回顾"><a href="#前文回顾" class="headerlink" title="前文回顾"></a>前文回顾</h2><p>在上篇中，我们分析了函数式编程的起源和基本特性，并通过每一个特性的示例来演示这种特性的实际效果。首先，函数式编程起源于数理逻辑，起源于<strong>λ演算</strong>，这是一种演算法，它定义一些基础的数据结构，然后通过归约和代换来实现更复杂的数据结构，而函数本身也是它的一种数据。其次，我们探讨了很多函数式编程的特性，比如：</p>
+<ul>
+<li>First Class</li>
+<li>纯函数</li>
+<li>引用透明</li>
+<li>表达式</li>
+<li>高阶函数</li>
+<li>柯里化</li>
+<li>函数组合</li>
+<li>point-free</li>
+<li>…</li>
+</ul>
+<p>但我们也指出了一个实际问题：不能处理副作用的程序是毫无意义的。我们的计算机程序随时都在产生副作用。我们程序里面有大量的网络请求、多媒体输入输出、内部状态、全局状态等，甚至在提倡“碳中和”的今天，电脑的发热量也是一个不容小觑的副作用。那么我们应该如何处理这些问题呢？</p>
+</div>
+
+<h2 id="本文简介"><a href="#本文简介" class="headerlink" title="本文简介"></a>本文简介</h2><p>本文通过深入函数式编程的副作用处理及实际应用场景，提供一个学习和使用函数式编程的视角给读者。一方面，这种副作用管理方式是一种高级的抽象形式，不易理解；另一方面，我们在学习和使用函数式编程的过程中，几乎都会遇到类似的副作用问题需要解决，能否解决这个问题也决定了一门函数式编程语言最终是否能走上成功。</p>
+<p>本文主要分为三个部分：</p>
+<ul>
+<li>副作用处理方式</li>
+<li>函数式编程的应用</li>
+<li>函数式编程的优缺点比较</li>
+</ul>
+<h2 id="副作用处理：单子-Monad，一种不可避免的抽象"><a href="#副作用处理：单子-Monad，一种不可避免的抽象" class="headerlink" title="副作用处理：单子 Monad，一种不可避免的抽象"></a>副作用处理：单子 Monad，一种不可避免的抽象</h2><p>上面说的，都是最基础的 JavaScript 概念+函数式编程概念。但我们还留了一个“坑”。</p>
+<p><strong>如何去处理 IO 操作？</strong></p>
+<div class="tzy-post">
+
+<p>我们的代码经常在和副作用打交道，如果要满足纯函数的要求，几乎连一个需求都完成不了。不用急，我们来看一下<strong>React Hooks</strong>。<strong>React Hooks</strong>的设计是很巧妙的，以<code>useEffect</code>为例：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385cfb887318.png"></div></div>
+
+<p>在函数组件中，<code>useState</code>用来产生状态，在使用<code>useEffect</code>的时候，我们需要挂载这个<code>state</code>到第二个参数，而第一个参数给到的运行函数在<code>state</code>变更的时候被调用，被调用时得到最新的<code>state</code>。</p>
+<p>这里面有一个状态转换：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385cfbaef537.png"></div></div>
+
+<p><strong>React Hooks</strong>给我们的启发是，副作用都被放到一个状态节点里面去被动触发，行程一个单向的数据流动。而实际上，函数式编程语言确实也是这么做的，把副作用包裹到一个特殊的函数里面。</p>
+<p>如果一个函数既包含了我们的值，又封装了值的统一操作，使得我们可以在它限定的范围内进行任意运算，那么，我们称这种函数类型为<strong>Monad</strong>。<strong>Monad</strong>是一种高级别的思维抽象。</p>
+<h3 id="什么是Monad？"><a href="#什么是Monad？" class="headerlink" title="什么是Monad？"></a>什么是Monad？</h3><p>先思考一个问题，下面两个定义有什么区别？</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385cfed55040.png"></div></div>
+
+<p><code>num1</code>是数字类型，而<code>num2</code>是对象类型，这是一个直观的区别。</p>
+<p>不过，不仅仅如此。利用类型，我们可以做更多的事。因为作为数字的<code>num1</code>是支持加减乘除运算的，而<code>num2</code>却不行，必须要把它视为一个对象<code>{val: 2}</code>，并通过属性访问符<code>num2.val</code>才能进行计算<code>num2.val + 2</code>。但我们知道，函数式编程是不能改变状态的，现在为了计算<code>num2.val</code>被改变了，这不是我们期望的，并且我们使用属性操作符去读数据，更像是在操作对象，而不是操作函数，这与我们的初衷有所背离。</p>
+<p>现在我们把<code>num2</code>当作一个独立的数据，并假设存在一个方法<code>fmap</code>可以操作这个数据，可能是这样的。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385cff682642.png"></div></div>
+
+<p>得到的还是对象，但操作通过一个纯函数<code>addOne</code>去实现了。</p>
+<p>上面这个例子里面的<code>Num</code>，实际上就是一个最简单的<strong>Monad</strong>，而<code>fmap</code>是属于<code>Functor（函子）</code>的概念。我们说函数就是从一个数据到另一个数据的映射，这里的fmap就是一个映射函数，在范畴论里面叫做<strong>态射</strong>（后面讲解）。</p>
+<p>由于有一个包裹的过程，很多人会把<strong>Monad</strong>看作是一个盒子类型。但<strong>Monad</strong>不仅是一个盒子的概念，它还需要满足一些特定的运算规律（后面涉及）。</p>
+<p>但是我们直接使用数字的加减乘除不行吗？为什么一定要<strong>Monad</strong>类型？</p>
+<p>首先，<code>fmap</code>的目的是把数据从一个类型映射到另一个类型，而<code>JavaScript</code>里面的<code>map</code>函数实际上就是这个功能。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385cfff14fdd.png"></div></div>
+
+<p>我们可以认为<code>Array</code>就是一个<strong>Monad</strong>实现，<code>map</code>把<code>Array&lt; T &gt;</code>类型映射到<code>Array&lt; K &gt;</code>类型，操作仍然在数组范畴，数组的值被映射为新的值。 如果用 TypeScript 来表示，会不会更清晰一点？</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d00b3d4dc.png"></div></div>
+
+<p>看起来<strong>Monad</strong>只是一个实现了<code>fmap</code>的对象（<code>Functor</code>类型，<code>mappable</code>接口）而已。但<strong>Monad</strong>类型不仅是一个<code>Functor</code>，它还有很多其他的工具函数，比如：</p>
+<ul>
+<li>bind函数</li>
+<li>flatMap函数</li>
+<li>liftM函数</li>
+</ul>
+<p>这些概念在学习<strong>Haskell</strong>时可以遇到，本文不作过多提及。这些额外的函数可以帮助我们操作被封装起来的值。</p>
+<h3 id="范畴、群、幺半群"><a href="#范畴、群、幺半群" class="headerlink" title="范畴、群、幺半群"></a>范畴、群、幺半群</h3><p>范畴论是一种研究抽象数学形式的科学，它把我们的数学世界抽象为两个概念：</p>
+<ul>
+<li>对象</li>
+<li>态射</li>
+</ul>
+<p>为什么说这是一种<strong>形式</strong>上的抽象呢？因为很多数学的概念都可以被这种形式所描述，比如集合，对集合范畴来说，一个集合就是一个范畴对象，从集合A到集合B的映射就是集合的态射，再细化一点，整数集合到整数集合的加减乘操作构成了整数集合的态射（除法会产生整数集合无法表示的数字，因此这里排除了除法）。又比如，三角形可以被代数表示，也可以用几何表示、向量表示，从代数表示到几何表示的运算就可以视为三角形范畴的一种态射。</p>
+<p>总之，<strong>对象描述了一个范畴中的元素，而态射描述了针对这些元素的操作</strong>。范畴论不仅可以应用到数学科学里面，在其他科学里面也有一些应用，实际上，范畴论就是我们描述客观世界的一种方式（抽象形式）。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d012bc38e.png"></div></div>
+
+
+<p>相对应的，<strong>函子就是描述一个范畴对象和另一个范畴对象间关系的态射</strong>，具体到编程语言中，函子是一个帮助我们映射一个范畴元素（比如<strong>Monad</strong>）到另一个范畴元素的函数。</p>
+<p><strong>群论（Group）</strong>研究的是<strong>群</strong>这种代数结构，怎么去理解群呢？比如一个三角形有三个顶点<strong>A/B/C</strong>，那么我们可以表示一个三角形为<strong>ABC</strong>或者<strong>ACB</strong>，三角形还是这个三角形，但是从<strong>ABC</strong>到<strong>ACB</strong>一定是经过了某种变换。这就像范畴论，三角形的表示是范畴对象，而一个三角形的表示变换到另一个形式，就是范畴的态射。而我们说这些三角形表示方式的集合为一个<strong>群</strong>。<strong>群论主要是研究变换关系</strong>，群又可以分为很多种类，也有很多规律特性，这不在本文研究范围之内，读者可以自行学习相关内容。</p>
+<p>科学解释一个<strong>Monad</strong>为自函子范畴上的幺半群。如果没有学习群论和范畴论的话，我们是很难理解这个解释的。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d01e80c1c.png"></div></div>
+
+<p>简单来说先固定一个正方形abcd，它和它的几何变换方式（旋转/逆时针旋转/对称/中心对称等）形成的其他正方形一起构成一个群。从这个角度来说，群研究的事物是同一类，只是性质稍有不一样（态射后）。</p>
+<p>另外一个理解群的概念就是<strong>自然数（构成一个群）和加法（群的二元运算，且满足结合律，半群）</strong>。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0366e1d6.png"></div></div>
+
+<p>到此，我们可以理解<strong>Monad</strong>为：</p>
+<ul>
+<li>满足自函子运算（从A范畴态射到A范畴，fmap是在自己空间做映射）。</li>
+<li>满足含幺半群的结合律。</li>
+</ul>
+<p>很多函数式编程里面都会实现一个<code>Identity</code>函数，实际就是一个幺元素。比如 JavaScript 中对 Just 满足二元结合律可以这么操作：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d041267f1.png"></div></div>
+
+<h3 id="Monad范畴：定律、折叠和链"><a href="#Monad范畴：定律、折叠和链" class="headerlink" title="Monad范畴：定律、折叠和链"></a>Monad范畴：定律、折叠和链</h3><p>我们要在一个更大的空间上讨论这个范畴对象（Monad）。就像Number封装了数字类型，<strong>Monad</strong>也封装了一些类型。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d05494b4d.png"></div></div>
+
+<p><strong>Monad</strong>需要满足一些定律：</p>
+<ul>
+<li>结合律：比如a · b · c = a · (b · c)。</li>
+<li>幺元：比如a · e = e · a = a。</li>
+</ul>
+<p>一旦定义了<strong>Monad</strong>为一类对象，<strong>fmap</strong>为针对这种对象的操作，那么定律我们可以很容易证明：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0574244c.png"></div></div>
+
+<p>我们可以通过<code>Monad Just</code>上挂载的操作来对数据进行计算，这些运算是限定在了<code>Just</code>上的，也就是说你只能得到<code>Just(..)</code>类型。要获取原始数据，可以基于这个定义一个<code>fold</code>方法。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d059b1b97.png"></div></div>
+
+<p><strong>fold</strong>（折叠，对应能力我们称为foldable）的意义在于你可以将数据从一个特定范畴映射到你的常用范畴，比如面向对象语言的 toString 方法，就是把数据从对象域转换到字符串域。</p>
+<blockquote>
+<p>JavaScript 中的 Array.prototype.reduce 其实就是一个 fold 函数，它把数据从 Array 范畴映射到其他范畴。</p>
+</blockquote>
+<p>一旦数据类型被我们锁定在了 Monad 空间（范畴），那我们就可以在这个范畴内连续调用 fmap（或者其他这个空间的函数）来进行值操作，这样我们就可以<strong>链式处理</strong>我们的数据。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d05bb5e05.png"></div></div>
+
+<h3 id="Maybe和Either"><a href="#Maybe和Either" class="headerlink" title="Maybe和Either"></a>Maybe和Either</h3><p>有了<strong>Just</strong>的概念，我们再来学习一些新的<strong>Monad</strong>概念。比如<strong>Nothing</strong>。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d05e382d4.png"></div></div>
+
+<p><strong>Nothing</strong>表示在<strong>Monad</strong>范畴上没有的值。和<strong>Just</strong>一起正好描述了所有的数据情况，合称为<strong>Maybe</strong>，我们的<strong>Maybe Monad</strong>要么是<strong>Just</strong>，要么是<strong>Nothing</strong>。这有什么意义呢？</p>
+<p>其实这就是模拟了其他范畴内的“有”和“无”的概念，方便我们模拟其他编程范式的空值操作。比如：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d060abbed.png"></div></div>
+
+<p>这种情况下我们需要去判断<strong>x</strong>和<strong>y</strong>是否为空。在<strong>Monad</strong>空间中，这种情况就很好表示：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0632e89f.png"></div></div>
+
+<p>我们在<strong>Monad</strong>空间中消除了烦人的<code>!== null</code>判断，甚至消除了三元运算符。一切都只有函数。实际使用中一个 <strong>Maybe</strong>要么是<strong>Just</strong>要么是<strong>Nothing</strong>。因此，这里用**Maybe(..)**构造可能让我们难以理解。</p>
+<p>如果非要理解的话，可以理解<strong>Maybe</strong>为<strong>Nothing</strong>和<strong>Just</strong>的抽象类，<strong>Just</strong>和<strong>Nothing</strong>构成这个抽象类的两个实现。实际在函数式编程语言实现中，<strong>Maybe</strong>确实只是一个类型（称为代数类型），具体的一个值有具体类型<strong>Just</strong>或<strong>Nothing</strong>，就像数字可以分为有理数和无理数一样。</p>
+<p>除了这种值存在与否的判断，我们的程序还有一些分支结构的方式，因此我们来看一下在<strong>Monad</strong>空间中，分支情况怎么去模拟？</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0653dcca.png"></div></div>
+
+<p>假设我们有一个代数类型<strong>Either</strong>，<strong>Left</strong>和<strong>Right</strong>分别表示当数据为错误和数据为正确情况下的逻辑。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d06845509.png"></div></div>
+
+<p>这样，我们就可以使用“函数”来替代分支了。这里的<strong>Either</strong>实现比较粗糙，因为<strong>Either</strong>类型应该只在<strong>Monad</strong>空间。这里加入了布尔常量的判断，目的是好理解一些。其他的编程语言特性，在函数式编程中也能找到对应的影子，比如循环结构，我们往往使用函数递归来实现。</p>
+<h3 id="IO的处理方式"><a href="#IO的处理方式" class="headerlink" title="IO的处理方式"></a>IO的处理方式</h3><p>终于到<strong>IO</strong>了，如果不能处理好<strong>IO</strong>，我们的程序是不健全的。到目前为止，我们的<strong>Monad</strong>都是针对数据的。这句话对也不对，因为函数也是一种数据（函数是第一公民）。我们先让<strong>Monad Just</strong>能存储函数。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d06b888cb.png"></div></div>
+
+<p>你可以想象为<strong>Just</strong>增加了一个抽象类实现，这个抽象类为：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0cf760e5.png"></div></div>
+
+<p>这个抽象类我们称为“应用函子”，它可以保存一个函数作为内部值，并且使用<code>apply</code>方法可以把这个函数作用到另一个<code>Monad</code>上。到这里，我们完全可以把Monad之间的各种操作（接口，比如<code>fmap</code>和<code>apply</code>）视为契约，也就是数学上的态射。</p>
+<p>现在，如果我们有一个单子叫<code>IO</code>，并且它有如下表现：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0d2673c9.png"></div></div>
+
+<p>我们把这种类型的Monad称为IO，我们在IO中处理打印（副作用）。你可以把之前我们学习到的类型合并一下，得到一个示例：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0d4ad896.png"></div></div>
+
+<p>通常一个程序会有一个主入口函数<code>main</code>，这个main函数返回值类型是一个<code>IO</code>，我们的副作用现在全在<code>IO</code>这个范畴下运行，而其他操作，都可以保持纯净（类型运算）。</p>
+<p>IO类型让我们可以在<code>Monad</code>空间处理那些烦人的副作用，这个<code>Monad</code>类型和<code>Promise</code>（限定副作用到<code>Promise</code>域处理，可链式调用，可用<code>then</code>折叠和映射）很像。</p>
+<h2 id="函数式编程的应用"><a href="#函数式编程的应用" class="headerlink" title="函数式编程的应用"></a>函数式编程的应用</h2><p>除了上面我们提到的一些示例，函数式编程可以应用到更广的业务代码开发中，用来替代我们的一些基础业务代码。这里举几个例子。</p>
+<h3 id="设计一个请求模块"><a href="#设计一个请求模块" class="headerlink" title="设计一个请求模块"></a>设计一个请求模块</h3><div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0d720cd5.png"></div></div>
+
+<p>用这种方式构建的模块，组合和复用性很强，你也可以利用<code>lodash</code>的其他库对<code>req</code>做一个其他改造。我们调用业务代码的时候只管传递<code>params</code>，分支校验和错误检查就教给<code>validate.js</code>里面的高阶函数就好了。</p>
+<h3 id="设计一个输入框"><a href="#设计一个输入框" class="headerlink" title="设计一个输入框"></a>设计一个输入框</h3><div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0d9bbd98.png"></div></div>
+
+<p>这个例子也是来源于前端常见的场景。我们使用函数式编程的思想，把多个看似不相关的函数进行组合，得到了业务需要的<code>subscribe</code>函数，但同时，上面的任意一个函数都可以被用于其他功能组合。比如<code>callback</code>函数可以直接给<code>dom</code>回调，<code>listenInput</code>可以用于任意一个<code>dom</code>。</p>
+<p>这种通过高阶组件不停组合得到最终结果的方式，我们可以认为就是函数式的。（尽管它没有像上一个例子一样引入<strong>IO/Monad</strong>等概念）</p>
+<h3 id="超长文本省略：Ramdajs为例"><a href="#超长文本省略：Ramdajs为例" class="headerlink" title="超长文本省略：Ramdajs为例"></a>超长文本省略：Ramdajs为例</h3><div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0dcc134a.png"></div></div>
+
+<p>这个也是常见的前端场景，当文本长度大于X时，显示省略号，这个实现使用 Ramdajs 。这个过程中你就像是在搭积木，很容易就把业务给“搭建”完成了。</p>
+<h2 id="函数式编程库、语言"><a href="#函数式编程库、语言" class="headerlink" title="函数式编程库、语言"></a>函数式编程库、语言</h2><p>函数式编程的库可以学习：</p>
+<ul>
+<li>Ramda.js：函数式编程库</li>
+<li>lodash.js：函数工具</li>
+<li>immutable.js：数据不可变</li>
+<li>rx.js：响应式编程</li>
+<li>partial.lenses：函数工具</li>
+<li>monio.js：函数式编程工具库/IO库</li>
+<li>…</li>
+</ul>
+<p>你可以结合起来使用。下面是<strong>Ramda.js</strong>示例：</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/29/6385d0dece84c.png"></div></div>
+
+<p>而纯函数式语言，有很多：</p>
+<ul>
+<li>Lisp 代表软件 emacs…</li>
+<li>Haskell 代表软件 pandoc…</li>
+<li>Ocaml …</li>
+<li>…</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>函数式编程并不是什么“黑科技”，它已经存在的时间甚至比面向对象编程更久远。希望本文能帮助大家理解什么是函数式编程。</p>
+<p>现在我们来回顾先览，实际上，函数式编程也是程序实现方式的一种，它和面向对象是殊途同归的。在函数式语言中，我们要构建一个个小的基础函数，并通过一些通用的流程把他们粘合起来。举个例子，面向对象里面的继承，我在函数式编程中可以使用组合compose或者高阶函数hoc来实现。</p>
+<p>尽管在实现上是等价的，但和面向对象的编程范式对比，函数式编程有很多优点值得大家去尝试。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>除了上面提到的风格和特性之外，函数式编程相对其他编程范式，有很多优点：</p>
+<ul>
+<li>函数纯净 程序有更少的状态量，编码心智负担更小。随着状态量的增加，某些编程范式构建的软件库代码复杂度可能呈几何增长，而函数式编程的状态量都收敛了，对软件复杂度带来的影响更小。</li>
+<li>引用透明性 可以让你在不影响其他功能的前提下，升级某一个特定功能（一个对象的引用需要改动的话，可能牵一发而动全身）。</li>
+<li>高度可组合 函数之间复用方便（需要关注的状态量更少），函数的功能升级改造也更容易（高阶组件）。</li>
+<li>副作用隔离 所有的状态量被收敛到一个盒子（函数）里面处理，关注点更加集中。</li>
+<li>代码简洁/流程更清晰 通常函数式编程风格的程序，代码量比其他编程风格的少很多，这得益于函数的高度可组合性以及大量的完善的基础函数，简洁性也使得代码更容易维护。</li>
+<li>语义化 一个个小的函数分别完成一种小的功能，当你需要组合上层能力的时候，基本可以按照函数语义来进行快速组合。</li>
+<li>惰性计算 被组合的函数只会生成一个更高阶的函数，最后调用时数据才会在函数之间流动。</li>
+<li>跨语言统一性 不同的语言，似乎都遵从类似的函数式编程范式，比如Java 8的lambda表达式，Rust的collection、匿- 名函数；而面向对象的实现，不同语言可能千差万别，函数式编程的统一性让你可以舒服地跨语言开发。</li>
+<li>关键领域应用 因为函数式编程状态少、代码简洁等特点，使得它在交互复杂、安全性要求高的领域有重要的应用，像Lisp和Haskell就是因上一波人工智能热而火起来的，后来也在一些特殊的领域（银行、水利、航空航天等）得到了较大规模的应用。</li>
+<li>…</li>
+</ul>
+<h3 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h3><p>当然，函数式编程也存在一些不足之处：</p>
+<ul>
+<li>陡峭的学习曲线 面向对象和命令式编程范式都是贴近我们的日常习惯的方式，而函数式编程要更抽象一些，要想更好地管理副作用，你可能需要学习很多新的概念（响应式、Monad等），这些概念入门很难，而且是一个长期积累的过程。</li>
+<li>可能的调用栈溢出问题 惰性计算在一些电脑或特种程序架构上可能有函数调用栈错误（超长调用链、超长递归），另外许多函数式编程语言需要编译器支持尾递归优化（优化为循环迭代）以得到更好的性能。</li>
+<li>额外的抽象负担 当程序有大量可变状态、副作用时，用函数式编程可能造成额外的抽象负担，项目开发周期可能会延长，这时可能用其他抽象方式更好（比如OOP）。</li>
+<li>数据不变性的问题 为了数据不变，运行时可能会构建生成大量的数据副本，造成时间和空间消耗更大，拖慢性能；同时数据不可变性可能会造成构建一些基础数据结构的时候语法不简洁，性能也更差（比如LinkedList、HashMap等数据结构）。</li>
+<li>语义化的问题 往往为了开发一个功能，去造许多的基础函数，大量业务组件想要语义化的命名，也会带给开发人员很多负担；并且功能抽象能力因人而异，公共函数往往不够公用或者过度设计。</li>
+<li>生态问题 函数式编程在工业生产领域因其抽象性和性能带来的问题，被许多开发者拒之门外，一些特定功能的解决方案也更小众（相比其他编程范式），生态也一直比较小，这成为一些新的开发人员学习和使用函数式编程的又一个巨大障碍。</li>
+<li>…</li>
+</ul>
+<p>日常业务开发中，往往我们需要取长补短，在适合的领域用适合的方法/范式。大家只要要记住，软件开发并没有“银弹”。</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><p><strong>Q：你觉得Promise是不是一种Monad IO模型？</strong></p>
+<p>A：我认为是的。纯函数是没有异步概念的，Promise用了一种很棒的方式把异步和IO转化为了.then函数。你仍然可以在.then函数中写纯粹的函数，也可以在.then函数中调用其他的Promise，这就和IO Monad的行为非常像。</p>
+<p><strong>Q：你愿意在生产中使用Haskell/Lisp/Clojure等纯函数式语言吗？</strong></p>
+<p>A：不论是否愿意使用，现在很多语言都开始引入函数式编程语法了。并不是说函数式编程一定是优秀的，但它至少没有那么恐怖。有一点可以肯定的是，学习函数式编程可以扩展我们的思维，增加我们看问题的角度。</p>
+<p><strong>Q：有没有一些可以预见的好处？</strong></p>
+<p>A：有的。比如强制你写代码的时候去关注状态量（多少、是否引用值、是否变更等），这或多或少可以帮助你写代码的时候减少状态量的使用，也慢慢地能复合一些状态量，写出更简洁的代码。</p>
+<p><strong>Q：函数式编程能给业务带来什么好处？</strong></p>
+<p>A：业务拆分的时候，函数式的思维是单向的，我们会通过实现，想到它对应需要的基础组件，并递归地思考下去，功能实现从最小粒度开始，上层逐步通过函数组合来实现。相比于面向对象，这种方式在组合上更方便简洁，更容易把复杂度降低，比如面向对象中可能对象之间的相互引用和调用是没有限制的，这种模式带来的是思考逻辑的时候思维会发散。</p>
+<p>这种对比在业务复杂的情况下更加明显，面向对象必须要优秀的设计模式来实现控制代码复杂度增长不那么快，而函数式编程大多数情况下都是单向数据流+基础工具库就减少了大量的复杂度，而且产生的代码更简洁。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/jsnb9547/">https://fe32.top/articles/jsnb9547/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/@3.7.1/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/@3.7.1/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/12/04/638caada75585.png" data-sites="facebook,twitter,google,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/@3.7.1/articles/jsnb9546/"><img class="prev-cover" data-lazy-src="https://bu.dusays.com/2022/12/04/638caad84490d.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深入理解函数式编程（上）</div></div></a></div><div class="next-post pull-right"><a href="/@3.7.1/articles/hexo1617/"><img class="next-cover" data-lazy-src="https://bu.dusays.com/2022/12/11/6395eec4c51ed.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo + Butterfly 自定义页脚</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/@3.7.1/articles/jsnb9528/" title="前端基础进阶（一）：内存空间详细图解"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/10/62a229f378f16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-10</div><div class="title">前端基础进阶（一）：内存空间详细图解</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9527/" title="JavaScript 核心进阶"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/09/62a0e411ed838.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-09</div><div class="title">JavaScript 核心进阶</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9529/" title="前端基础进阶（二）：执行上下文详细图解"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/12/62a5cb5aa2fe2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（二）：执行上下文详细图解</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9530/" title="前端基础进阶（三）：变量对象详解"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/12/62a5de91bc968.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（三）：变量对象详解</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9532/" title="前端基础进阶（五）：闭包"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/13/62a742049639e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-13</div><div class="title">前端基础进阶（五）：闭包</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9531/" title="前端基础进阶（四）：作用域与作用域链"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/12/62a5fe9aaff7a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（四）：作用域与作用域链</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/@3.7.1/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>本站只保留入口，即将不再更新内容，请切换成回最新版本。</div><div id="qq-btn"><a id="a-qun" href="https://fe32.top/" target="_blank">回最新版本 ✨</a></div><div id="qq-btn" style="margin-top:10px"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="xpand" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%96%87%E5%9B%9E%E9%A1%BE"><span class="toc-number">1.</span> <span class="toc-text">前文回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">本文简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AF%E4%BD%9C%E7%94%A8%E5%A4%84%E7%90%86%EF%BC%9A%E5%8D%95%E5%AD%90-Monad%EF%BC%8C%E4%B8%80%E7%A7%8D%E4%B8%8D%E5%8F%AF%E9%81%BF%E5%85%8D%E7%9A%84%E6%8A%BD%E8%B1%A1"><span class="toc-number">3.</span> <span class="toc-text">副作用处理：单子 Monad，一种不可避免的抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMonad%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">什么是Monad？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E7%95%B4%E3%80%81%E7%BE%A4%E3%80%81%E5%B9%BA%E5%8D%8A%E7%BE%A4"><span class="toc-number">3.2.</span> <span class="toc-text">范畴、群、幺半群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Monad%E8%8C%83%E7%95%B4%EF%BC%9A%E5%AE%9A%E5%BE%8B%E3%80%81%E6%8A%98%E5%8F%A0%E5%92%8C%E9%93%BE"><span class="toc-number">3.3.</span> <span class="toc-text">Monad范畴：定律、折叠和链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maybe%E5%92%8CEither"><span class="toc-number">3.4.</span> <span class="toc-text">Maybe和Either</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">3.5.</span> <span class="toc-text">IO的处理方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">函数式编程的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97"><span class="toc-number">4.1.</span> <span class="toc-text">设计一个请求模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E8%BE%93%E5%85%A5%E6%A1%86"><span class="toc-number">4.2.</span> <span class="toc-text">设计一个输入框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E9%95%BF%E6%96%87%E6%9C%AC%E7%9C%81%E7%95%A5%EF%BC%9ARamdajs%E4%B8%BA%E4%BE%8B"><span class="toc-number">4.3.</span> <span class="toc-text">超长文本省略：Ramdajs为例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%BA%93%E3%80%81%E8%AF%AD%E8%A8%80"><span class="toc-number">5.</span> <span class="toc-text">函数式编程库、语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">6.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3"><span class="toc-number">6.2.</span> <span class="toc-text">不足</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FAQ"><span class="toc-number">7.</span> <span class="toc-text">FAQ</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/xn2023lb/" title="虚拟列表，我真的会了！"><img data-lazy-src="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="虚拟列表，我真的会了！"/></a><div class="content"><a class="title" href="/@3.7.1/articles/xn2023lb/" title="虚拟列表，我真的会了！">虚拟列表，我真的会了！</a><time datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/uni10089/" title="Uni-App 如何实现消息推送功能？"><img data-lazy-src="https://bu.dusays.com/2022/12/04/638caada75585.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Uni-App 如何实现消息推送功能？"/></a><div class="content"><a class="title" href="/@3.7.1/articles/uni10089/" title="Uni-App 如何实现消息推送功能？">Uni-App 如何实现消息推送功能？</a><time datetime="2023-01-12T06:47:47.000Z" title="发表于 2023-01-12 14:47:47">2023-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/hexo1618/" title="Hexo + Butterfly 侧边栏公众号"><img data-lazy-src="https://bu.dusays.com/2023/01/05/63b6cb1a2bab2.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Hexo + Butterfly 侧边栏公众号"/></a><div class="content"><a class="title" href="/@3.7.1/articles/hexo1618/" title="Hexo + Butterfly 侧边栏公众号">Hexo + Butterfly 侧边栏公众号</a><time datetime="2023-01-05T12:50:31.000Z" title="发表于 2023-01-05 20:50:31">2023-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/uni10088/" title="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法"><img data-lazy-src="https://bu.dusays.com/2023/01/05/63b6bcddb26d2.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法"/></a><div class="content"><a class="title" href="/@3.7.1/articles/uni10088/" title="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法">Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法</a><time datetime="2023-01-05T08:05:31.000Z" title="发表于 2023-01-05 16:05:31">2023-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/blog9527/" title="时光飞逝，博客两周年啦"><img data-lazy-src="https://bu.dusays.com/2022/12/13/63987cfb1d701.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="时光飞逝，博客两周年啦"/></a><div class="content"><a class="title" href="/@3.7.1/articles/blog9527/" title="时光飞逝，博客两周年啦">时光飞逝，博客两周年啦</a><time datetime="2022-12-11T15:45:14.000Z" title="发表于 2022-12-11 23:45:14">2022-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://bu.dusays.com/2022/06/09/62a0e5cc8bfd2.png')"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/wallpaper/">一些壁纸</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/"><img src="https://lskypro.acozycotage.net/LightPicture/2023/01/7062b6bb75b640b7.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div><div class="copyright">&copy;2020 - 2023  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Ethan.Tzy</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.✨✨✨<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://icp.gov.moe/?keyword=20220686" title="本站已加入萌ICP豪华套餐，萌ICP备20220686号"><img src="https://img.shields.io/badge/%E8%90%8CICP%E5%A4%87-20220686-fe1384?style-flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAAByxJREFUSInl1nlwVeUZx/HPuTckkD0kQFiCEEIUlNUCAqKoSBV1AIt1ikpVLFbLONjWGUXbmWrbweJMy7hUxbbTjsUq6KCiWEvr0kE2WVK2QCKBJCxJgEASsienfxwqMob+3Zm+f93z3vM+32f5vc9z+H9bwVcfOp/YQ+1prhhEZS1VDQzqQ1MjiQmIC5Liwm3lBWpqFimrulb/7A/067vM2IsOBZ2h8MhJQW6KMDNVsKeaizKEyUlsKueqgWJ39AMJF3QpDCNYr1SaEig/lWNX2Z1h6dH5/lVyGdVIZFf7MHo9bEfh9rCg/+8NyHlN77QTsnpQ0i2y08VK+BosfhbW0cHxqmSfFd9qW+l9Pi+5WltFdGTsOBbO5dJcdh3lN5+xff0Y2zuelXjRsyYUrjOu4BVJaavlpbWIJRBLOM+J81O95AAnTtM9vNHGknut3zdT48FutJE3koWTuG4oSXH+VsInX3B9IdcVUNfCuv08t4GjO6NspOa3BNcOXx1eOugVHQnrTMkTuyWrC/BjRZO9uPYTpw7HhTWkXcLd45l9GblpHD7NWzt5ZTMXZ/OdkTy+lvR07rmcmWffq6pn9W5e/oymfcT6kJbXHiydMyVYkL/x66n+ZMcctQfjhgxl6UIGZ3Ooltd2RIZqjqKRS0ew9cFIA1cO5urlLHuPZWsZPJiZw7gqn0VT2HCIR9+jvCQhfHPrLGyE2Hng2roBxHnmJoZnc9drbD3I6QaaWkjpSVoeu4+x5XB05qMDqCenHz37UHmcFRv54ZuMeoYrB/L0DPRgZ0WfrsXVKzPX3nYykrn3dUZl8+Q0Qox/gc/L6ZlKzxQefo+UROpa6Z4VCedkPd8YyJYHI3u5T/HAShZNQxsXZfR3pCtwRW066VEeOuIUVUf77+9jTw2pycTOJml7Je1t9EgiI5X2jkgyze1fCSSdtjhBiJCkpKyuI+5oTdAtkTCgVwrbKsl8ko6QjO40tZ67EpkpdIbRf20dkbPpPTjdwsSX6I5dJYy4hoQAaZQdDy4A1iEMI613T6LtBPXJpPakrjGqc1Y6CTFq62htJp5KRwPJKWSkU3WKiiPEEqO6xgM6oZmctJhDXYH7Z59xuCyKpK6R26ZE+ys3MWYoN1/Mc5uoqmbEQJ6fTc/ulJ3i/lUc+YIfzeKhKzjVHN31A3XRHddKSrf6/6DOV3VTcw1hVKfkxOhaPDAe1UwfwmNTqT1Drxw+nE9xNXetIjHG2vnoxoT+rNrN2Of58Rp6JZ+ldKes5kjX4G7dKuikpoERfaltYnQ/DOSS3hEAFk9lXQkLnmf7Ib65lPJT3HU1+46Tm8rYvgzKYVA2h+vQIMjvewHwdSN20MiOSmZczO4a1hSzYi77T7CiiPF5JMTZexjJ5OagkwNV9M+MnJ09nKU3smgyQ3PYWoEO4fUjii4QceJmevJuMeP6csUAln4atcbSGoqOUpjD30uZNwnpHNtN3lC+NZa1xeT34pGVTJ3PL9+Ohs6GQ8gVtHZs6VLVwZhBReGwoXvt3THM/hP0SWVnCR8f4PMjkffjB/DQS8waxpHFfFgaaeHZDRRtJn0yP5tF31ymFVJ2nN27GD66KBzca2/XEWdkUpD3Fmd4tYj0FMS54Q9UnuaDUv6yE/24ewWP/DU6N/d1fvousYEs28DyLVEvGDOAt/egmSkXv2VYn3NBfpXbua6J8hMFFvy2RHsL+57gmX+w/AN651PfEDWQzLRI+afqIqOxFDJT6Rbn9Bmad3PnTH5wIxOXkJTWGiz57hCDsyqDWVldRNzeyOh+paaPfpFKnvqQX88iZwDVx0lLJqUHbe3EkZ1Odm+yUqK2GHYKmhvIG8fyeTz9IY5x67jnFPapdPDkl6jzwEF9IDjZJlgwfbG+o2u8+g4rd7D/UYI41TXnevV5K4j2q6uESckUP8rvNrH6fUH/sRXB9AlPONMSDZ8uazwoi56JjEyvdftV88jinhf4uIzmJRQOoOYgja0RKAiIBZxpjvZH5tP0c97axcLlyBXOuWZemJTYFFbUCU+1dl3j8PGSyFhnJ7EkYcWh7/njqpep5xfzWTyZZ7dEg73xOJKiGqf3YenNLBjLTz7i539COg/OvSOYO2GFo/VRG0Zwe0YX4Ns3R7NXSCxBeM8IthXfZvGf3xCWc/kkXvg2vVP4YB/rDzC1gGlDo+50/xvs2khKPrNnzAzmTH5HbzR0fkkKro93Ab5vx9kfaGgT3lLA5EyWbRpoTdHbSreOppGJV/PwlRTksK+aZz5l6z+RLBgxaau5k2cJelTKzmRQMq0d51J8UxL+23d1TDTcj7WQllZu4YwxDo+eZc22X9mwd6gN65GIFmQzampxcMOoR1xeuMbpVoqromsXdG3+wmCiekNtfSSmiUNWu2zgap+WjlZW8X11TeNkpWwICvNfCm8u3Cmxg4PN0VdmEJw7/7+0/g32RaqCbhRecAAAAABJRU5ErkJggg=="></a>&nbsp;<a target="_blank" href="https://vercel.com/"><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="在线聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="fa-solid fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="fa-solid fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="fa-solid fa-arrow-rotate-right"></i></div><div class="rightMenu-item" id="menu-home"><i class="fa-solid fa-house"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="fa-solid fa-copy"></i><span>复制文本</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="fa-solid fa-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="fa-solid fa-copy"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="fa-solid fa-copy"></i><span>复制图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="fa-solid fa-download"></i><span>下载图片</span></div><div class="rightMenu-item" id="menu-search"><i class="fa-solid fa-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="fa-solid fa-magnifying-glass"></i><span>百度搜索</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-radompage"><i class="fa-solid fa-shoe-prints"></i><span>随便逛逛</span></div><a class="rightMenu-item menu-link" href="/archives/"><i class="fa-solid fa-archive"></i><span>文章归档</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="fa-solid fa-folder-open"></i><span>文章分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="fa-solid fa-tags"></i><span>文章标签</span></a><a class="rightMenu-item" id="menu-goto-comment" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item menu-link" href="/sponsorWall/"><i class="fa-solid fa-money-check-alt"></i><span>赞助墙</span></a></div><div class="rightMenu-group rightMenu-line rightMenuNormal"><div class="rightMenu-item" id="menu-translate"><i class="fa-solid fa-earth-asia"></i><span>繁简切换</span></div><div class="rightMenu-item" id="menu-readmode"><i class="fa-solid fa-book-open"></i><span>阅读模式</span></div><div class="rightMenu-item" id="menu-print"><i class="fa-solid fa-print fa-fw"></i><span>打印页面</span></div><div class="rightMenu-item" id="menu-copy"><i class="fa-solid fa-share"></i><span>分享本页</span></div></div></div><div id="rightmenu-mask"></div><div id="myscoll"></div><div><script src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script src="/@3.7.1/"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/utils.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/tw_cn.js"></script><script src="https://npm.elemecdn.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/search/algolia.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        //- const ele = document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)')
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo.fe32.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="pjax-reload"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInX');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow.min.js"></script><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow_init.js"></script><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/cat.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/issues.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople1.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/zdog.dist.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople.js"></script><canvas id="universe"></canvas><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/universe.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/ethan_tzy.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu@1111.js"></script><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/meting.min.js"></script><script src="https://npm.elemecdn.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener toc scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+
+  typeof preloader === 'object' && preloader.initLoading()
+
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  //- document.querySelectorAll('script[data-pjax]').forEach(item => {
+  
+  document.querySelectorAll('script[data-pjax], .pjax-reload script').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+//- document.addEventListener('pjax:send', function () {
+//-   typeof preloader === 'object' && preloader.initLoading()
+  
+//-   if (window.aplayers) {
+//-     for (let i = 0; i < window.aplayers.length; i++) {
+//-       if (!window.aplayers[i].options.fixed) {
+//-         window.aplayers[i].destroy()
+//-       }
+//-     }
+//-   }
+
+//-   typeof typed === 'object' && typed.destroy()
+
+//-   //reset readmode
+//-   const $bodyClassList = document.body.classList
+//-   $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+//- })
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    if (false) {
+      location.hash && e.request.responseURL !== location.href ? pjax.loadUrl(location.href) : pjax.loadUrl('/404.html')
+      return
+    }
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

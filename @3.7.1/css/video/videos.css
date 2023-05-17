@@ -1,0 +1,214 @@
+a,
+a:hover,
+a:active,
+a:visited {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer
+}
+
+.videos-head {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 500px;
+    z-index: -1
+}
+
+@media(max-width:768px) {
+    .videos-head {
+        height: 200px
+    }
+}
+
+.videos-head img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover
+}
+
+.videos-head-title-en {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    opacity: .6;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 2px
+}
+
+.videos-head-title-cn {
+    position: absolute;
+    top: 136px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    opacity: .6;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 25px
+}
+
+@media(max-width:768px) {
+    .videos-head-title-en,
+    .videos-head-title-cn {
+        display: none
+    }
+}
+
+.videos-placeholder {
+    width: 100%;
+    height: 500px;
+    background: url(http://qnp.shanxiaxuetang.com/videos-bg.jpg) no-repeat center;
+    background-size: cover
+}
+
+.videos {
+    width: 100%;
+    background-color: white
+}
+
+.videos-container {
+    color: #646464;
+    text-align: center;
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 100px 20px 0 20px
+}
+
+@media(max-width:768px) {
+    .videos-container {
+        padding: 19px 0 0 0;
+        padding: auto;
+        width: 85.33%
+    }
+}
+
+.videos-title {
+    color: #646464;
+    opacity: .6;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 25px;
+    margin-bottom: 38px
+}
+
+@media(max-width:768px) {
+    .videos-title {
+        opacity: 1;
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 10px
+    }
+}
+
+.videos-list {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    margin-left: 0
+}
+
+@media(max-width:768px) {
+    .videos-list {
+        justify-content: space-between;
+        margin: 0
+    }
+}
+
+.videos-item {
+    margin-bottom: 30px
+}
+
+@media(max-width:768px) {
+    .videos-item {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        padding-left: 0;
+        padding-right: 0
+    }
+}
+
+.videos-item-video {
+    position: relative;
+    width: 100%;
+    padding-top: 54.8%;
+    overflow: hidden;
+    background-color: black;
+    flex-shrink: 0;
+    margin-bottom: 19px
+}
+
+@media(max-width:768px) {
+    .videos-item-video {
+        padding-top: 37.5%;
+        margin-bottom: 17px
+    }
+}
+
+.videos-item-video:hover {
+    cursor: pointer
+}
+
+.videos-item-thumbnail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover
+}
+
+.videos-item-play {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto !important;
+    height: 54px;
+    width: 54px;
+    transition: all .2s linear;
+    pointer-events: none
+}
+
+@media(max-width:768px) {
+    .videos-item-play {
+        width: 35px;
+        height: 35px
+    }
+    .videos-item-play-iOS {
+        display: none
+    }
+}
+
+.videos-more {
+    margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 33px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+@media(max-width:768px) {
+    .videos-more {
+        padding-top: 10px;
+        padding-bottom: 50px;
+        font-size: 10px;
+        line-height: 14px
+    }
+}

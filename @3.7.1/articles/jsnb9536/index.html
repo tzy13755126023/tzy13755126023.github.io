@@ -1,0 +1,582 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>前端基础进阶（九）：函数与函数式编程 | 唐志远の博客</title><meta name="keywords" content="JavaScript,js,JS,前端进阶"><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="函数声明、函数表达式、匿名函数与自执行函数函数声明JavaScript中，有两种声明方式，一个是使用var&#x2F;let&#x2F;const的变量声明，另一个是使用function的函数声明。 在 前端基础进阶（三）：变量对象详解 一文中有提到过，变量对象的创建过程中，函数声明比变量声明具有更为优先的执行顺序，即常常提到的函数声明提前。因此在执行上下文中，无论在什么位置声明了函数，都可以在同一个执行上下文中直接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端基础进阶（九）：函数与函数式编程">
+<meta property="og:url" content="https://fe32.top/articles/jsnb9536/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="函数声明、函数表达式、匿名函数与自执行函数函数声明JavaScript中，有两种声明方式，一个是使用var&#x2F;let&#x2F;const的变量声明，另一个是使用function的函数声明。 在 前端基础进阶（三）：变量对象详解 一文中有提到过，变量对象的创建过程中，函数声明比变量声明具有更为优先的执行顺序，即常常提到的函数声明提前。因此在执行上下文中，无论在什么位置声明了函数，都可以在同一个执行上下文中直接">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/06/20/62af4e9834a67.png">
+<meta property="article:published_time" content="2022-06-19T10:57:43.000Z">
+<meta property="article:modified_time" content="2022-11-09T13:45:19.386Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="前端进阶">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/06/20/62af4e9834a67.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/jsnb9536/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/index.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/fortawesome.all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/2.10.5/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/2.10.5/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/animate.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/@3.7.1/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#6f42c1","position":"top-left"},
+  source: {
+    jQuery: 'https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-09 21:45:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom:70px}</style><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/ethan.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/plane_v2.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu.css"><meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/@3.7.1/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div></a><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/06/09/62a0e5cc8bfd2.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/@3.7.1/">唐志远の博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端基础进阶（九）：函数与函数式编程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-19T10:57:43.000Z" title="发表于 2022-06-19 18:57:43">2022-06-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-09T13:45:19.386Z" title="更新于 2022-11-09 21:45:19">2022-11-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/@3.7.1/categories/JavaScript/">JavaScript</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端基础进阶（九）：函数与函数式编程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="函数声明、函数表达式、匿名函数与自执行函数"><a href="#函数声明、函数表达式、匿名函数与自执行函数" class="headerlink" title="函数声明、函数表达式、匿名函数与自执行函数"></a>函数声明、函数表达式、匿名函数与自执行函数</h2><h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>JavaScript中，有两种声明方式，一个是使用<code>var/let/const</code>的变量声明，另一个是使用<code>function</code>的函数声明。</p>
+<p>在 <a href="https://fe32.top/articles/jsnb9530/">前端基础进阶（三）：变量对象详解</a> 一文中有提到过，变量对象的创建过程中，函数声明比变量声明具有更为优先的执行顺序，即常常提到的函数声明提前。因此在执行上下文中，无论在什么位置声明了函数，都可以在同一个执行上下文中直接使用该函数。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">fn();  <span class="comment">// function</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><p>与函数声明不同，函数表达式使用了<code>var/let/const</code>进行声明，在确认它是否可以正确使用的时候就必须依照<code>var/let/const</code>的规则进行判断，即变量声明。使用var进行变量声明，其实是进行了两步操作。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 变量声明</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实际执行顺序</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="literal">undefined</span>;  <span class="comment">// 变量声明，初始值undefined，变量提升，提升顺序次于function声明</span></span><br><span class="line">a = <span class="number">20</span>;  <span class="comment">// 变量赋值，该操作不会提升</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>同样的道理，当使用变量声明的方式来声明函数时，就是常常说的函数表达式。函数表达的提升方式与变量声明一致。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">fn(); <span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上例子的执行顺序为：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="literal">undefined</span>;   <span class="comment">// 变量声明提升</span></span><br><span class="line">fn();    <span class="comment">// 执行报错</span></span><br><span class="line">fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{   <span class="comment">// 赋值操作，此时将后边函数的引用赋值给fn</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>由于声明方式的不同，导致了函数声明与函数表达式在使用上的一些差异需要我们注意，除此之外，这两种形式的函数在使用上并无不同。</p>
+</blockquote>
+<p>关于上面例子，函数表达式中的赋值操作，在其他一些地方也会被经常使用，我们清楚其中的关系即可。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 在构造函数中添加方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>{</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    <span class="comment">// 在构造函数内部中添加方法</span></span><br><span class="line">    <span class="built_in">this</span>.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.age;</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">this</span>.</span><br><span class="line">}</span><br><span class="line"><span class="comment">// 给原型添加方法</span></span><br><span class="line">Person.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在对象中添加方法</span></span><br><span class="line"><span class="keyword">var</span> a = {</span><br><span class="line">    m: <span class="number">20</span>,</span><br><span class="line">    getM: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.m;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p>匿名函数，顾名思义，就是指的没有被显示进行赋值操作的函数。它的使用场景，多作为一个参数传入另一个函数中。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">bar, num</span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> bar() + num;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">fn(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">}, <span class="number">20</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在上面的例子中，fn的第一个参数传入了一个匿名函数。虽然该匿名函数没有显示的进行赋值操作，我们没有办法在外部执行上下文中引用到它，但是在fn函数内部，我们将该匿名函数赋值给了变量bar，保存在了fn变量对象的arguments对象中。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 变量对象在fn上下文执行过程中的创建阶段</span></span><br><span class="line">VO(fn) = {</span><br><span class="line">    <span class="built_in">arguments</span>: {</span><br><span class="line">        bar: <span class="literal">undefined</span>,</span><br><span class="line">        num: <span class="literal">undefined</span>,</span><br><span class="line">        length: <span class="number">2</span></span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 变量对象在fn上下文执行过程中的执行阶段</span></span><br><span class="line"><span class="comment">// 变量对象变为活动对象，并完成赋值操作与执行可执行代码</span></span><br><span class="line">VO -&gt; AO</span><br><span class="line"></span><br><span class="line">AO(fn) = {</span><br><span class="line">    <span class="built_in">arguments</span>: {</span><br><span class="line">        bar: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="keyword">return</span> a },</span><br><span class="line">        num: <span class="number">20</span>,</span><br><span class="line">        length: <span class="number">2</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>由于匿名函数传入另一个函数之后，最终会在另一个函数中执行，因此我们也常常称这个匿名函数为 <span class="p blue">回调函数</span> 。关于匿名函数更多的内容，将会在下一篇深入探讨柯里化的文章中进行更加详细讲解。</p>
+<span class="p blue">匿名函数的这个应用场景几乎承担了函数的所有难以理解的知识点</span> ，一定要对它的这些细节了解的足够清楚，如果对于变量对象的演变过程你还看不太明白，一定要回过头去看这篇文章：[前端基础进阶（三）：变量对象详解](https://fe32.top/articles/jsnb9530/)
+
+<h3 id="函数自执行与块级作用域"><a href="#函数自执行与块级作用域" class="headerlink" title="函数自执行与块级作用域"></a>函数自执行与块级作用域</h3><p>在ES5中，没有块级作用域，因此我们常常使用函数自执行的方式来模仿块级作用域，这样就提供了一个独立的执行上下文，结合闭包，就为模块化提供了基础。而函数自执行，其实是匿名函数的一种应用。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">   <span class="comment">// ...</span></span><br><span class="line">})();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>一个模块往往可以包括：私有变量、私有方法、公有变量、公有方法。</p>
+<p>根据作用域链的单向访问，外面可能很容易知道在这个独立的模块中，外部执行环境是无法访问内部的任何变量与方法的，因此我们可以很容易的创建属于这个模块的私有变量与私有方法。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="comment">// 私有变量</span></span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'Tom'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`your name is `</span> + name;</span><br><span class="line">    }</span><br><span class="line">})();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>但是共有方法和变量应该怎么办？大家还记得前面讲到过的 <span class="p blue">闭包</span> 的特性吗？没错，利用闭包，可以访问到执行上下文内部的变量和方法，因此，只需要根据闭包的定义，创建一个闭包，将你认为需要公开的变量和方法开放出来即可。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="comment">// 私有变量</span></span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'Tom'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`your name is `</span> + name;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 共有方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getAge</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将引用保存在外部执行环境的变量中，形成闭包，防止该执行环境被垃圾回收</span></span><br><span class="line">    <span class="built_in">window</span>.getAge = getAge;</span><br><span class="line">})();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>为了帮助大家进一步理解闭包，我们来看看jQuery中，是如何利用模块与闭包的。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 使用函数自执行的方式创建模块</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">window</span>, <span class="literal">undefined</span></span>) </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明jQuery构造函数</span></span><br><span class="line">     <span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>{</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 主动在构造函数中，返回一个jQuery实例</span></span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init(name);</span><br><span class="line">     }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加原型方法</span></span><br><span class="line">     jQuery.prototype = jQuery.fn = {</span><br><span class="line">         <span class="title">constructor</span>: <span class="title">jQuery</span>,</span><br><span class="line">         <span class="title">init</span>:<span class="title">function</span>(<span class="params"></span>) { ... },</span><br><span class="line">         css: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ ... }</span><br><span class="line">     }</span><br><span class="line">     jQuery.fn.init.prototype = jQuery.fn;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将jQuery改名为$，并将引用保存在window上，形成闭包，对外开放jQuery构造函数，就可以访问所有挂载在jQuery原型上的方法了</span></span><br><span class="line">     <span class="built_in">window</span>.jQuery = <span class="built_in">window</span>.$ = jQuery;</span><br><span class="line"> })(<span class="built_in">window</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在使用时，直接执行了构造函数，因为在jQuery的构造函数中通过一些手段，返回的是jQuery的实例，所以就不用再每次用的时候自己new一个实例</span></span><br><span class="line">$(<span class="string">'#div1'</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在这里，只需看懂闭包与模块的部分就行，至于内部的原型链是如何绕的，为什么会这样写，在讲面向对象的时候会为大家慢慢分析。举这个例子的目的所在，就是希望大家能够重视函数，在实际开发中，它无处不在。</p>
+<p>接下来我要分享一个高级的，非常有用的模块的应用。当项目越来越大，那么需要保存的数据与状态就越来越多，因此，我们需要一个专门的模块来维护这些数据，这个时候，一个叫做状态管理器的东西就应运而生。对于状态管理器，最出名的，我想非redux莫属了。虽然对于还在学习中的大家来说，redux是一个有点高深莫测的东西，但是在我们学习之前，可以先通过简单的方式，让大家大致了解状态管理器的实现原理，为我们未来的学习奠定坚实的基础。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 自执行创建模块</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="comment">// states 结构预览</span></span><br><span class="line">    <span class="comment">// states = {</span></span><br><span class="line">    <span class="comment">//     a: 1,</span></span><br><span class="line">    <span class="comment">//     b: 2,</span></span><br><span class="line">    <span class="comment">//     m: 30,  </span></span><br><span class="line">    <span class="comment">//     o: {}</span></span><br><span class="line">    <span class="comment">// }</span></span><br><span class="line">    <span class="keyword">var</span> states = {};  <span class="comment">// 私有变量，用来存储状态与数据</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断数据类型</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">elem</span>) </span>{</span><br><span class="line">        <span class="keyword">if</span>(elem == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">return</span> elem + <span class="string">''</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> toString.call(elem).replace(<span class="regexp">/[\[\]]/g</span>, <span class="string">''</span>).split(<span class="string">' '</span>)[<span class="number">1</span>].toLowerCase();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Param </span>name 属性名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description </span>通过属性名获取保存在states中的值</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">name</span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> states[name] ? states[name] : <span class="string">''</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getStates</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">return</span> states;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * @param options {object} 键值对</span></span><br><span class="line"><span class="comment">    * @param target {object} 属性值为对象的属性，只在函数实现时递归中传入</span></span><br><span class="line"><span class="comment">    * @desc 通过传入键值对的方式修改state树，使用方式与小程序的data或者react中的setStates类似</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params">options, target</span>) </span>{</span><br><span class="line">        <span class="keyword">var</span> keys = <span class="built_in">Object</span>.keys(options);</span><br><span class="line">        <span class="keyword">var</span> o = target ? target : states;</span><br><span class="line"></span><br><span class="line">        keys.map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>{</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">typeof</span> o[item] == <span class="string">'undefined'</span>) {</span><br><span class="line">                o[item] = options[item];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">else</span> {</span><br><span class="line">                type(o[item]) == <span class="string">'object'</span> ? set(options[item], o[item]) : o[item] = options[item];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> item;</span><br><span class="line">        })</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对外提供接口</span></span><br><span class="line">    <span class="built_in">window</span>.get = get;</span><br><span class="line">    <span class="built_in">window</span>.set = set;</span><br><span class="line">    <span class="built_in">window</span>.getStates = getStates;</span><br><span class="line">})()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体使用如下</span></span><br><span class="line"></span><br><span class="line">set({ <span class="attr">a</span>: <span class="number">20</span> });     <span class="comment">// 保存 属性a</span></span><br><span class="line">set({ <span class="attr">b</span>: <span class="number">100</span> });    <span class="comment">// 保存属性b</span></span><br><span class="line">set({ <span class="attr">c</span>: <span class="number">10</span> });     <span class="comment">// 保存属性c</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存属性o, 它的值为一个对象</span></span><br><span class="line">set({</span><br><span class="line">    o: {</span><br><span class="line">        m: <span class="number">10</span>,</span><br><span class="line">        n: <span class="number">20</span></span><br><span class="line">    }</span><br><span class="line">})</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改对象o 的m值</span></span><br><span class="line">set({</span><br><span class="line">    o: {</span><br><span class="line">        m: <span class="number">1000</span></span><br><span class="line">    }</span><br><span class="line">})</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给对象o中增加一个c属性</span></span><br><span class="line">set({</span><br><span class="line">    o: {</span><br><span class="line">        c: <span class="number">100</span></span><br><span class="line">    }</span><br><span class="line">})</span><br><span class="line"><span class="built_in">console</span>.log(getStates())</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在单页应用中，我们很可能会用到这样的思路。</p>
+<blockquote>
+<p>函数自执行的方式另外还有其他几种写法，诸如!function(){}()，+function(){}()</p>
+</blockquote>
+<h2 id="函数参数传递方式：按值传递"><a href="#函数参数传递方式：按值传递" class="headerlink" title="函数参数传递方式：按值传递"></a>函数参数传递方式：按值传递</h2><p>还记得基本数据类型与引用数据类型在复制上的差异吗？基本数据类型复制，是值直接发生了复制，因此改变后，各自相互不影响。但是引用数据类型的复制，是保存在变量对象中的引用发生了复制，因此复制之后的这两个引用实际访问的实际是同一个堆内存中的值。当改变其中一个时，另外一个自然也被改变。如下例。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);  <span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m = { <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span> }</span><br><span class="line"><span class="keyword">var</span> n = m;</span><br><span class="line">n.a = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(m.a) <span class="comment">// 5</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>当值作为函数的参数传递进入函数内部时，也有同样的差异。函数的参数在进入函数后，实际是被保存在了函数的变量对象中，因此，这个时候相当于发生了一次复制。如下例。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a</span>) </span>{</span><br><span class="line">    a = a + <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">}</span><br><span class="line">fn(a);</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 20</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = { <span class="attr">m</span>: <span class="number">10</span>, <span class="attr">n</span>: <span class="number">20</span> }</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a</span>) </span>{</span><br><span class="line">    a.m = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">fn(a);</span><br><span class="line"><span class="built_in">console</span>.log(a);   <span class="comment">// { m: 20, n: 20 }</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>正是由于这样的不同，导致了许多人在理解函数参数的传递方式时，就有许多困惑。到底是按值传递还是按引用传递？实际上结论仍然是按值传递，只不过当我们期望传递一个引用类型时，真正传递的，只是这个引用类型保存在变量对象中的引用而已。为了说明这个问题，看看下面这个例子。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = {</span><br><span class="line">    name: <span class="string">'Nicholas'</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>) </span>{  <span class="comment">// 传入一个引用</span></span><br><span class="line">    obj = {};   <span class="comment">// 将传入的引用指向另外的值</span></span><br><span class="line">    obj.name = <span class="string">'Greg'</span>;  <span class="comment">// 修改引用的name属性</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">setName(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.name);  <span class="comment">// Nicholas 未被改变</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>在上面的例子中，如果person是按引用传递，那么person就会自动被修改为指向其name属性值为Gerg的新对象。从结果中看到，person对象并未发生任何改变，因此只是在函数内部引用被修改而已。</p>
+<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><p>虽然JavaScript并不是一门纯函数式编程的语言，但是它使用了许多函数式编程的特性。</p>
+<p>我们通常通过函数封装来完成一件事情。例如，想要计算任意三个数的和，可以将这三个数作为参数，封装一个简单的函数。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b, c</span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> a + b + c;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当要计算三个数的和时，直接调用该方法即可。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">add(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 6</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>当我们想要做的事情比较简单时，可能还看不出来封装成为函数之后带来的便利。但想要做的事情稍微复杂一点呢。例如计算一个数组中的所有子项目的和。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeArr</span>(<span class="params">arr</span>) </span>{</span><br><span class="line">    <span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) { result  += arr[i] }</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果不通过函数封装的方式，那么再每次想要实现这个功能时，就不得不重新使用一次for循环，这样的后果导致代码中充斥着越来越多的重复代码。而封装之后，想要再次做这件事情的时候，只需要一句话就可以了。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line">mergeArr([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们在初学时，往往会不由自主的使用命令式编程的风格来完成我们想要干的事情。因为命令式编程更加的简单，直白。例如我们现在有一个数组，<code>array = [1, 3, 'h', 5, 'm', '4']</code>，现在想要找出这个数组中的所有类型为number的子项。当我们使用命令式编程思维时，可能就会直接这样做。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">3</span>, <span class="string">'h'</span>, <span class="number">5</span>, <span class="string">'m'</span>, <span class="string">'4'</span>];</span><br><span class="line"><span class="keyword">var</span> res = [];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i ++) {</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> array[i] === <span class="string">'number'</span>) {</span><br><span class="line">        res.push(array[i]);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这种方式中平铺直叙的实现了我们的目的。这样做的问题在于，当我们在另外的时刻，想要找出另外一个数组中所有的子项时，不得不把同样的逻辑再写一次。当出现次数变多时，我们的代码也变得更加糟糕且难以维护。</p>
+<p>函数式编程的思维则建议我们将这种会多次出现的功能封装起来以备调用。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNumbers</span>(<span class="params">array</span>) </span>{</span><br><span class="line">    <span class="keyword">var</span> res = [];</span><br><span class="line">    array.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>{</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">'number'</span>) {</span><br><span class="line">            res.push(item);</span><br><span class="line">        }</span><br><span class="line">    })</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上是我们的封装，以下是功能实现</span></span><br><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">3</span>, <span class="string">'h'</span>, <span class="number">5</span>, <span class="string">'m'</span>, <span class="string">'4'</span>];</span><br><span class="line"><span class="keyword">var</span> res = getNumbers(array);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将功能封装之后，我们实现同样的功能时，只需要写一行代码。而如果未来需求变动，或者稍作修改，我们只需要对getNumbers方法进行调整就可以了。而且在使用时，只需要关心这个方法能做什么，而不用关心具体是如何实现的。这也是函数式编程思维与命令式不同的地方之一。</p>
+<p>函数式编程思维还具有以下几个特征：</p>
+<p class="p blue">1. 函数是第一等公民</p>
+
+<p>所谓”第一等公民”（first class），指的是函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>{}  <span class="comment">// 赋值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"><span class="keyword">function</span>() {}, num</span>) </span>{}   <span class="comment">// 函数作为参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数作为返回值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">var</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">        ... ...</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>当然，这都是JavaScript的基本概念。但是我想很多人，甚至包括正在阅读的你自己都可能会无视这些概念。可以用一个简单的例子来验证一下。</p>
+<p>先自定义这样一个函数。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delay</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'5000ms之后执行该方法.'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>现在要做的是，如果要求你结合setTimeout方法，让delay方法延迟5000ms执行，应该怎么做？</p>
+<p>其实很简单，对不对，直接这样就可以了。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    delay();</span><br><span class="line">}, <span class="number">5000</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>那么现在问题来了，如果你对函数是一等公民有一个深刻的认知，我想你会发现上面这种写法其实是有一些问题的。所以思考一下，问题出在哪里？</p>
+<p>函数既然能够作为一个参数传入另外一个函数，那么我们是不是可以直接将delay作为setTimeout的第一个参数，而不用额外的多加一层匿名函数呢？</p>
+<p>因此，其实最正确的解法应该这样写。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = <span class="built_in">setTimeout</span>(delay, <span class="number">5000</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p class="p blue">2. 只用"表达式"，不用"语句"</p>
+
+<p>“表达式”（expression）是一个单纯的运算过程，总是有返回值；”语句”（statement）是执行某种操作，没有返回值。函数式编程要求，只使用表达式，不使用语句。也就是说，每一步都是单纯的运算，而且都有返回值。</p>
+<p>假如在项目中，多处需要改变某个元素的背景色。我们可以这样封装一下。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.querySelector(<span class="string">'.test'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setBackgroundColor</span>(<span class="params">color</span>) </span>{</span><br><span class="line">    ele.style.backgroundColor = color;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多处使用</span></span><br><span class="line">setBackgroundColor(<span class="string">'red'</span>);</span><br><span class="line">setBackgroundColor(<span class="string">'#ccc'</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们可以很明显的感受到，setBackgroundColor封装的仅仅只是一条语句。这并不是理想的效果。函数式编程期望一个函数有输入，也有输出。因此良好的习惯应该如下做：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setBackgroundColor</span>(<span class="params">ele, color</span>) </span>{</span><br><span class="line">    ele.style.backgroundColor = color;</span><br><span class="line">    <span class="keyword">return</span> color;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多处使用</span></span><br><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.querySelector(<span class="string">'.test'</span>);</span><br><span class="line">setBackgroundColor(ele, <span class="string">'red'</span>);</span><br><span class="line">setBackgroundColor(ele, <span class="string">'#ccc'</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>了解这一点，我们自己在封装函数的时候也要养成良好的习惯。</p>
+<p class="p blue">3. 纯函数</p>
+
+<p>相同的输入总会得到相同的输出，并且不会产生副作用的函数，就是纯函数。</p>
+<p>所谓”副作用”（side effect），指的是函数内部与外部互动（最典型的情况，就是修改全局变量的值），产生运算以外的其他结果。</p>
+<p>函数式编程强调没有”副作用”，意味着函数要保持独立，所有功能就是返回一个新的值，没有其他行为，尤其是不得修改外部变量的值。</p>
+<p>即：**<em>要是同样的参数传入，返回的结果一定是相等的。**</em></p>
+<p>例如我们期望封装一个函数，能够得到传入数组的最后一项。那么可以通过下面两种方式来实现。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLast</span>(<span class="params">arr</span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> arr[arr.length - <span class="number">1</span>];</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_getLast</span>(<span class="params">arr</span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> arr.pop();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> source = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> last = getLast(source); <span class="comment">// 返回结果4 原数组不变</span></span><br><span class="line"><span class="keyword">var</span> _last = _getLast(source); <span class="comment">// 返回结果4 原数据最后一项被删除</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>getLast与_getLast虽然同样能够获得数组的最后一项值，但是_getLast改变了原数组。而当原始数组被改变，那么当我们再次调用该方法时，得到的结果就会变得不一样。这样不可预测的封装方式，在我们看来是非常糟糕的。它会把我们的数据搞得非常混乱。在JavaScript原生支持的数据方法中，也有许多不纯的方法，我们在使用时需要非常警惕，我们要清晰的知道原始数据的改变是否会留下隐患。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> source = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">source.slice(<span class="number">1</span>, <span class="number">3</span>); <span class="comment">// 纯函数 返回[2, 3] source不变</span></span><br><span class="line">source.splice(<span class="number">1</span>, <span class="number">3</span>); <span class="comment">// 不纯的 返回[2, 3, 4] source被改变</span></span><br><span class="line"></span><br><span class="line">source.pop(); <span class="comment">// 不纯的</span></span><br><span class="line">source.push(<span class="number">6</span>); <span class="comment">// 不纯的</span></span><br><span class="line">source.shift(); <span class="comment">// 不纯的</span></span><br><span class="line">source.unshift(<span class="number">1</span>); <span class="comment">// 不纯的</span></span><br><span class="line">source.reverse(); <span class="comment">// 不纯的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 我也不能短时间知道现在source被改变成了什么样子，干脆重新约定一下</span></span><br><span class="line">source = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">source.concat([<span class="number">6</span>, <span class="number">7</span>]); <span class="comment">// 纯函数 返回[1, 2, 3, 4, 5, 6, 7] source不变</span></span><br><span class="line">source.join(<span class="string">'-'</span>); <span class="comment">// 纯函数 返回1-2-3-4-5 source不变</span></span><br></pre></td></tr></tbody></table></figure>
+
+<div class="note no-icon flat"><p>原文链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/69dede6f7e5f">前端基础进阶（九）：函数与函数式编程</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/jsnb9536/">https://fe32.top/articles/jsnb9536/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/@3.7.1/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/@3.7.1/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/06/20/62af4e9834a67.png" data-sites="facebook,twitter,google,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/@3.7.1/articles/jsnb9535/"><img class="prev-cover" data-lazy-src="https://bu.dusays.com/2022/06/19/62af27bc9edfc.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">前端基础进阶（八）：在Chrome开发者工具中观察函数调用栈、作用域链与闭包</div></div></a></div><div class="next-post pull-right"><a href="/@3.7.1/articles/jsnb9537/"><img class="next-cover" data-lazy-src="https://bu.dusays.com/2022/06/22/62b321b5aaa0d.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">前端基础进阶（十）：深入详解函数的柯里化</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/@3.7.1/articles/jsnb9528/" title="前端基础进阶（一）：内存空间详细图解"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/10/62a229f378f16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-10</div><div class="title">前端基础进阶（一）：内存空间详细图解</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9527/" title="JavaScript 核心进阶"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/09/62a0e411ed838.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-09</div><div class="title">JavaScript 核心进阶</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9529/" title="前端基础进阶（二）：执行上下文详细图解"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/12/62a5cb5aa2fe2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（二）：执行上下文详细图解</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9530/" title="前端基础进阶（三）：变量对象详解"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/12/62a5de91bc968.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（三）：变量对象详解</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9532/" title="前端基础进阶（五）：闭包"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/13/62a742049639e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-13</div><div class="title">前端基础进阶（五）：闭包</div></div></a></div><div><a href="/@3.7.1/articles/jsnb9531/" title="前端基础进阶（四）：作用域与作用域链"><img class="cover" data-lazy-src="https://bu.dusays.com/2022/06/12/62a5fe9aaff7a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（四）：作用域与作用域链</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/@3.7.1/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>本站只保留入口，即将不再更新内容，请切换成回最新版本。</div><div id="qq-btn"><a id="a-qun" href="https://fe32.top/" target="_blank">回最新版本 ✨</a></div><div id="qq-btn" style="margin-top:10px"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="xpand" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E3%80%81%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E4%B8%8E%E8%87%AA%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">函数声明、函数表达式、匿名函数与自执行函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E"><span class="toc-number">1.1.</span> <span class="toc-text">函数声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">函数表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">匿名函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%87%AA%E6%89%A7%E8%A1%8C%E4%B8%8E%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.4.</span> <span class="toc-text">函数自执行与块级作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%96%B9%E5%BC%8F%EF%BC%9A%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92"><span class="toc-number">2.</span> <span class="toc-text">函数参数传递方式：按值传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">函数式编程</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/xn2023lb/" title="虚拟列表，我真的会了！"><img data-lazy-src="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="虚拟列表，我真的会了！"/></a><div class="content"><a class="title" href="/@3.7.1/articles/xn2023lb/" title="虚拟列表，我真的会了！">虚拟列表，我真的会了！</a><time datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/uni10089/" title="Uni-App 如何实现消息推送功能？"><img data-lazy-src="https://bu.dusays.com/2022/12/04/638caada75585.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Uni-App 如何实现消息推送功能？"/></a><div class="content"><a class="title" href="/@3.7.1/articles/uni10089/" title="Uni-App 如何实现消息推送功能？">Uni-App 如何实现消息推送功能？</a><time datetime="2023-01-12T06:47:47.000Z" title="发表于 2023-01-12 14:47:47">2023-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/hexo1618/" title="Hexo + Butterfly 侧边栏公众号"><img data-lazy-src="https://bu.dusays.com/2023/01/05/63b6cb1a2bab2.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Hexo + Butterfly 侧边栏公众号"/></a><div class="content"><a class="title" href="/@3.7.1/articles/hexo1618/" title="Hexo + Butterfly 侧边栏公众号">Hexo + Butterfly 侧边栏公众号</a><time datetime="2023-01-05T12:50:31.000Z" title="发表于 2023-01-05 20:50:31">2023-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/uni10088/" title="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法"><img data-lazy-src="https://bu.dusays.com/2023/01/05/63b6bcddb26d2.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法"/></a><div class="content"><a class="title" href="/@3.7.1/articles/uni10088/" title="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法">Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法</a><time datetime="2023-01-05T08:05:31.000Z" title="发表于 2023-01-05 16:05:31">2023-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/blog9527/" title="时光飞逝，博客两周年啦"><img data-lazy-src="https://bu.dusays.com/2022/12/13/63987cfb1d701.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="时光飞逝，博客两周年啦"/></a><div class="content"><a class="title" href="/@3.7.1/articles/blog9527/" title="时光飞逝，博客两周年啦">时光飞逝，博客两周年啦</a><time datetime="2022-12-11T15:45:14.000Z" title="发表于 2022-12-11 23:45:14">2022-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://bu.dusays.com/2022/06/09/62a0e5cc8bfd2.png')"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/wallpaper/">一些壁纸</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/"><img src="https://lskypro.acozycotage.net/LightPicture/2023/01/7062b6bb75b640b7.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div><div class="copyright">&copy;2020 - 2023  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Ethan.Tzy</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.✨✨✨<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://icp.gov.moe/?keyword=20220686" title="本站已加入萌ICP豪华套餐，萌ICP备20220686号"><img src="https://img.shields.io/badge/%E8%90%8CICP%E5%A4%87-20220686-fe1384?style-flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAAByxJREFUSInl1nlwVeUZx/HPuTckkD0kQFiCEEIUlNUCAqKoSBV1AIt1ikpVLFbLONjWGUXbmWrbweJMy7hUxbbTjsUq6KCiWEvr0kE2WVK2QCKBJCxJgEASsienfxwqMob+3Zm+f93z3vM+32f5vc9z+H9bwVcfOp/YQ+1prhhEZS1VDQzqQ1MjiQmIC5Liwm3lBWpqFimrulb/7A/067vM2IsOBZ2h8MhJQW6KMDNVsKeaizKEyUlsKueqgWJ39AMJF3QpDCNYr1SaEig/lWNX2Z1h6dH5/lVyGdVIZFf7MHo9bEfh9rCg/+8NyHlN77QTsnpQ0i2y08VK+BosfhbW0cHxqmSfFd9qW+l9Pi+5WltFdGTsOBbO5dJcdh3lN5+xff0Y2zuelXjRsyYUrjOu4BVJaavlpbWIJRBLOM+J81O95AAnTtM9vNHGknut3zdT48FutJE3koWTuG4oSXH+VsInX3B9IdcVUNfCuv08t4GjO6NspOa3BNcOXx1eOugVHQnrTMkTuyWrC/BjRZO9uPYTpw7HhTWkXcLd45l9GblpHD7NWzt5ZTMXZ/OdkTy+lvR07rmcmWffq6pn9W5e/oymfcT6kJbXHiydMyVYkL/x66n+ZMcctQfjhgxl6UIGZ3Ooltd2RIZqjqKRS0ew9cFIA1cO5urlLHuPZWsZPJiZw7gqn0VT2HCIR9+jvCQhfHPrLGyE2Hng2roBxHnmJoZnc9drbD3I6QaaWkjpSVoeu4+x5XB05qMDqCenHz37UHmcFRv54ZuMeoYrB/L0DPRgZ0WfrsXVKzPX3nYykrn3dUZl8+Q0Qox/gc/L6ZlKzxQefo+UROpa6Z4VCedkPd8YyJYHI3u5T/HAShZNQxsXZfR3pCtwRW066VEeOuIUVUf77+9jTw2pycTOJml7Je1t9EgiI5X2jkgyze1fCSSdtjhBiJCkpKyuI+5oTdAtkTCgVwrbKsl8ko6QjO40tZ67EpkpdIbRf20dkbPpPTjdwsSX6I5dJYy4hoQAaZQdDy4A1iEMI613T6LtBPXJpPakrjGqc1Y6CTFq62htJp5KRwPJKWSkU3WKiiPEEqO6xgM6oZmctJhDXYH7Z59xuCyKpK6R26ZE+ys3MWYoN1/Mc5uoqmbEQJ6fTc/ulJ3i/lUc+YIfzeKhKzjVHN31A3XRHddKSrf6/6DOV3VTcw1hVKfkxOhaPDAe1UwfwmNTqT1Drxw+nE9xNXetIjHG2vnoxoT+rNrN2Of58Rp6JZ+ldKes5kjX4G7dKuikpoERfaltYnQ/DOSS3hEAFk9lXQkLnmf7Ib65lPJT3HU1+46Tm8rYvgzKYVA2h+vQIMjvewHwdSN20MiOSmZczO4a1hSzYi77T7CiiPF5JMTZexjJ5OagkwNV9M+MnJ09nKU3smgyQ3PYWoEO4fUjii4QceJmevJuMeP6csUAln4atcbSGoqOUpjD30uZNwnpHNtN3lC+NZa1xeT34pGVTJ3PL9+Ohs6GQ8gVtHZs6VLVwZhBReGwoXvt3THM/hP0SWVnCR8f4PMjkffjB/DQS8waxpHFfFgaaeHZDRRtJn0yP5tF31ymFVJ2nN27GD66KBzca2/XEWdkUpD3Fmd4tYj0FMS54Q9UnuaDUv6yE/24ewWP/DU6N/d1fvousYEs28DyLVEvGDOAt/egmSkXv2VYn3NBfpXbua6J8hMFFvy2RHsL+57gmX+w/AN651PfEDWQzLRI+afqIqOxFDJT6Rbn9Bmad3PnTH5wIxOXkJTWGiz57hCDsyqDWVldRNzeyOh+paaPfpFKnvqQX88iZwDVx0lLJqUHbe3EkZ1Odm+yUqK2GHYKmhvIG8fyeTz9IY5x67jnFPapdPDkl6jzwEF9IDjZJlgwfbG+o2u8+g4rd7D/UYI41TXnevV5K4j2q6uESckUP8rvNrH6fUH/sRXB9AlPONMSDZ8uazwoi56JjEyvdftV88jinhf4uIzmJRQOoOYgja0RKAiIBZxpjvZH5tP0c97axcLlyBXOuWZemJTYFFbUCU+1dl3j8PGSyFhnJ7EkYcWh7/njqpep5xfzWTyZZ7dEg73xOJKiGqf3YenNLBjLTz7i539COg/OvSOYO2GFo/VRG0Zwe0YX4Ns3R7NXSCxBeM8IthXfZvGf3xCWc/kkXvg2vVP4YB/rDzC1gGlDo+50/xvs2khKPrNnzAzmTH5HbzR0fkkKro93Ab5vx9kfaGgT3lLA5EyWbRpoTdHbSreOppGJV/PwlRTksK+aZz5l6z+RLBgxaau5k2cJelTKzmRQMq0d51J8UxL+23d1TDTcj7WQllZu4YwxDo+eZc22X9mwd6gN65GIFmQzampxcMOoR1xeuMbpVoqromsXdG3+wmCiekNtfSSmiUNWu2zgap+WjlZW8X11TeNkpWwICvNfCm8u3Cmxg4PN0VdmEJw7/7+0/g32RaqCbhRecAAAAABJRU5ErkJggg=="></a>&nbsp;<a target="_blank" href="https://vercel.com/"><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="在线聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="fa-solid fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="fa-solid fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="fa-solid fa-arrow-rotate-right"></i></div><div class="rightMenu-item" id="menu-home"><i class="fa-solid fa-house"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="fa-solid fa-copy"></i><span>复制文本</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="fa-solid fa-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="fa-solid fa-copy"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="fa-solid fa-copy"></i><span>复制图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="fa-solid fa-download"></i><span>下载图片</span></div><div class="rightMenu-item" id="menu-search"><i class="fa-solid fa-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="fa-solid fa-magnifying-glass"></i><span>百度搜索</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-radompage"><i class="fa-solid fa-shoe-prints"></i><span>随便逛逛</span></div><a class="rightMenu-item menu-link" href="/archives/"><i class="fa-solid fa-archive"></i><span>文章归档</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="fa-solid fa-folder-open"></i><span>文章分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="fa-solid fa-tags"></i><span>文章标签</span></a><a class="rightMenu-item" id="menu-goto-comment" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item menu-link" href="/sponsorWall/"><i class="fa-solid fa-money-check-alt"></i><span>赞助墙</span></a></div><div class="rightMenu-group rightMenu-line rightMenuNormal"><div class="rightMenu-item" id="menu-translate"><i class="fa-solid fa-earth-asia"></i><span>繁简切换</span></div><div class="rightMenu-item" id="menu-readmode"><i class="fa-solid fa-book-open"></i><span>阅读模式</span></div><div class="rightMenu-item" id="menu-print"><i class="fa-solid fa-print fa-fw"></i><span>打印页面</span></div><div class="rightMenu-item" id="menu-copy"><i class="fa-solid fa-share"></i><span>分享本页</span></div></div></div><div id="rightmenu-mask"></div><div id="myscoll"></div><div><script src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script src="/@3.7.1/"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/utils.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/tw_cn.js"></script><script src="https://npm.elemecdn.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/search/algolia.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        //- const ele = document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)')
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo.fe32.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="pjax-reload"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInX');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow.min.js"></script><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow_init.js"></script><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/cat.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/issues.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople1.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/zdog.dist.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople.js"></script><canvas id="universe"></canvas><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/universe.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/ethan_tzy.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu@1111.js"></script><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/meting.min.js"></script><script src="https://npm.elemecdn.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener toc scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+
+  typeof preloader === 'object' && preloader.initLoading()
+
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  //- document.querySelectorAll('script[data-pjax]').forEach(item => {
+  
+  document.querySelectorAll('script[data-pjax], .pjax-reload script').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+//- document.addEventListener('pjax:send', function () {
+//-   typeof preloader === 'object' && preloader.initLoading()
+  
+//-   if (window.aplayers) {
+//-     for (let i = 0; i < window.aplayers.length; i++) {
+//-       if (!window.aplayers[i].options.fixed) {
+//-         window.aplayers[i].destroy()
+//-       }
+//-     }
+//-   }
+
+//-   typeof typed === 'object' && typed.destroy()
+
+//-   //reset readmode
+//-   const $bodyClassList = document.body.classList
+//-   $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+//- })
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    if (false) {
+      location.hash && e.request.responseURL !== location.href ? pjax.loadUrl(location.href) : pjax.loadUrl('/404.html')
+      return
+    }
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

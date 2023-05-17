@@ -1,0 +1,566 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>一文吃透 CSS Flex 布局 | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Flexbox 布局也叫 Flex 布局。它的主要思想是使父元素能够调整子元素的宽度、高度、排列方式，从而更好的适应可用的布局空间。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文吃透 CSS Flex 布局">
+<meta property="og:url" content="https://fe32.top/articles/cssnb001/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="Flexbox 布局也叫 Flex 布局。它的主要思想是使父元素能够调整子元素的宽度、高度、排列方式，从而更好的适应可用的布局空间。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/10/30/635e90d68ed74.png">
+<meta property="article:published_time" content="2022-10-30T14:53:19.000Z">
+<meta property="article:modified_time" content="2023-05-17T10:01:10.175Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="Flex">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/10/30/635e90d68ed74.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/cssnb001/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fjGallery.min.js',
+      css: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文吃透 CSS Flex 布局',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-17 18:01:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/swiper-bundle.css"><link rel="stylesheet" href="/css/tzy.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-bg"><div class="loader"><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+// 20230312 add
+setTimeout(function(){ preloader.endLoading();}, 5000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">98</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/10/16/634bd04f0bd0d.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="唐志远の博客"><span class="site-name">唐志远の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文吃透 CSS Flex 布局</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-30T14:53:19.000Z" title="发表于 2022-10-30 22:53:19">2022-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-17T10:01:10.175Z" title="更新于 2023-05-17 18:01:10">2023-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS/">CSS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2484</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一文吃透 CSS Flex 布局"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="教学游戏"><a href="#教学游戏" class="headerlink" title="教学游戏"></a>教学游戏</h2><p>这里有两个小游戏，可用来练习 flex 布局。</p>
+<p><a target="_blank" rel="noopener" href="http://www.flexboxdefense.com/">塔防游戏</a><br><a target="_blank" rel="noopener" href="https://flexboxfroggy.com/">送小青蛙回家</a></p>
+<h2 id="Flexbox-概述"><a href="#Flexbox-概述" class="headerlink" title="Flexbox 概述"></a>Flexbox 概述</h2><p>Flexbox 布局也叫 Flex 布局，弹性盒子布局。</p>
+<p>它决定了元素如何在页面上排列，使它们能在不同的屏幕尺寸和设备下可预测地展现出来，更简便、完整、响应式地实现各种页面布局。</p>
+<p>它的主要思想是使父元素能够调整子元素的宽度、高度、排列方式，从而更好的适应可用的布局空间。</p>
+<p>任何一个容器都可以指定为 Flex 布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>行内元素也可以使用 Flex 布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line"><span class="attribute">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Webkit 内核的浏览器，必须加上<code>-webkit</code>前缀。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-flex; <span class="comment">/* Safari */</span></span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意，设为 Flex 布局以后，子元素的<code>float</code>、<code>clear</code>和<code>vertical-align</code>属性将失效。当布局涉及到不定宽度，分布对⻬的场景时，我们可以优先考虑弹性盒布局。</p>
+</blockquote>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有 <span class='p blue'>子元素</span>（注意是子元素，不是全部后代元素）自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。</p>
+<!-- <div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638346bf8b97c.png"/></div></div> -->
+
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638346bd11093.png"/></div></div>
+
+<p>容器默认存在两根轴: 水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做<code>main start</code>，结束位置叫做<code>main end</code>；交叉轴的开始位置叫做<code>cross start</code>，结束位置叫做<code>cross end</code>。</p>
+<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做<code>main size</code>，占据的交叉轴空间叫做<code>cross size</code>。</p>
+<h2 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h2><p>以下6个属性设置在容器上。</p>
+<ul>
+<li>flex-direction</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content</li>
+</ul>
+<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><p>flex-direction 属性决定主轴的方向（即项目的排列方向）。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">row</td>
+<td align="left">默认值，主轴为水平方向（水平布局），起点在左端，从左向右排列</td>
+</tr>
+<tr>
+<td align="left">row-reverse</td>
+<td align="left">主轴为水平方向（水平布局），起点在右端，从右向左排列</td>
+</tr>
+<tr>
+<td align="left">column</td>
+<td align="left">主轴为垂直方向（垂直布局），起点在上沿，从上往下排列</td>
+</tr>
+<tr>
+<td align="left">column-reverse</td>
+<td align="left">主轴为垂直方向（垂直布局），起点在下沿，从下往上排列</td>
+</tr>
+</tbody></table>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/6383493d1df53.png"/></div></div>
+
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><p>默认情况下，项目都排在一条线（又称”轴线”）上。<code>flex-wrap</code>属性定义，如果一条轴线排不下，如何换行。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638356299e630.png"/></div></div>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">nowrap</td>
+<td align="left">默认值，表示不换行</td>
+</tr>
+<tr>
+<td align="left">wrap</td>
+<td align="left">换行</td>
+</tr>
+<tr>
+<td align="left">wrap-reverse</td>
+<td align="left">换行，第一行在下方</td>
+</tr>
+</tbody></table>
+<ol>
+<li><code>flex-wrap: nowrap</code>: 默认值，不换行。当主轴的长度是固定并且空间不足时，项目尺寸会随之进行调整，而不会换行。<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/6383569edc449.png"/></div></div></li>
+<li><code>flex-wrap: wrap</code>: 换行，第一行在上面<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638356a0d4f29.png"/></div></div></li>
+<li><code>wrap-reverse</code>: 换行，第一行在下方。<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638356a2c161b.png"/></div></div></li>
+</ol>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p><code>flex-flow</code>属性是<code>flex-direction</code>属性和<code>flex-wrap</code>属性的简写形式，默认值为<code>row nowrap</code>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">flex-flow</span>: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p><code>justify-content</code>属性定义了项目在主轴上的对齐方式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">justify-content</span>: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">flex-start</td>
+<td align="left">默认值，左对齐</td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left">右对齐</td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left">居中</td>
+</tr>
+<tr>
+<td align="left">space-between</td>
+<td align="left">两端对齐，项目之间的间隔都相等</td>
+</tr>
+<tr>
+<td align="left">space-around</td>
+<td align="left">每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍</td>
+</tr>
+</tbody></table>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/6383579827477.png" alt=" flex-start"/></div><span class="image-caption"> flex-start</span></div>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/6383579d2944e.png" alt=" flex-end"/></div><span class="image-caption"> flex-end</span></div>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638357a171a2e.png" alt=" center"/></div><span class="image-caption"> center</span></div>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638357a542b51.png" alt=" space-between"/></div><span class="image-caption"> space-between</span></div>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/638357a77e824.png" alt=" space-around"/></div><span class="image-caption"> space-around</span></div>
+
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><p><code>align-items</code>属性定义项目在交叉轴上如何对齐。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">align-items</span>: flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">flex-start</td>
+<td align="left">交叉轴的起点对齐</td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left">交叉轴的终点对齐</td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left">交叉轴的中点对齐</td>
+</tr>
+<tr>
+<td align="left">baseline</td>
+<td align="left">项目的第一行文字的基线对齐</td>
+</tr>
+<tr>
+<td align="left">stretch</td>
+<td align="left">（默认值）	如果项目未设置高度或设为auto，将占满整个容器的高度</td>
+</tr>
+</tbody></table>
+<p>（1）<code>flex-start</code>: 交叉轴的起点对齐（上面或左边）。设置容器高度为 100px，项目高度分别为 20px、40px、60px、80px、100px，效果如图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835a038573f.png"/></div></div>
+
+<p>（2）<code>flex-end</code>: 交叉轴的终点对齐（下面或右边）。设置容器高度为 100px，项目高度分别为 20px、40px、60px、80px、100px，效果如图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835a0575107.png"/></div></div>
+
+<p>（3）<code>center</code>: 交叉轴的中点对齐。设置容器高度为 100px，项目高度分别为 20px、40px、60px、80px、100px，效果如图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835a075e18b.png"/></div></div>
+
+<p>（4）<code>stretch</code>: 默认值、如果元素未设置高度或设为auto，将占满整个容器的高度。假设容器高度设置为 100px，而项目没有设置高度，则项目的高度也为 100px: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835a08dfb2d.png"/></div></div>
+
+<p>（5）<code>baseline</code>:以元素的第一行文字的基线对齐</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835a0a87624.png"/></div></div>
+
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p><code>align-content</code>属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">align-content</span>: flex-start | flex-end | center | space-between | space-around | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">flex-start</td>
+<td align="left">与交叉轴的起点对齐</td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left">与交叉轴的终点对齐</td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left">与交叉轴的中点对齐</td>
+</tr>
+<tr>
+<td align="left">space-between</td>
+<td align="left">与交叉轴两端对齐，轴线之间的间隔平均分布</td>
+</tr>
+<tr>
+<td align="left">space-around</td>
+<td align="left">每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍</td>
+</tr>
+<tr>
+<td align="left">stretch</td>
+<td align="left">默认值，轴线占满整个交叉轴</td>
+</tr>
+</tbody></table>
+<p>（1）<code>stretch</code>: 默认值，轴线占满整个交叉轴。这里我们先设置每个项目都是固定宽度，效果如下:</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c565d5c8.png"/></div></div>
+
+<p>下面就去掉每个项目的高度，它会占满整个交叉轴，效果如下: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c5793c69.png"/></div></div>
+
+<p>（2）<code>flex-start</code>: 从交叉轴开始位置填充</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c5a57726.png"/></div></div>
+
+<p>（3）<code>flex-end</code>: 从交叉轴结尾位置填充</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c5d967ca.png"/></div></div>
+
+<p>（4）<code>center</code>: 与交叉轴中点对齐</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c60433c9.png"/></div></div>
+
+<p>（5）<code>space-between</code>: 与交叉轴两端对齐，轴线之前的间隔平均分布</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c624c7e2.png"/></div></div>
+
+<p>（6）<code>space-around</code>: 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835c6465526.png"/></div></div>
+
+<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><p>以下6个属性设置在项目上。</p>
+<ul>
+<li>order</li>
+<li>flex-grow</li>
+<li>flex-shrink</li>
+<li>flex-basis</li>
+<li>flex</li>
+<li>align-self</li>
+</ul>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p><code>order</code>属性用来定义项目的排列顺序。数值越小，排列越靠前，默认为 0 。使用形式如下: </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">order</span>: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835dbe8235a.png"/></div></div>
+
+
+
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p><code>flex-grow</code>属性定义项目的放大比例，默认为 0 ，即如果存在剩余空间，也不放大。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: &lt;number&gt;; <span class="comment">/* default 0 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果所有项目的<code>flex-grow</code>属性都为 1，则它们将等分剩余空间（如果有的话）。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835ebe330ae.png"/></div></div>
+
+
+<p>如果一个项目的<code>flex-grow</code>属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835ec07a55a.png"/></div></div>
+
+
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p><code>flex-shrink</code>属性定义了项目的缩小比例，默认为 1 ，即如果空间不足，该项目将缩小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: &lt;number&gt;; <span class="comment">/* default 1 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果所有项目的<code>flex-shrink</code>属性都为 1，当空间不足时，都将等比例缩小。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835f3e1d73d.png"/></div></div>
+
+<p>如果一个项目的<code>flex-shrink</code>属性为 0，其他项目都为 1，则空间不足时，前者不缩小。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/63835f4054278.png"/></div></div>
+
+<p>负值对该属性无效。</p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p><code>flex-basis</code>属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为<code>auto</code>，即项目的本来大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: &lt;length&gt; | auto; <span class="comment">/* default auto */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它可以设为跟<code>width</code>或<code>height</code>属性一样的值（比如350px），则项目将占据固定空间。</p>
+<p>当主轴设置为水平时，当设置了<code>flex-basis</code>，设置的项目宽度值会失效，<code>flex-basis</code>需要跟<code>flex-grow</code>和<code>flex-shrink</code>配合使用才能生效。有两种特殊的值: </p>
+<ul>
+<li>当 flex-basis 值为 0 % 时，项目尺寸会被认为是0，因此无论项目尺寸设置多少都用；</li>
+<li>当 flex-basis 值为 auto 时，则跟根据尺寸的设定值来设置大小。</li>
+</ul>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p><code>flex</code>属性是<code>flex-grow</code>, <code>flex-shrink</code> 和 <code>flex-basis</code>的简写，默认值为<code>0 1 auto</code>。后两个属性可选。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: none | [ &lt;<span class="string">&#x27;flex-grow&#x27;</span>&gt; &lt;<span class="string">&#x27;flex-shrink&#x27;</span>&gt;? || &lt;<span class="string">&#x27;flex-basis&#x27;</span>&gt; ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该属性有两个快捷值<code>auto (1 1 auto)</code> 和 <code>none (0 0 auto)</code>。</p>
+<p>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</p>
+<p>（1）默认值：flex:0 1 auto，即在有剩余空间时，只放大不缩小</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">0</span> <span class="number">1</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）flex: none，即有剩余空间时，不放大也不缩小，最终尺寸通常表现为最大内容宽度。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">0</span> <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（3）flex: 0，即当有剩余空间时，项目宽度为其内容的宽度，最终尺寸表现为最小内容宽度。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">0</span> <span class="number">1</span> <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）flex: auto，即元素尺寸可以弹性增大，也可以弹性变小，具有十足的弹性，但在尺寸不足时会优先最大化内容尺寸。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">1</span> <span class="number">1</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（5）flex: 1，即元素尺寸可以弹性增大，也可以弹性变小，具有十足的弹性，但是在尺寸不足时会优先最小化内容尺寸。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">1</span> <span class="number">1</span> <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p><code>align-self</code>属性允许单个项目有与其他项目不一样的对齐方式，可覆盖<code>align-items</code>属性。默认值为<code>auto</code>，表示继承父元素的<code>align-items</code>属性，如果没有父元素，则等同于<code>stretch</code>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">align-self</span>: auto | flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/27/6383611200964.png"/></div></div>
+
+
+<h2 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h2><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">Flex 布局教程：语法篇</a><br><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-examples.html">Flex 布局教程：实例篇</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32946068">FlexBox (“弹性盒子”) 介绍</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46612221/article/details/120876111">弹性盒子（flexbox）布局属性详解</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU2MTIyNDUwMA==&mid=2247507272&idx=1&sn=709943948b39689ce32d2f241e907783">10分钟彻底掌握 CSS Flex 布局</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/cssnb001/">https://fe32.top/articles/cssnb001/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CSS/">CSS</a><a class="post-meta__tags" href="/tags/Flex/">Flex</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/10/30/635e90d68ed74.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/articles/we0524bs/" title="优雅的使用Webstack打造个人网址导航"><img class="cover" src="https://bu.dusays.com/2022/10/30/635df79462f87.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">优雅的使用Webstack打造个人网址导航</div></div></a></div><div class="next-post pull-right"><a href="/articles/hexo1615/" title="飞只因太美，给你的首页装上吧！"><img class="cover" src="https://bu.dusays.com/2022/11/06/63673dee7fa25.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">飞只因太美，给你的首页装上吧！</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/articles/css10001/" title="实现元素居中的 10 个CSS方法"><img class="cover" src="https://bu.dusays.com/2022/05/02/626eb19d5292c.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-16</div><div class="title">实现元素居中的 10 个CSS方法</div></div></a></div><div><a href="/articles/amo9485t/" title="2021，CSS 杀疯了！"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e911ae42cc.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-16</div><div class="title">2021，CSS 杀疯了！</div></div></a></div><div><a href="/articles/np2021sm/" title="CSS 实现新拟态(Neumorphism) UI 风格"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e91194b2bb.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-23</div><div class="title">CSS 实现新拟态(Neumorphism) UI 风格</div></div></a></div><div><a href="/articles/c6func118/" title="6 Fun Things You Can Do With Just CSS"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e911a88b4d.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">6 Fun Things You Can Do With Just CSS</div></div></a></div><div><a href="/articles/css10003/" title="Css中有哪些可继承的属性？"><img class="cover" src="https://bu.dusays.com/2023/04/18/643e92d5cd535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-30</div><div class="title">Css中有哪些可继承的属性？</div></div></a></div><div><a href="/articles/fi5487lt/" title="巧用 CSS3 filter(滤镜) 属性"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e911b942eb.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-25</div><div class="title">巧用 CSS3 filter(滤镜) 属性</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">98</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给出回复。</div><div id="qq-btn"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="card-widget tzy-ad-swiper"><div class="swiper card-swiper"><div class="swiper-wrapper"><div class="swiper-slide"><a href="https://fe32.top/sponsorWall/"><img src="https://bu.dusays.com/2023/03/29/642449cacc868.png"/></a></div><div class="swiper-slide"><a href="https://fe32.top/@3.7.1/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/6424524c0d728.png"/></a></div><div class="swiper-slide"><a href="https://www.hack-gov.com.cn/" target="_blank"><img src="https://bu.dusays.com/2023/04/14/64395f73abc24.png"/></a></div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div></div><div class="swiper-pagination"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%99%E5%AD%A6%E6%B8%B8%E6%88%8F"><span class="toc-number">1.</span> <span class="toc-text">教学游戏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flexbox-%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">Flexbox 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">容器属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-direction"><span class="toc-number">4.1.</span> <span class="toc-text">flex-direction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-wrap"><span class="toc-number">4.2.</span> <span class="toc-text">flex-wrap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-flow"><span class="toc-number">4.3.</span> <span class="toc-text">flex-flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#justify-content"><span class="toc-number">4.4.</span> <span class="toc-text">justify-content</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-items"><span class="toc-number">4.5.</span> <span class="toc-text">align-items</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-content"><span class="toc-number">4.6.</span> <span class="toc-text">align-content</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">项目属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#order"><span class="toc-number">5.1.</span> <span class="toc-text">order</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-grow"><span class="toc-number">5.2.</span> <span class="toc-text">flex-grow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-shrink"><span class="toc-number">5.3.</span> <span class="toc-text">flex-shrink</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-basis"><span class="toc-number">5.4.</span> <span class="toc-text">flex-basis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex"><span class="toc-number">5.5.</span> <span class="toc-text">flex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-self"><span class="toc-number">5.6.</span> <span class="toc-text">align-self</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="toc-number">6.</span> <span class="toc-text">推荐阅读</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/ts30001/" title="一文读懂TS的(.d.ts)文件"><img src="https://bu.dusays.com/2023/04/29/644d384035bca.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="一文读懂TS的(.d.ts)文件"/></a><div class="content"><a class="title" href="/articles/ts30001/" title="一文读懂TS的(.d.ts)文件">一文读懂TS的(.d.ts)文件</a><time datetime="2023-04-30T14:28:06.000Z" title="发表于 2023-04-30 22:28:06">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20001/" title="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法"><img src="https://bu.dusays.com/2023/04/29/644d249bc9001.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法"/></a><div class="content"><a class="title" href="/articles/vue20001/" title="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法">Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法</a><time datetime="2023-04-30T12:34:18.000Z" title="发表于 2023-04-30 20:34:18">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10003/" title="Css中有哪些可继承的属性？"><img src="https://bu.dusays.com/2023/04/18/643e92d5cd535.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Css中有哪些可继承的属性？"/></a><div class="content"><a class="title" href="/articles/css10003/" title="Css中有哪些可继承的属性？">Css中有哪些可继承的属性？</a><time datetime="2023-04-30T08:49:50.000Z" title="发表于 2023-04-30 16:49:50">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/blog9528/" title="关于博客更新的二三事"><img src="https://bu.dusays.com/2023/04/15/6439817900324.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="关于博客更新的二三事"/></a><div class="content"><a class="title" href="/articles/blog9528/" title="关于博客更新的二三事">关于博客更新的二三事</a><time datetime="2023-04-14T16:45:14.000Z" title="发表于 2023-04-15 00:45:14">2023-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/xn2023lb/" title="虚拟列表，我真的会了！"><img src="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="虚拟列表，我真的会了！"/></a><div class="content"><a class="title" href="/articles/xn2023lb/" title="虚拟列表，我真的会了！">虚拟列表，我真的会了！</a><time datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/website/log/">更新日志</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/utils.js"></script><script src="/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://npm.elemecdn.com/ethan4116-blog/nav/js/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="/js/swiper-bundle.js"></script><script defer src="/js/custom/index.js"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-92YZLM7C2B"></script><script> window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-92YZLM7C2B');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="//code.tidio.co/momfs16ll3aqxfwsprsjlqjkgc1nytal.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div></div></div><div id="algolia-tips"><span class="algolia-tips-text">Algolia 提供搜索服务</span></div></div></div><div id="search-mask"></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algoliasearch.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/instantsearch.production.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algolia@latest.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,97 @@
+/* rightMenu右键菜单 */
+
+#rightMenu {
+    display: none;
+    position: fixed;
+    padding: 0 .25rem;
+    width: 9rem;
+    height: fit-content;
+    top: 10%;
+    left: 10%;
+    background-color: rgba(238, 255, 255, .85);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    color: #363636;
+    border-radius: 12px;
+    z-index: 99994;
+    border: #e3e8f7;
+    user-select: none;
+    box-shadow: rgba(0, 0, 0, .05);
+}
+
+#rightMenu a {
+    color: #363636;
+}
+
+#rightMenu .rightMenu-group {
+    padding: .35rem .3rem;
+    transition: .3s
+}
+
+#rightMenu .rightMenu-line {
+    border-top: 1px dashed #4259ef23
+}
+
+#rightMenu .rightMenu-group.rightMenu-small {
+    display: flex;
+    justify-content: space-between
+}
+
+#rightMenu .rightMenu-group .rightMenu-item {
+    border-radius: 8px;
+    transition: .3s;
+    cursor: pointer
+}
+
+#rightMenu .rightMenu-line .rightMenu-item {
+    margin: .25rem 0;
+    padding: .25rem 0
+}
+
+#rightMenu .rightMenu-group.rightMenu-line .rightMenu-item {
+    display: flex
+}
+
+#rightMenu .rightMenu-group .rightMenu-item:hover {
+    background-color: #6f42c1;
+    color: #fff;
+}
+
+#rightMenu .rightMenu-group .rightMenu-item:active {
+    transform: scale(.97)
+}
+
+#rightMenu .rightMenu-group .rightMenu-item i {
+    display: inline-block;
+    text-align: center;
+    line-height: 1.5rem;
+    width: 1.5rem;
+    padding: 0 .25rem
+}
+
+#rightMenu .rightMenu-line .rightMenu-item i {
+    margin: 0 .25rem
+}
+
+#rightMenu .rightMenu-group .rightMenu-item span {
+    line-height: 1.5rem
+}
+
+.rightMenu-small .rightMenu-item {
+    width: 30px;
+    height: 30px;
+    line-height: 30px
+}
+
+#rightmenu-mask {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: 0 0;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 101;
+    margin: 0 !important;
+    z-index: 99993
+}

@@ -1,0 +1,912 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>基于Butterfly的外挂标签引入 | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="基于Butterfly的外挂标签引入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Butterfly的外挂标签引入">
+<meta property="og:url" content="https://fe32.top/articles/0xiipgum/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="基于Butterfly的外挂标签引入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/05/01/626e8d500f25f.png">
+<meta property="article:published_time" content="2021-01-05T08:14:02.000Z">
+<meta property="article:modified_time" content="2023-05-17T10:01:10.201Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Butterfly">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/05/01/626e8d500f25f.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/0xiipgum/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fjGallery.min.js',
+      css: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于Butterfly的外挂标签引入',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-17 18:01:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/swiper-bundle.css"><link rel="stylesheet" href="/css/tzy.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-bg"><div class="loader"><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+// 20230312 add
+setTimeout(function(){ preloader.endLoading();}, 5000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">98</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2021/03/06/835e63215ee7a.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="唐志远の博客"><span class="site-name">唐志远の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基于Butterfly的外挂标签引入</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-05T08:14:02.000Z" title="发表于 2021-01-05 16:14:02">2021-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-17T10:01:10.201Z" title="更新于 2023-05-17 18:01:10">2023-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Butterfly/">Butterfly</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8480</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>37分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="基于Butterfly的外挂标签引入"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>目前未兼容最新版本，请移步步原教程：<a target="_blank" rel="noopener" href="https://akilar.top/posts/615e2dec">Akilarの外挂标签引入</a>。</p>
+</blockquote>
+<h1 id="行内文本样式-text"><a href="#行内文本样式-text" class="headerlink" title="行内文本样式 text"></a>行内文本样式 text</h1><div class="tabs" id="text-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#text--1">标签语法</button></li><li class="tab active"><button type="button" data-href="#text--2">样式预览</button></li><li class="tab"><button type="button" data-href="#text--3">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="text--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;% u 文本内容 %&#125;</span><br><span class="line">&#123;% emp 文本内容 %&#125;</span><br><span class="line">&#123;% wavy 文本内容 %&#125;</span><br><span class="line">&#123;% del 文本内容 %&#125;</span><br><span class="line">&#123;% kbd 文本内容 %&#125;</span><br><span class="line">&#123;% psw 文本内容 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="text--2"><ol>
+<li>带 <u>下划线</u> 的文本</li>
+<li>带 <emp>着重号</emp> 的文本</li>
+<li>带 <wavy>波浪线</wavy> 的文本</li>
+<li>带 <del>删除线</del> 的文本</li>
+<li>键盘样式的文本 <kbd>command</kbd> + <kbd>D</kbd></li>
+<li>密码样式的文本：<psw>这里没有验证码</psw></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="text--3"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 带 &#123;% u 下划线 %&#125; 的文本</span><br><span class="line"><span class="bullet">2.</span> 带 &#123;% emp 着重号 %&#125; 的文本</span><br><span class="line"><span class="bullet">3.</span> 带 &#123;% wavy 波浪线 %&#125; 的文本</span><br><span class="line"><span class="bullet">4.</span> 带 &#123;% del 删除线 %&#125; 的文本</span><br><span class="line"><span class="bullet">5.</span> 键盘样式的文本 &#123;% kbd command %&#125; + &#123;% kbd D %&#125;</span><br><span class="line"><span class="bullet">6.</span> 密码样式的文本：&#123;% psw 这里没有验证码 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="行内文本-span"><a href="#行内文本-span" class="headerlink" title="行内文本 span"></a>行内文本 span</h1><div class="tabs" id="span-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#span--1">标签语法</button></li><li class="tab"><button type="button" data-href="#span--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#span--3">样式预览</button></li><li class="tab"><button type="button" data-href="#span--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="span--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% span 样式参数(参数以空格划分), 文本内容 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="span--2"><ol>
+<li>字体: logo, code</li>
+<li>颜色:<span class='p red'>red</span>,<span class='p yellow'>yellow</span>,<span class='p green'>green</span>,<span class='p cyan'>cyan</span>,<span class='p blue'>blue</span>,<span class='p gray'>gray</span></li>
+<li>大小: small, h4, h3, h2, h1, large, huge, ultra</li>
+<li>对齐方向: left, center, right</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="span--3"><ul>
+<li>彩色文字<br>在一段话中方便插入各种颜色的标签，包括：<span class='p red'>红色</span>、<span class='p yellow'>黄色</span>、<span class='p green'>绿色</span>、<span class='p cyan'>青色</span>、<span class='p blue'>蓝色</span>、<span class='p gray'>灰色</span>。</li>
+<li>超大号文字<br>文档「开始」页面中的标题部分就是超大号文字。<br><span class='p center logo large'>Volantis</span><br><span class='p center small'>A Wonderful Theme for Hexo</span></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="span--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 彩色文字</span><br><span class="line">在一段话中方便插入各种颜色的标签，包括：&#123;% span red, 红色 %&#125;、&#123;% span yellow, 黄色 %&#125;、&#123;% span green, 绿色 %&#125;、&#123;% span cyan, 青色 %&#125;、&#123;% span blue, 蓝色 %&#125;、&#123;% span gray, 灰色 %&#125;。</span><br><span class="line"><span class="bullet">-</span> 超大号文字</span><br><span class="line">文档「开始」页面中的标题部分就是超大号文字。</span><br><span class="line">&#123;% span center logo large, Volantis %&#125;</span><br><span class="line">&#123;% span center small, A Wonderful Theme for Hexo %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="段落文本-p"><a href="#段落文本-p" class="headerlink" title="段落文本 p"></a>段落文本 p</h1><div class="tabs" id="p-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#p--1">标签语法</button></li><li class="tab"><button type="button" data-href="#p--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#p--3">样式预览</button></li><li class="tab"><button type="button" data-href="#p--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="p--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% p 样式参数(参数以空格划分), 文本内容 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="p--2"><ol>
+<li>字体: logo, code</li>
+<li>颜色:<span class='p red'>red</span>,<span class='p yellow'>yellow</span>,<span class='p green'>green</span>,<span class='p cyan'>cyan</span>,<span class='p blue'>blue</span>,<span class='p gray'>gray</span></li>
+<li>大小: small, h4, h3, h2, h1, large, huge, ultra</li>
+<li>对齐方向: left, center, right</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="p--3"><ul>
+<li>彩色文字<br>在一段话中方便插入各种颜色的标签，包括：<p class='p red'>红色</p>、<p class='p yellow'>黄色</p>、<p class='p green'>绿色</p>、<p class='p cyan'>青色</p>、<p class='p blue'>蓝色</p>、<p class='p gray'>灰色</p>。</li>
+<li>超大号文字<br>文档「开始」页面中的标题部分就是超大号文字。<p class='p center logo large'>Volantis</p>
+<p class='p center small'>A Wonderful Theme for Hexo</p></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="p--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 彩色文字</span><br><span class="line">在一段话中方便插入各种颜色的标签，包括：&#123;% p red, 红色 %&#125;、&#123;% p yellow, 黄色 %&#125;、&#123;% p green, 绿色 %&#125;、&#123;% p cyan, 青色 %&#125;、&#123;% p blue, 蓝色 %&#125;、&#123;% p gray, 灰色 %&#125;。</span><br><span class="line"><span class="bullet">-</span> 超大号文字</span><br><span class="line">文档「开始」页面中的标题部分就是超大号文字。</span><br><span class="line">&#123;% p center logo large, Volantis %&#125;</span><br><span class="line">&#123;% p center small, A Wonderful Theme for Hexo %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="引用-note"><a href="#引用-note" class="headerlink" title="引用 note"></a>引用 note</h1><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p>以下是<code>butterfly</code>主题的note写法。</p>
+</div>
+
+<div class="tabs" id="note-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#note--1">通用配置</button></li><li class="tab"><button type="button" data-href="#note--2">语法格式</button></li><li class="tab"><button type="button" data-href="#note--3">配置参数</button></li><li class="tab active"><button type="button" data-href="#note--4">样式预览</button></li><li class="tab"><button type="button" data-href="#note--5">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="note--1"><p>修改主题配置文件</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">note:</span><br><span class="line">  # Note tag style values:</span><br><span class="line">  #  - simple    bs-callout old alert style. Default.</span><br><span class="line">  #  - modern    bs-callout new (v2-v3) alert style.</span><br><span class="line">  #  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span><br><span class="line">  #  - disabled  disable all CSS styles import of note tag.</span><br><span class="line">  style: simple</span><br><span class="line">  icons: false</span><br><span class="line">  border<span class="emphasis">_radius: 3</span></span><br><span class="line"><span class="emphasis">  # Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line"><span class="emphasis">  # Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line"><span class="emphasis">  light_</span>bg<span class="emphasis">_offset: 0</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Note</code>标签外挂有两种用法。<code>icons</code>和<code>light_bg_offset</code>只对方法一生效。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="note--2"><details class="folding-tag" cyan open><summary> 方法一 </summary>
+              <div class='content'>
+              <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note [class] [no-icon] [style] %&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+              </div>
+            </details>
+
+<details class="folding-tag" cyan open><summary> 方法二 </summary>
+              <div class='content'>
+              <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note [color] [icon] [style] %&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+              </div>
+            </details><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="note--3"><details class="folding-tag" cyan open><summary> 方法一 </summary>
+              <div class='content'>
+              <table><thead><tr><th align="left">参数</th><th align="left">用法</th></tr></thead><tbody><tr><td align="left">class</td><td align="left">【可选】标识，不同的标识有不同的配色（ default &#x2F; primary &#x2F; success &#x2F; info &#x2F; warning &#x2F; danger ）</td></tr><tr><td align="left">no-icon</td><td align="left">【可选】不显示 icon</td></tr><tr><td align="left">style</td><td align="left">【可选】可以覆盖配置中的 style（simple&#x2F;modern&#x2F;flat&#x2F;disabled）</td></tr></tbody></table>
+              </div>
+            </details>
+
+<details class="folding-tag" cyan open><summary> 方法二 </summary>
+              <div class='content'>
+              <table><thead><tr><th align="left">参数</th><th align="left">用法</th></tr></thead><tbody><tr><td align="left">class</td><td align="left">【可选】标识，不同的标识有不同的配色（ default &#x2F; primary &#x2F; success &#x2F; info &#x2F; warning &#x2F; danger ）</td></tr><tr><td align="left">no-icon</td><td align="left">【可选】可配置自定义 icon (只支持 fontawesome 图标, 也可以配置 no-icon )</td></tr><tr><td align="left">style</td><td align="left">【可选】可以覆盖配置中的 style（simple&#x2F;modern&#x2F;flat&#x2F;disabled）</td></tr></tbody></table>
+              </div>
+            </details><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="note--4"><details class="folding-tag" cyan><summary> 方法一 </summary>
+              <div class='content'>
+              <ol><li><code>simple</code>样式<div class="note simple"><p>默认 提示块标签</p></div><div class="note default simple"><p>default 提示块标签</p></div><div class="note primary simple"><p>primary 提示块标签</p></div><div class="note success simple"><p>success 提示块标签</p></div><div class="note info simple"><p>info 提示块标签</p></div><div class="note warning simple"><p>warning 提示块标签</p></div><div class="note danger simple"><p>danger 提示块标签</p></div></li><li><code>modern</code>样式<div class="note modern"><p>默认 提示块标签</p></div><div class="note default modern"><p>default 提示块标签</p></div><div class="note primary modern"><p>primary 提示块标签</p></div><div class="note success modern"><p>success 提示块标签</p></div><div class="note info modern"><p>info 提示块标签</p></div><div class="note warning modern"><p>warning 提示块标签</p></div><div class="note danger modern"><p>danger 提示块标签</p></div></li><li><code>flat</code>样式<div class="note flat"><p>默认 提示块标签</p></div><div class="note default flat"><p>default 提示块标签</p></div><div class="note primary flat"><p>primary 提示块标签</p></div><div class="note success flat"><p>success 提示块标签</p></div><div class="note info flat"><p>info 提示块标签</p></div><div class="note warning flat"><p>warning 提示块标签</p></div><div class="note danger flat"><p>danger 提示块标签</p></div></li><li><code>disabled</code>样式<div class="note disabled"><p>默认 提示块标签</p></div><div class="note default disabled"><p>default 提示块标签</p></div><div class="note primary disabled"><p>primary 提示块标签</p></div><div class="note success disabled"><p>success 提示块标签</p></div><div class="note info disabled"><p>info 提示块标签</p></div><div class="note warning disabled"><p>warning 提示块标签</p></div><div class="note danger disabled"><p>danger 提示块标签</p></div></li><li><code>no-icon</code>样式<div class="note no-icon flat"><p>默认 提示块标签</p></div><div class="note default no-icon flat"><p>default 提示块标签</p></div><div class="note primary no-icon flat"><p>primary 提示块标签</p></div><div class="note success no-icon flat"><p>success 提示块标签</p></div><div class="note info no-icon flat"><p>info 提示块标签</p></div><div class="note warning no-icon flat"><p>warning 提示块标签</p></div><div class="note danger no-icon flat"><p>danger 提示块标签</p></div></li></ol>
+              </div>
+            </details>
+
+<details class="folding-tag" cyan><summary> 方法二 </summary>
+              <div class='content'>
+              <ol><li><code>simple</code>样式<div class="note icon-padding simple"><i class="note-icon fab fa-cc-visa"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note blue icon-padding simple"><i class="note-icon fas fa-bullhorn"></i><p>2021年快到了….</p></div><div class="note pink icon-padding simple"><i class="note-icon fas fa-car-crash"></i><p>小心开车 安全至上</p></div><div class="note red icon-padding simple"><i class="note-icon fas fa-fan"></i><p>这是三片呢？还是四片？</p></div><div class="note orange icon-padding simple"><i class="note-icon fas fa-battery-half"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note purple icon-padding simple"><i class="note-icon far fa-hand-scissors"></i><p>剪刀石头布</p></div><div class="note green icon-padding simple"><i class="note-icon fab fa-internet-explorer"></i><p>前端最讨厌的浏览器</p></div></li><li><code>modern</code>样式<div class="note icon-padding modern"><i class="note-icon fab fa-cc-visa"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p>2021年快到了….</p></div><div class="note pink icon-padding modern"><i class="note-icon fas fa-car-crash"></i><p>小心开车 安全至上</p></div><div class="note red icon-padding modern"><i class="note-icon fas fa-fan"></i><p>这是三片呢？还是四片？</p></div><div class="note orange icon-padding modern"><i class="note-icon fas fa-battery-half"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note purple icon-padding modern"><i class="note-icon far fa-hand-scissors"></i><p>剪刀石头布</p></div><div class="note green icon-padding modern"><i class="note-icon fab fa-internet-explorer"></i><p>前端最讨厌的浏览器</p></div></li><li><code>flat</code>样式<div class="note icon-padding flat"><i class="note-icon fab fa-cc-visa"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note blue icon-padding flat"><i class="note-icon fas fa-bullhorn"></i><p>2021年快到了….</p></div><div class="note pink icon-padding flat"><i class="note-icon fas fa-car-crash"></i><p>小心开车 安全至上</p></div><div class="note red icon-padding flat"><i class="note-icon fas fa-fan"></i><p>这是三片呢？还是四片？</p></div><div class="note orange icon-padding flat"><i class="note-icon fas fa-battery-half"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note purple icon-padding flat"><i class="note-icon far fa-hand-scissors"></i><p>剪刀石头布</p></div><div class="note green icon-padding flat"><i class="note-icon fab fa-internet-explorer"></i><p>前端最讨厌的浏览器</p></div></li><li><code>disabled</code>样式<div class="note icon-padding disabled"><i class="note-icon fab fa-cc-visa"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note blue icon-padding disabled"><i class="note-icon fas fa-bullhorn"></i><p>2021年快到了….</p></div><div class="note pink icon-padding disabled"><i class="note-icon fas fa-car-crash"></i><p>小心开车 安全至上</p></div><div class="note red icon-padding disabled"><i class="note-icon fas fa-fan"></i><p>这是三片呢？还是四片？</p></div><div class="note orange icon-padding disabled"><i class="note-icon fas fa-battery-half"></i><p>你是刷 Visa 还是 UnionPay</p></div><div class="note purple icon-padding disabled"><i class="note-icon far fa-hand-scissors"></i><p>剪刀石头布</p></div><div class="note green icon-padding disabled"><i class="note-icon fab fa-internet-explorer"></i><p>前端最讨厌的浏览器</p></div></li><li><code>no-icon</code>样式<div class="note no-icon flat"><p>你是刷 Visa 还是 UnionPay</p></div><div class="note blue no-icon flat"><p>2021年快到了….</p></div><div class="note pink no-icon flat"><p>小心开车 安全至上</p></div><div class="note red no-icon flat"><p>这是三片呢？还是四片？</p></div><div class="note orange no-icon flat"><p>你是刷 Visa 还是 UnionPay</p></div><div class="note purple no-icon flat"><p>剪刀石头布</p></div><div class="note green no-icon flat"><p>前端最讨厌的浏览器</p></div></li></ol>
+              </div>
+            </details><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="note--5"><details class="folding-tag" cyan><summary> 方法一 </summary>
+              <div class='content'>
+              <ol><li>simple样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note simple %&#125;默认 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note default simple %&#125;default 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary simple %&#125;primary 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success simple %&#125;success 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info simple %&#125;info 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning simple %&#125;warning 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger simple %&#125;danger 提示块标签&#123;% endnote %&#125; </span><br></pre></td></tr></table></figure></li><li>modern样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note modern %&#125;默认 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note default modern %&#125;default 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary modern %&#125;primary 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success modern %&#125;success 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info modern %&#125;info 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning modern %&#125;warning 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger modern %&#125;danger 提示块标签&#123;% endnote %&#125; </span><br></pre></td></tr></table></figure></li><li>flat样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note flat %&#125;默认 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note default flat %&#125;default 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary flat %&#125;primary 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success flat %&#125;success 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info flat %&#125;info 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning flat %&#125;warning 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger flat %&#125;danger 提示块标签&#123;% endnote %&#125; </span><br></pre></td></tr></table></figure></li><li>disabled样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note disabled %&#125;默认 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note default disabled %&#125;default 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary disabled %&#125;primary 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success disabled %&#125;success 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info disabled %&#125;info 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning disabled %&#125;warning 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger disabled %&#125;danger 提示块标签&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure></li><li>no-icon样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note no-icon %&#125;默认 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note default no-icon %&#125;default 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary no-icon %&#125;primary 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success no-icon %&#125;success 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info no-icon %&#125;info 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning no-icon %&#125;warning 提示块标签&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger no-icon %&#125;danger 提示块标签&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure></li></ol>
+              </div>
+            </details>
+<details class="folding-tag" cyan><summary> 方法二 </summary>
+              <div class='content'>
+              <ol><li>simple样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note &#x27;fab fa-cc-visa&#x27; simple %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note blue &#x27;fas fa-bullhorn&#x27; simple %&#125;2021年快到了....&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note pink &#x27;fas fa-car-crash&#x27; simple %&#125;小心开车 安全至上&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note red &#x27;fas fa-fan&#x27; simple%&#125;这是三片呢？还是四片？&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note orange &#x27;fas fa-battery-half&#x27; simple %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note purple &#x27;far fa-hand-scissors&#x27; simple %&#125;剪刀石头布&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note green &#x27;fab fa-internet-explorer&#x27; simple %&#125;前端最讨厌的浏览器&#123;% endnote %&#125; </span><br></pre></td></tr></table></figure></li><li>modern样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note &#x27;fab fa-cc-visa&#x27; modern %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note blue &#x27;fas fa-bullhorn&#x27; modern %&#125;2021年快到了....&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note pink &#x27;fas fa-car-crash&#x27; modern %&#125;小心开车 安全至上&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note red &#x27;fas fa-fan&#x27; modern%&#125;这是三片呢？还是四片？&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note orange &#x27;fas fa-battery-half&#x27; modern %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note purple &#x27;far fa-hand-scissors&#x27; modern %&#125;剪刀石头布&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note green &#x27;fab fa-internet-explorer&#x27; modern %&#125;前端最讨厌的浏览器&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure></li><li>flat样式 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note &#x27;fab fa-cc-visa&#x27; flat %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note blue &#x27;fas fa-bullhorn&#x27; flat %&#125;2021年快到了....&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note pink &#x27;fas fa-car-crash&#x27; flat %&#125;小心开车 安全至上&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note red &#x27;fas fa-fan&#x27; flat%&#125;这是三片呢？还是四片？&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note orange &#x27;fas fa-battery-half&#x27; flat %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note purple &#x27;far fa-hand-scissors&#x27; flat %&#125;剪刀石头布&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note green &#x27;fab fa-internet-explorer&#x27; flat %&#125;前端最讨厌的浏览器&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure></li><li>disabled样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note &#x27;fab fa-cc-visa&#x27; disabled %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note blue &#x27;fas fa-bullhorn&#x27; disabled %&#125;2021年快到了....&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note pink &#x27;fas fa-car-crash&#x27; disabled %&#125;小心开车 安全至上&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note red &#x27;fas fa-fan&#x27; disabled %&#125;这是三片呢？还是四片？&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note orange &#x27;fas fa-battery-half&#x27; disabled %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note purple &#x27;far fa-hand-scissors&#x27; disabled %&#125;剪刀石头布&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note green &#x27;fab fa-internet-explorer&#x27; disabled %&#125;前端最讨厌的浏览器&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure></li><li>no-icon样式<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note no-icon %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note blue no-icon %&#125;2021年快到了....&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note pink no-icon %&#125;小心开车 安全至上&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note red no-icon %&#125;这是三片呢？还是四片？&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note orange no-icon %&#125;你是刷 Visa 还是 UnionPay&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note purple no-icon %&#125;剪刀石头布&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note green no-icon %&#125;前端最讨厌的浏览器&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure></li></ol>
+              </div>
+            </details><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="上标标签-tip"><a href="#上标标签-tip" class="headerlink" title="上标标签 tip"></a>上标标签 tip</h1><div class="tabs" id="tip-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#tip--1">标签语法</button></li><li class="tab"><button type="button" data-href="#tip--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#tip--3">样式预览</button></li><li class="tab"><button type="button" data-href="#tip--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="tip--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip [参数，可选] %&#125;文本内容&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tip--2"><ol>
+<li>样式: success,error,warning,bolt,ban,home,sync,cogs,key,bell</li>
+<li>自定义图标: 支持fontawesome。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="tip--3"><div class="tip "><p>默认情况</p>
+</div>
+<div class="tip success"><p>success</p>
+</div>
+<div class="tip error"><p>error</p>
+</div>
+<div class="tip warning"><p>warning</p>
+</div>
+<div class="tip bolt"><p>bolt</p>
+</div>
+<div class="tip ban"><p>ban</p>
+</div>
+<div class="tip home"><p>home</p>
+</div>
+<div class="tip sync"><p>sync</p>
+</div>
+<div class="tip cogs"><p>cogs</p>
+</div>
+<div class="tip key"><p>key</p>
+</div>
+<div class="tip bell"><p>bell</p>
+</div>
+<div class="tip fa-atom"><p>自定义font awesome图标</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tip--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip %&#125;默认情况&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip success %&#125;success&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip error %&#125;error&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip warning %&#125;warning&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip bolt %&#125;bolt&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip ban %&#125;ban&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip home %&#125;home&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip sync %&#125;sync&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip cogs %&#125;cogs&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip key %&#125;key&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip bell %&#125;bell&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip fa-atom %&#125;自定义font awesome图标&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="动态标签-anima"><a href="#动态标签-anima" class="headerlink" title="动态标签 anima"></a>动态标签 anima</h1><div class="tip faa-horizontal animated"><p>动态标签的实质是引用了font-awesome-animation的css样式，不一定局限于tip标签，也可以是其他标签。只不过这里tip.js是我自己写的，所以我清楚它会怎么被渲染成html，才用的这个写法。可以熟读文档，使用html语言来编写其他标签类型。</p>
+</div>
+
+<div class="tabs" id="anima-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#anima--1">标签语法</button></li><li class="tab"><button type="button" data-href="#anima--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#anima--3">样式预览</button></li><li class="tab"><button type="button" data-href="#anima--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="anima--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip [参数，可选] %&#125;文本内容&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="anima--2"><div class="note blue icon-padding simple"><i class="note-icon fas fa-bullhorn"></i><p>更多详情请参看<a target="_blank" rel="noopener" href="http://l-lin.github.io/font-awesome-animation/">font-awesome-animation文档</a></p>
+<ol>
+<li>将所需的CSS类添加到图标（或DOM中的任何元素）。</li>
+<li>对于父级悬停样式，需要给目标元素添加指定CSS类，同时还要给目标元素的父级元素添加<code>CSS</code>类<code>faa-parent animated-hover</code>。（详情见示例及示例源码）You can regulate the speed of the animation by adding the CSS class or . faa-fastfaa-slow</li>
+<li>可以通过给目标元素添加<code>CSS</code>类<code>faa-fast</code>或<code>faa-slow</code>来控制动画快慢。</li>
+</ol>
+</div>
+<!-- 表格 -->
+
+<table>
+<thead>
+<tr>
+<th align="left">On DOM load当页面</br>加载时显示动画</th>
+<th align="left">On hover当鼠标</br>悬停时显示动画</th>
+<th align="left">On parent hover当鼠标</br>悬停在父元素时显示动画</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><i class="fas fa-wrench faa-wrench animated"></i>&amp;nbsp; faa-wrench animated</td>
+<td align="left"><i class="fas fa-wrench faa-wrench animated-hover"></i>&amp;nbsp; faa-wrench animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-wrench faa-wrench"></i>&amp;nbsp; faa-wrench</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-bell faa-ring animated"></i>&amp;nbsp; faa-ring animated</td>
+<td align="left"><i class="fas fa-bell faa-ring animated-hover"></i>&amp;nbsp; faa-ring animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-bell faa-ring"></i>&amp;nbsp; faa-ring</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-envelope faa-horizontal animated"></i>&amp;nbsp; faa-horizontal animated</td>
+<td align="left"><i class="fas fa-envelope faa-horizontal animated-hover"></i>&amp;nbsp; faa-horizontal animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-envelope faa-horizontal"></i>&amp;nbsp; faa-horizontal</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-thumbs-up faa-vertical animated"></i>&amp;nbsp; faa-vertical animated</td>
+<td align="left"><i class="fas fa-thumbs-up faa-vertical animated-hover"></i>&amp;nbsp;  faa-vertical animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-thumbs-up faa-vertical"></i>&amp;nbsp; faa-vertical</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-exclamation-triangle faa-flash animated"></i>&amp;nbsp; faa-flash animated</td>
+<td align="left"><i class="fas fa-exclamation-triangle faa-flash animated-hover"></i>&amp;nbsp; faa-flash animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-exclamation-triangle faa-flash"></i>&amp;nbsp; faa-flas</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-thumbs-up faa-bounce animated"></i>&amp;nbsp; faa-bounce animated</td>
+<td align="left"><i class="fas fa-thumbs-up faa-bounce animated-hover"></i>&amp;nbsp; faa-bounce animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-thumbs-up faa-bounce"></i>&amp;nbsp; faa-bounce</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-spinner faa-spin animated"></i>&amp;nbsp; faa-spin animated</td>
+<td align="left"><i class="fas fa-spinner faa-spin animated-hover"></i>&amp;nbsp; faa-spin animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-spinner faa-spin"></i>&amp;nbsp; faa-spin</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-plane faa-tada animated"></i>&amp;nbsp; faa-tada animated</td>
+<td align="left"><i class="fas fa-plane faa-tada animated-hover"></i>&amp;nbsp; faa-tada animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-plane faa-tada"></i>&amp;nbsp; faa-tada</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-heart faa-pulse faa-shake animated"></i>&amp;nbsp; faa-shake animated</td>
+<td align="left"><i class="fas fa-heart faa-shake animated-hover"></i>&amp;nbsp; faa-shake animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-heart faa-shake"></i>&amp;nbsp; faa-shake</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-envelope faa-pulse animated"></i>&amp;nbsp; faa-pulse animated</td>
+<td align="left"><i class="fas fa-envelope faa-pulse  animated-hover"></i>&amp;nbsp; faa-pulse animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-envelope faa-pulse"></i>&amp;nbsp; faa-pulse</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-circle faa-burst animated"></i>&amp;nbsp; faa-burst animated</td>
+<td align="left"><i class="fas fa-circle faa-burst animated-hover"></i>&amp;nbsp; faa-burst animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-circle faa-burst"></i>&amp;nbsp; faa-burst</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-star faa-falling animated"></i>&amp;nbsp; faa-falling animated</td>
+<td align="left"><i class="fas fa-star faa-falling animated-hover"></i>&amp;nbsp; faa-falling animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-star faa-falling"></i>&amp;nbsp; faa-falling</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-rocket faa-rising animated"></i>&amp;nbsp; faa-rising animated</td>
+<td align="left"><i class="fas fa-rocket faa-rising animated-hover"></i>&amp;nbsp; faa-rising animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-rocket faa-rising"></i>&amp;nbsp; faa-rising</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-trophy faa-tada animated"></i>&amp;nbsp; faa-tada animated</td>
+<td align="left"><i class="fas fa-trophy faa-tada animated-hover"></i>&amp;nbsp; faa-tada animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-trophy faa-tada"></i>&amp;nbsp; faa-tada</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-space-shuttle faa-passing animated"></i>&amp;nbsp; faa-passing animated</td>
+<td align="left"><i class="fas fa-space-shuttle faa-passing animated-hover"></i>&amp;nbsp; faa-passing animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-space-shuttle faa-passing"></i>&amp;nbsp; faa-passing</span></td>
+</tr>
+<tr>
+<td align="left"><i class="fas fa-space-shuttle faa-passing-reverse animated"></i>&amp;nbsp; faa-passing-reverse animated</td>
+<td align="left"><i class="fas fa-space-shuttle faa-passing-reverse animated-hover"></i>&amp;nbsp; faa-passing-reverse animated-hover</td>
+<td align="left"><span class="faa-parent animated-hover"><i class="fas fa-space-shuttle faa-passing-reverse"></i>&amp;nbsp; faa-passing-reverse</span></td>
+</tr>
+</tbody></table><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="anima--3"><ol>
+<li><p class='p '>On DOM load（当页面加载时显示动画）</p>
+<div class="tip warning faa-horizontal animated"><p>warning</p>
+</div>
+<div class="tip ban faa-flash animated"><p>ban</p>
+</div></li>
+<li><p class='p '>调整动画速度</p>
+<div class="tip warning faa-horizontal animated faa-fast"><p>warning</p>
+</div>
+<div class="tip ban faa-flash animated faa-slow"><p>ban</p>
+</div></li>
+<li><p class='p '>On hover（当鼠标悬停时显示动画）</p>
+<div class="tip warning faa-horizontal animated-hover"><p>warning</p>
+</div>
+<div class="tip ban faa-flash animated-hover"><p>ban</p>
+</div></li>
+<li><p class='p '>On parent hover（当鼠标悬停在父级元素时显示动画）</p>
+<div class="tip warning faa-parent animated-hover"><p class="faa-horizontal">warning</p></div>
+<div class="tip ban faa-parent animated-hover"><p class="faa-flash">ban</p></div></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="anima--4"><ol>
+<li>On DOM load（当页面加载时显示动画）<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip warning faa-horizontal animated %&#125;warning&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip ban faa-flash animated %&#125;ban&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>调整动画速度<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip warning faa-horizontal animated faa-fast %&#125;warning&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip ban faa-flash animated faa-slow %&#125;ban&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>On hover（当鼠标悬停时显示动画）<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip warning faa-horizontal animated-hover %&#125;warning&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip ban faa-flash animated-hover %&#125;ban&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>On parent hover（当鼠标悬停在父级元素时显示动画）<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tip warning faa-parent animated-hover %&#125;<span class="language-xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;faa-horizontal&quot;</span>&gt;</span></span>warning<span class="language-xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>&#123;% endtip %&#125;</span><br><span class="line">&#123;% tip ban faa-parent animated-hover %&#125;<span class="language-xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;faa-flash&quot;</span>&gt;</span></span>ban<span class="language-xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>&#123;% endtip %&#125;</span><br></pre></td></tr></table></figure></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="复选列表-checkbox"><a href="#复选列表-checkbox" class="headerlink" title="复选列表 checkbox"></a>复选列表 checkbox</h1><div class="tabs" id="checkbox-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#checkbox--1">标签语法</button></li><li class="tab"><button type="button" data-href="#checkbox--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#checkbox--3">样式预览</button></li><li class="tab"><button type="button" data-href="#checkbox--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="checkbox--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% checkbox 样式参数（可选）, 文本（支持简单md） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="checkbox--2"><ol>
+<li>样式: plus, minus, times</li>
+<li>颜色:<span class='p red'>red</span>,<span class='p yellow'>yellow</span>,<span class='p green'>green</span>,<span class='p cyan'>cyan</span>,<span class='p blue'>blue</span>,<span class='p gray'>gray</span></li>
+<li>选中状态: checked</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="checkbox--3"><div class='checkbox'><input type="checkbox" />
+            <p>纯文本测试</p>
+            </div>
+<div class='checkbox checked'><input type="checkbox" checked="checked"/>
+            <p>支持简单的 <a target="_blank" rel="noopener" href="https://guides.github.com/features/mastering-markdown/">markdown</a> 语法</p>
+            </div>
+<div class='checkbox red'><input type="checkbox" />
+            <p>支持自定义颜色</p>
+            </div>
+<div class='checkbox green checked'><input type="checkbox" checked="checked"/>
+            <p>绿色 + 默认选中</p>
+            </div>
+<div class='checkbox yellow checked'><input type="checkbox" checked="checked"/>
+            <p>黄色 + 默认选中</p>
+            </div>
+<div class='checkbox cyan checked'><input type="checkbox" checked="checked"/>
+            <p>青色 + 默认选中</p>
+            </div>
+<div class='checkbox blue checked'><input type="checkbox" checked="checked"/>
+            <p>蓝色 + 默认选中</p>
+            </div>
+<div class='checkbox plus green checked'><input type="checkbox" checked="checked"/>
+            <p>增加</p>
+            </div>
+<div class='checkbox minus yellow checked'><input type="checkbox" checked="checked"/>
+            <p>减少</p>
+            </div>
+<div class='checkbox times red checked'><input type="checkbox" checked="checked"/>
+            <p>叉</p>
+            </div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="checkbox--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;% checkbox 纯文本测试 %&#125;</span><br><span class="line">&#123;% checkbox checked, 支持简单的 [<span class="string">markdown</span>](<span class="link">https://guides.github.com/features/mastering-markdown/</span>) 语法 %&#125;</span><br><span class="line">&#123;% checkbox red, 支持自定义颜色 %&#125;</span><br><span class="line">&#123;% checkbox green checked, 绿色 + 默认选中 %&#125;</span><br><span class="line">&#123;% checkbox yellow checked, 黄色 + 默认选中 %&#125;</span><br><span class="line">&#123;% checkbox cyan checked, 青色 + 默认选中 %&#125;</span><br><span class="line">&#123;% checkbox blue checked, 蓝色 + 默认选中 %&#125;</span><br><span class="line">&#123;% checkbox plus green checked, 增加 %&#125;</span><br><span class="line">&#123;% checkbox minus yellow checked, 减少 %&#125;</span><br><span class="line">&#123;% checkbox times red checked, 叉 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="单选列表-radio"><a href="#单选列表-radio" class="headerlink" title="单选列表 radio"></a>单选列表 radio</h1><div class="tabs" id="radio-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#radio--1">标签语法</button></li><li class="tab"><button type="button" data-href="#radio--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#radio--3">样式预览</button></li><li class="tab"><button type="button" data-href="#radio--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="radio--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% radio 样式参数（可选）, 文本（支持简单md） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="radio--2"><ol>
+<li>颜色:<span class='p red'>red</span>,<span class='p yellow'>yellow</span>,<span class='p green'>green</span>,<span class='p cyan'>cyan</span>,<span class='p blue'>blue</span>,<span class='p gray'>gray</span></li>
+<li>选中状态: checked</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="radio--3"><div class='checkbox'><input type="radio" />
+            <p>纯文本测试</p>
+            </div>
+<div class='checkbox checked'><input type="radio" checked="checked"/>
+            <p>支持简单的 <a target="_blank" rel="noopener" href="https://guides.github.com/features/mastering-markdown/">markdown</a> 语法</p>
+            </div>
+<div class='checkbox red'><input type="radio" />
+            <p>支持自定义颜色</p>
+            </div>
+<div class='checkbox green'><input type="radio" />
+            <p>绿色</p>
+            </div>
+<div class='checkbox yellow'><input type="radio" />
+            <p>黄色</p>
+            </div>
+<div class='checkbox cyan'><input type="radio" />
+            <p>青色</p>
+            </div>
+<div class='checkbox blue'><input type="radio" />
+            <p>蓝色</p>
+            </div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="radio--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% radio 纯文本测试 %&#125;</span><br><span class="line">&#123;% radio checked, 支持简单的 [<span class="string">markdown</span>](<span class="link">https://guides.github.com/features/mastering-markdown/</span>) 语法 %&#125;</span><br><span class="line">&#123;% radio red, 支持自定义颜色 %&#125;</span><br><span class="line">&#123;% radio green, 绿色 %&#125;</span><br><span class="line">&#123;% radio yellow, 黄色 %&#125;</span><br><span class="line">&#123;% radio cyan, 青色 %&#125;</span><br><span class="line">&#123;% radio blue, 蓝色 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="时间轴-timeline"><a href="#时间轴-timeline" class="headerlink" title="时间轴 timeline"></a>时间轴 timeline</h1><div class="tabs" id="timeline-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#timeline--1">标签语法</button></li><li class="tab"><button type="button" data-href="#timeline--2">参数配置</button></li><li class="tab active"><button type="button" data-href="#timeline--3">样式预览</button></li><li class="tab"><button type="button" data-href="#timeline--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="timeline--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;% timeline 时间线标题（可选）[,color] %&#125;</span><br><span class="line">&lt;!-- timeline 时间节点（标题） --&gt;</span><br><span class="line">正文内容</span><br><span class="line">&lt;!-- endtimeline --&gt;</span><br><span class="line">&lt;!-- timeline 时间节点（标题） --&gt;</span><br><span class="line">正文内容</span><br><span class="line">&lt;!-- endtimeline --&gt;</span><br><span class="line">&#123;% endtimeline %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="timeline--2"><p>|参数|	解释|<br>|-:  |	-: |<br>|title|	标题&#x2F;时间线|<br>|color	|timeline颜色:default(留空) &#x2F; blue &#x2F; pink &#x2F; red &#x2F; purple &#x2F; orange &#x2F; green|</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="timeline--3"><div class="timeline blue"><div class='timeline-item headline'><div class='timeline-item-title'><div class='item-circle'><p>时间轴样式</p>
+</div></div></div><div class='timeline-item'><div class='timeline-item-title'><div class='item-circle'><p>2020-07-24 <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/releases">2.6.6 -&gt; 3.0</a></p>
+</div></div><div class='timeline-item-content'><ol>
+<li>如果有 <code>hexo-lazyload-image</code> 插件，需要删除并重新安装最新版本，设置 <code>lazyload.isSPA: true</code>。</li>
+<li>2.x 版本的 css 和 js 不适用于 3.x 版本，如果使用了 <code>use_cdn: true</code> 则需要删除。</li>
+<li>2.x 版本的 fancybox 标签在 3.x 版本中被重命名为 gallery 。</li>
+<li>2.x 版本的置顶 <code>top: true</code> 改为了 <code>pin: true</code>，并且同样适用于 <code>layout: page</code> 的页面。</li>
+<li>如果使用了 <code>hexo-offline</code> 插件，建议卸载，3.0 版本默认开启了 pjax 服务。</li>
+</ol>
+</div></div><div class='timeline-item'><div class='timeline-item-title'><div class='item-circle'><p>2020-05-15 <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/releases/tag/2.6.6">2.6.3 -&gt; 2.6.6</a></p>
+</div></div><div class='timeline-item-content'><p>不需要额外处理。</p>
+</div></div><div class='timeline-item'><div class='timeline-item-title'><div class='item-circle'><p>2020-04-20 <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/releases/tag/2.6.3">2.6.2 -&gt; 2.6.3</a></p>
+</div></div><div class='timeline-item-content'><ol>
+<li>全局搜索 <code>seotitle</code> 并替换为 <code>seo_title</code>。</li>
+<li>group 组件的索引规则有变，使用 group 组件的文章内，<code>group: group_name</code> 对应的组件名必须是 <code>group_name</code>。</li>
+<li>group 组件的列表名优先显示文章的 <code>short_title</code> 其次是 <code>title</code>。</li>
+</ol>
+</div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="timeline--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;% timeline 时间轴样式,blue %&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- timeline 2020-07-24 [<span class="string">2.6.6 -&gt; 3.0</span>](<span class="link">https://github.com/volantis-x/hexo-theme-volantis/releases</span>) --&gt;</span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> 如果有 <span class="code">`hexo-lazyload-image`</span> 插件，需要删除并重新安装最新版本，设置 <span class="code">`lazyload.isSPA: true`</span>。</span><br><span class="line"><span class="bullet">2.</span> 2.x 版本的 css 和 js 不适用于 3.x 版本，如果使用了 <span class="code">`use_cdn: true`</span> 则需要删除。</span><br><span class="line"><span class="bullet">3.</span> 2.x 版本的 fancybox 标签在 3.x 版本中被重命名为 gallery 。</span><br><span class="line"><span class="bullet">4.</span> 2.x 版本的置顶 <span class="code">`top: true`</span> 改为了 <span class="code">`pin: true`</span>，并且同样适用于 <span class="code">`layout: page`</span> 的页面。</span><br><span class="line"><span class="bullet">5.</span> 如果使用了 <span class="code">`hexo-offline`</span> 插件，建议卸载，3.0 版本默认开启了 pjax 服务。</span><br><span class="line"></span><br><span class="line">&lt;!-- endtimeline --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- timeline 2020-05-15 [<span class="string">2.6.3 -&gt; 2.6.6</span>](<span class="link">https://github.com/volantis-x/hexo-theme-volantis/releases/tag/2.6.6</span>) --&gt;</span><br><span class="line"></span><br><span class="line">不需要额外处理。</span><br><span class="line"></span><br><span class="line">&lt;!-- endtimeline --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- timeline 2020-04-20 [<span class="string">2.6.2 -&gt; 2.6.3</span>](<span class="link">https://github.com/volantis-x/hexo-theme-volantis/releases/tag/2.6.3</span>) --&gt;</span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> 全局搜索 <span class="code">`seotitle`</span> 并替换为 <span class="code">`seo_title`</span>。</span><br><span class="line"><span class="bullet">2.</span> group 组件的索引规则有变，使用 group 组件的文章内，<span class="code">`group: group_name`</span> 对应的组件名必须是 <span class="code">`group_name`</span>。</span><br><span class="line"><span class="bullet">2.</span> group 组件的列表名优先显示文章的 <span class="code">`short_title`</span> 其次是 <span class="code">`title`</span>。</span><br><span class="line"></span><br><span class="line">&lt;!-- endtimeline --&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endtimeline %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="链接卡片-link"><a href="#链接卡片-link" class="headerlink" title="链接卡片 link"></a>链接卡片 link</h1><div class="tabs" id="link-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#link--1">标签语法</button></li><li class="tab active"><button type="button" data-href="#link--2">样式预览</button></li><li class="tab"><button type="button" data-href="#link--3">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="link--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% link 标题, 链接, 图片链接（可选） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="link--2"><div class="tag link"><a class="link-card" title="唐志远の博客" href="https://fe32.top"><div class="left"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/01/14/21dcbc47444ab.jpg"/></div><div class="right"><p class="text">唐志远の博客</p><p class="url">https://fe32.top</p></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="link--3"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% link 唐志远の博客, https://fe32.top , https://bu.dusays.com/2022/01/14/21dcbc47444ab.jpg %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="github卡片-ghcard"><a href="#github卡片-ghcard" class="headerlink" title="github卡片 ghcard"></a>github卡片 ghcard</h1><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p><code>ghcard</code>使用了<code>github-readme-stats</code>的<code>API</code>，支持直接使用<code>markdown</code>语法来写。</p>
+</div>
+
+<div class="tabs" id="ghcard-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#ghcard--1">标签语法</button></li><li class="tab"><button type="button" data-href="#ghcard--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#ghcard--3">样式预览</button></li><li class="tab"><button type="button" data-href="#ghcard--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="ghcard--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% ghcard 用户名, 其它参数（可选） %&#125;</span><br><span class="line">&#123;% ghcard 用户名/仓库, 其它参数（可选） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="ghcard--2"><p>更多参数可以参考：<br><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/anuraghazra/github-readme-stats"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=anuraghazra&repo=github-readme-stats&show_owner=true"/></a></p>
+<p>使用<code>,</code>分割各个参数。写法为：<code>参数名=参数值</code><br>以下只写几个常用参数值。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">取值</th>
+<th align="left">释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hide</td>
+<td align="left">stars,commits,prs,issues,contribs</td>
+<td align="left">隐藏指定统计</td>
+</tr>
+<tr>
+<td align="left">count_private</td>
+<td align="left">true</td>
+<td align="left">将私人项目贡献添加到总提交计数中</td>
+</tr>
+<tr>
+<td align="left">show_icons</td>
+<td align="left">true</td>
+<td align="left">显示图标</td>
+</tr>
+<tr>
+<td align="left">theme</td>
+<td align="left">请查阅<a target="_blank" rel="noopener" href="https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md">Available Themes</a></td>
+<td align="left">主题</td>
+</tr>
+</tbody></table><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="ghcard--3"><ol>
+<li>用户信息卡片<table>
+<thead>
+<tr>
+<th><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&show_owner=true"/></a></th>
+<th><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=vue&show_owner=true"/></a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=buefy&show_owner=true"/></a></td>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=solarized-light&show_owner=true"/></a></td>
+</tr>
+<tr>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=onedark&show_owner=true"/></a></td>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=solarized-dark&show_owner=true"/></a></td>
+</tr>
+<tr>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=algolia&show_owner=true"/></a></td>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/xaoxuu"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/?username=xaoxuu&theme=calm&show_owner=true"/></a></td>
+</tr>
+</tbody></table>
+</li>
+<li>仓库信息卡片<table>
+<thead>
+<tr>
+<th><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&show_owner=true"/></a></th>
+<th><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=vue&show_owner=true"/></a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=buefy&show_owner=true"/></a></td>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=solarized-light&show_owner=true"/></a></td>
+</tr>
+<tr>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=onedark&show_owner=true"/></a></td>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=solarized-dark&show_owner=true"/></a></td>
+</tr>
+<tr>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=algolia&show_owner=true"/></a></td>
+<td><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/volantis-x/hexo-theme-volantis"><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=volantis-x&repo=hexo-theme-volantis&theme=calm&show_owner=true"/></a></td>
+</tr>
+</tbody></table>
+</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="ghcard--4"><ol>
+<li>用户信息卡片<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| &#123;% ghcard xaoxuu %&#125;                | &#123;% ghcard xaoxuu, theme=vue %&#125;             |</span><br><span class="line">| ---------------------------------- | ------------------------------------------ |</span><br><span class="line">| &#123;% ghcard xaoxuu, theme=buefy %&#125;   | &#123;% ghcard xaoxuu, theme=solarized-light %&#125; |</span><br><span class="line">| &#123;% ghcard xaoxuu, theme=onedark %&#125; | &#123;% ghcard xaoxuu, theme=solarized-dark %&#125;  |</span><br><span class="line">| &#123;% ghcard xaoxuu, theme=algolia %&#125; | &#123;% ghcard xaoxuu, theme=calm %&#125;            |</span><br></pre></td></tr></table></figure></li>
+<li>仓库信息卡片<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| &#123;% ghcard volantis-x/hexo-theme-volantis %&#125;                | &#123;% ghcard volantis-x/hexo-theme-volantis, theme=vue %&#125;             |</span><br><span class="line">| ---------------------------------------------------------- | ------------------------------------------------------------------ |</span><br><span class="line">| &#123;% ghcard volantis-x/hexo-theme-volantis, theme=buefy %&#125;   | &#123;% ghcard volantis-x/hexo-theme-volantis, theme=solarized-light %&#125; |</span><br><span class="line">| &#123;% ghcard volantis-x/hexo-theme-volantis, theme=onedark %&#125; | &#123;% ghcard volantis-x/hexo-theme-volantis, theme=solarized-dark %&#125;  |</span><br><span class="line">| &#123;% ghcard volantis-x/hexo-theme-volantis, theme=algolia %&#125; | &#123;% ghcard volantis-x/hexo-theme-volantis, theme=calm %&#125;            |</span><br></pre></td></tr></table></figure></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="github徽标-ghbdage"><a href="#github徽标-ghbdage" class="headerlink" title="github徽标 ghbdage"></a>github徽标 ghbdage</h1><div class="tip warning"><p>关于ghbdage参数的更多具体用法可以参看站内教程：<a href="https://fe32.top/2020/01/07/%E6%B7%BB%E5%8A%A0github%E5%BE%BD%E6%A0%87">添加github徽标</a></p>
+</div>
+
+<div class="tabs" id="ghbdage-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#ghbdage--1">标签语法</button></li><li class="tab"><button type="button" data-href="#ghbdage--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#ghbdage--3">样式预览</button></li><li class="tab"><button type="button" data-href="#ghbdage--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="ghbdage--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% bdage [right],[left],[logo]||[color],[link],[title]||[option] %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="ghbdage--2"><ol>
+<li><code>left</code>：徽标左边的信息，必选参数。</li>
+<li><code>right</code>: 徽标右边的信息，必选参数，</li>
+<li><code>logo</code>：徽标图标，图标名称详见<a target="_blank" rel="noopener" href="https://simpleicons.org/">simpleicons</a>，可选参数。</li>
+<li><code>color</code>：徽标右边的颜色，可选参数。</li>
+<li><code>link</code>：指向的链接，可选参数。</li>
+<li><code>title</code>：徽标的额外信息，可选参数。主要用于优化 <code>SEO</code>，但 <code>object</code> 标签不会像 <code>a</code> 标签一样在鼠标悬停显示 <code>title</code> 信息。</li>
+<li><code>option</code>：自定义参数，支持<a target="_blank" rel="noopener" href="https://shields.io/">shields.io</a>的全部API参数支持，具体参数可以参看上文中的拓展写法示例。形式为 <code>name1=value2&amp;name2=value2</code>。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="ghbdage--3"><div class="note info modern"><p>本外挂标签的参数分为三组，用<code>||</code>分割。</p>
+</div>
+
+<ol>
+<li>基本参数<br><object class="ghbdage" style="margin-inline:5px" title="" standby="loading..." data="https://img.shields.io/badge/Butterfly-Theme-orange?logo=&color=orange&link=&"></object><object class="ghbdage" style="margin-inline:5px" title="" standby="loading..." data="https://img.shields.io/badge/Hexo-Frame-orange?logo=hexo&color=orange&link=&"></object></li>
+<li>信息参数<br><object class="ghbdage" style="margin-inline:5px" title="本站使用JsDelivr为静态资源提供CDN加速" standby="loading..." data="https://img.shields.io/badge/JsDelivr-CDN-orange?logo=jsDelivr&color=abcdef&link=https://metroui.org.ua/index.html&"></object><object class="ghbdage" style="margin-inline:5px" title="" standby="loading..." data="https://img.shields.io/badge/GitHub-Source-orange?logo=GitHub&color=orange&link=https://github.com/&"></object></li>
+<li>拓展参数<br><object class="ghbdage" style="margin-inline:5px" title="本站采用双线部署，默认线路托管于Vercel" standby="loading..." data="https://img.shields.io/badge/Vercel-Hosted-orange?logo=Vercel&color=brightgreen&link=https://vercel.com/&style=social&logoWidth=20"></object><object class="ghbdage" style="margin-inline:5px" title="" standby="loading..." data="https://img.shields.io/badge/Vercel-Hosted-orange?logo=Vercel&color=orange&link=&style=social&logoWidth=20&logoColor=violet"></object></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="ghbdage--4"><div class="note info modern"><p>本外挂标签的参数分为三组，用<code>||</code>分割。</p>
+</div>
+
+<ol>
+<li>基本参数,定义徽标左右文字和图标<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% bdage Theme,Butterfly %&#125;</span><br><span class="line">&#123;% bdage Frame,Hexo,hexo %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>信息参数，定义徽标右侧内容背景色，指向链接<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% bdage CDN,JsDelivr,jsDelivr||abcdef,https://metroui.org.ua/index.html,本站使用JsDelivr为静态资源提供CDN加速 %&#125;</span><br><span class="line">//如果是跨顺序省略可选参数，仍然需要写个逗号,用作分割</span><br><span class="line">&#123;% bdage Source,GitHub,GitHub||,https://github.com/ %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>拓展参数，支持shields的API的全部参数内容<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% bdage Hosted,Vercel,Vercel||brightgreen,https://vercel.com/,本站采用双线部署，默认线路托管于Vercel||style=social&amp;logoWidth=20 %&#125;</span><br><span class="line">//如果是跨顺序省略可选参数组，仍然需要写双竖线||用作分割</span><br><span class="line">&#123;% bdage Hosted,Vercel,Vercel||||style=social&amp;logoWidth=20&amp;logoColor=violet %&#125;</span><br></pre></td></tr></table></figure></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="网站卡片-sites"><a href="#网站卡片-sites" class="headerlink" title="网站卡片 sites"></a>网站卡片 sites</h1><div class="tabs" id="sites-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#sites--1">标签语法</button></li><li class="tab active"><button type="button" data-href="#sites--2">样式预览</button></li><li class="tab"><button type="button" data-href="#sites--3">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="sites--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;% sitegroup %&#125;</span><br><span class="line">&#123;% site 标题, url=链接, screenshot=截图链接, avatar=头像链接（可选）, description=描述（可选） %&#125;</span><br><span class="line">&#123;% site 标题, url=链接, screenshot=截图链接, avatar=头像链接（可选）, description=描述（可选） %&#125;</span><br><span class="line">&#123;% endsitegroup %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="sites--2"><div class="site-card-group"><a class="site-card" href="https://fe32.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg"/><span class="title">Ethan.Tzy</span><span class="desc">古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志</span></div></a>
+<a class="site-card" href="https://fe32.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg"/><span class="title">Ethan.Tzy</span><span class="desc">古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志</span></div></a>
+<a class="site-card" href="https://fe32.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg"/><span class="title">Ethan.Tzy</span><span class="desc">古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志</span></div></a>
+<a class="site-card" href="https://fe32.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg"/><span class="title">Ethan.Tzy</span><span class="desc">古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志</span></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="sites--3"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;% sitegroup %&#125;</span><br><span class="line">&#123;% site Ethan.Tzy,  url=https://fe32.top/, screenshot=https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg, avatar=https://bu.dusays.com/2022/05/02/626f92e193879.jpg, description=古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志%&#125;</span><br><span class="line">&#123;% site Ethan.Tzy,  url=https://fe32.top/, screenshot=https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg, avatar=https://bu.dusays.com/2022/05/02/626f92e193879.jpg, description=古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志%&#125;</span><br><span class="line">&#123;% site Ethan.Tzy,  url=https://fe32.top/, screenshot=https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg, avatar=https://bu.dusays.com/2022/05/02/626f92e193879.jpg, description=古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志%&#125;</span><br><span class="line">&#123;% site Ethan.Tzy,  url=https://fe32.top/, screenshot=https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg, avatar=https://bu.dusays.com/2022/05/02/626f92e193879.jpg, description=古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志%&#125;</span><br><span class="line">&#123;% endsitegroup %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="行内图片-inlineimage"><a href="#行内图片-inlineimage" class="headerlink" title="行内图片 inlineimage"></a>行内图片 inlineimage</h1><div class="tabs" id="inlineimage-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#inlineimage--1">标签语法</button></li><li class="tab"><button type="button" data-href="#inlineimage--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#inlineimage--3">样式预览</button></li><li class="tab"><button type="button" data-href="#inlineimage--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="inlineimage--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% inlineimage 图片链接, height=高度（可选） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="inlineimage--2"><ol>
+<li>高度：height&#x3D;20px</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="inlineimage--3"><p>这是 <img no-lazy class="inline" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/628532706842d.gif" style="height:1.5em"/> 一段话。</p>
+<p>这又是 <img no-lazy class="inline" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285328a83ca7.gif" style="height:40px;"/> 一段话。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="inlineimage--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这是 &#123;% inlineimage https://bu.dusays.com/2022/05/19/628532706842d.gif %&#125; 一段话。</span><br><span class="line"></span><br><span class="line">这又是 &#123;% inlineimage https://bu.dusays.com/2022/05/19/6285328a83ca7.gif, height=40px %&#125; 一段话。</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="单张图片-image"><a href="#单张图片-image" class="headerlink" title="单张图片 image"></a>单张图片 image</h1><div class="tabs" id="image-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#image--1">标签语法</button></li><li class="tab"><button type="button" data-href="#image--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#image--3">样式预览</button></li><li class="tab"><button type="button" data-href="#image--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="image--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% image 链接, width=宽度（可选）, height=高度（可选）, alt=描述（可选）, bg=占位颜色（可选） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="image--2"><ol>
+<li>图片宽度高度：width&#x3D;300px, height&#x3D;32px</li>
+<li>图片描述：alt&#x3D;图片描述（butterfly需要在主题配置文件中开启图片描述）</li>
+<li>占位背景色：bg&#x3D;#f2f2f2</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="image--3"><ol>
+<li>添加描述：<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285306c996c4.jpg" alt="愿你成为自己的太阳，无需凭借谁的光芒。"/></div><span class="image-caption">愿你成为自己的太阳，无需凭借谁的光芒。</span></div></li>
+<li>指定宽度：<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285306c996c4.jpg" style="width:400px;"/></div></div></li>
+<li>指定宽度并添加描述：<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285306c996c4.jpg" alt="愿你成为自己的太阳，无需凭借谁的光芒。" style="width:400px;"/></div><span class="image-caption">愿你成为自己的太阳，无需凭借谁的光芒。</span></div></li>
+<li>设置占位背景色：<div class="img-wrap"><div class="img-bg" style="background:#1D0C04"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285306c996c4.jpg" alt="优化不同宽度浏览的观感" style="width:400px;"/></div><span class="image-caption">优化不同宽度浏览的观感</span></div></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="image--4"><ol>
+<li>添加描述：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% image https://bu.dusays.com/2022/05/19/6285306c996c4.jpg, alt=愿你成为自己的太阳，无需凭借谁的光芒。 %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>指定宽度：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% image https://bu.dusays.com/2022/05/19/6285306c996c4.jpg, width=400px %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>指定宽度并添加描述：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% image https://bu.dusays.com/2022/05/19/6285306c996c4.jpg, width=400px, alt=愿你成为自己的太阳，无需凭借谁的光芒。 %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>设置占位背景色：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% image https://bu.dusays.com/2022/05/19/6285306c996c4.jpg, width=400px, bg=#1D0C04, alt=优化不同宽度浏览的观感 %&#125;</span><br></pre></td></tr></table></figure></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="音频-audio"><a href="#音频-audio" class="headerlink" title="音频 audio"></a>音频 audio</h1><div class="tabs" id="audio-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#audio--1">标签语法</button></li><li class="tab active"><button type="button" data-href="#audio--2">样式预览</button></li><li class="tab"><button type="button" data-href="#audio--3">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="audio--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% audio 音频链接 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="audio--2"><div class="audio"><audio controls preload><source src='https://github.com/volantis-x/volantis-docs/releases/download/assets/Lumia1020.mp3' type='audio/mp3'>Your browser does not support the audio tag.</audio></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="audio--3"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% audio https://github.com/volantis-x/volantis-docs/releases/download/assets/Lumia1020.mp3 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="视频-video"><a href="#视频-video" class="headerlink" title="视频 video"></a>视频 video</h1><div class="tabs" id="video-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#video--1">标签语法</button></li><li class="tab"><button type="button" data-href="#video--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#video--3">样式预览</button></li><li class="tab"><button type="button" data-href="#video--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="video--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% video 视频链接 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="video--2"><ol>
+<li>对其方向：left, center, right</li>
+<li>列数：逗号后面直接写列数，支持 1 ～ 4 列。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="video--3"><ol>
+<li>100%宽度<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div></li>
+<li>50%宽度<div class="videos" col='2'><div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div></div></li>
+<li>25%宽度<div class="videos" col='4'><div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<div class="video"><video controls preload><source src='https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=_b_B5980ab28f909cff50f35f4b4b1c8c298.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div></div></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="video--4"><ol>
+<li>100%宽度<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>50%宽度<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;% videos, 2 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% endvideos %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>25%宽度<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;% videos, 4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% video https://txmov2.a.yximgs.com/upic/2022/11/13/21/BMjAyMjExMTMyMTQxNThfMjk1MTM4ODg1MV84ODY2ODQ2MzE3NV8wXzM=<span class="emphasis">_b_</span>B5980ab28f909cff50f35f4b4b1c8c298.mp4 %&#125;</span><br><span class="line">&#123;% endvideos %&#125;</span><br></pre></td></tr></table></figure></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="相册-gallery"><a href="#相册-gallery" class="headerlink" title="相册 gallery"></a>相册 gallery</h1><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p><code>Butterfl</code>y自带<code>gallery</code>相册，而且会根据图片大小自动调整排版，效果比<code>Volantis</code>的<code>gallery</code>更好，故不再收录<code>Volantis</code>的<code>gallery</code>标签。</p>
+</div>
+<div class="note flat"><p>以下为<code>Butterfly</code>自带的<code>gallery</code>标签写法。相册图库和相册配合使用。</p>
+</div>
+
+<div class="tabs" id="gallery-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#gallery--1">标签语法</button></li><li class="tab"><button type="button" data-href="#gallery--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#gallery--3">样式预览</button></li><li class="tab"><button type="button" data-href="#gallery--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="gallery--1"><ol>
+<li>gallerygroup 相册图库<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;gallery-group-main&quot;</span>&gt;</span></span></span><br><span class="line">&#123;% galleryGroup name description link img-url %&#125;</span><br><span class="line">&#123;% galleryGroup name description link img-url %&#125;</span><br><span class="line">&#123;% galleryGroup name description link img-url %&#125;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li>gallery 相册<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% gallery %&#125;</span><br><span class="line">markdown 圖片格式</span><br><span class="line">&#123;% endgallery %&#125;</span><br></pre></td></tr></table></figure></li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="gallery--2"><ul>
+<li><p>gallerygroup 相册图库</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">name</td>
+<td align="left">图库名字</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">图库描述</td>
+</tr>
+<tr>
+<td align="left">link</td>
+<td align="left">链接到对应相册的地址</td>
+</tr>
+<tr>
+<td align="left">img-url</td>
+<td align="left">图库封面</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>gallery 相册<br>区别于旧版的<code>Gallery相册</code>,新的<code>Gallery相册</code>会自动根据图片长度进行排版，书写也更加方便，与<code>markdown</code>格式一样。可根据需要插入到相应的md。无需再自己配置长宽。<b>建议在粘贴时故意使用长短、大小、横竖不一的图片</b>，会有更好的效果。（尺寸完全相同的图片只会平铺输出，效果很糟糕）</p>
+</li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="gallery--3"><ul>
+<li>gallerygroup 相册图库</li>
+</ul>
+<div class="gallery-group-main">
+
+  <figure class="gallery-group">
+  <img class="gallery-group-img no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src='https://bu.dusays.com/2021/03/25/b9d521eda085e.jpg' alt="Group Image Gallery">
+  <figcaption>
+  <div class="gallery-group-name">武汉</div>
+  <p>2017年武汉跨年</p>
+  <a href='/gallery/WUHAN' target='_blank'></a>
+  </figcaption>
+  </figure>
+  
+
+  <figure class="gallery-group">
+  <img class="gallery-group-img no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src='https://bu.dusays.com/2021/03/25/bb2882626bf45.jpg' alt="Group Image Gallery">
+  <figcaption>
+  <div class="gallery-group-name">张家界</div>
+  <p>2017年10月张家界</p>
+  <a href='/gallery/ZJJ' target='_blank'></a>
+  </figcaption>
+  </figure>
+  
+
+  <figure class="gallery-group">
+  <img class="gallery-group-img no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src='https://bu.dusays.com/2021/03/26/4e948551b37a8.jpg' alt="Group Image Gallery">
+  <figcaption>
+  <div class="gallery-group-name">成都</div>
+  <p>2019年成都跨年</p>
+  <a href='/gallery/CD' target='_blank'></a>
+  </figcaption>
+  </figure>
+  
+</div>
+
+<ul>
+<li>gallery 相册</li>
+</ul>
+<div class="gallery">
+    <div class="fj-gallery  data" data-rowHeight="220" data-limit="10">
+    <span class="gallery-data">[{"url":"https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg","alt":""},{"url":"https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg","alt":""}]</span>
+    </div>
+    <button class="gallery-load-more"><span>加载更多</span><i class="fa-solid fa-arrow-down"></i></button>
+    </div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="gallery--4"><div class="note blue icon-padding modern"><i class="note-icon fas fa-bullhorn"></i><p>使用相册图库的话，可以在导航栏加一个gallery的page(<b>使用指令<b><code>hexo new page gallery</code><b>添加<b>)，里面放相册图库作为封面。然后在<code>[Blogroot]/source/gallery/</code>下面建立相应的文件夹，例如若按照这里的示例，若欲使用<code>/gallery/DM1/</code>路径访问MC相册，则需要新建<code>[Blogroot]/source/gallery/MC/index.md</code>，并在里面填入<code>gallery</code>相册内容。</p>
+</div>
+1. gallerygroup 相册图库
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;gallery-group-main&quot;</span>&gt;</span></span></span><br><span class="line">&#123;% galleryGroup DM1 &#x27;/gallery/DM1/&#x27; https://bu.dusays.com/2022/01/08/80f5b9302a257.jpg %&#125;</span><br><span class="line">&#123;% galleryGroup DM2 &#x27;/gallery/DM2/&#x27; https://bu.dusays.com/2022/03/03/2025544a69a3a.jpg %&#125;</span><br><span class="line">&#123;% galleryGroup Ethan &#x27;/gallery/Ethan/&#x27; https://bu.dusays.com/2022/03/03/43851ed59eb66.jpg %&#125;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+2. gallery 相册
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;% gallery %&#125;</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg</span>)</span><br><span class="line">![](<span class="link">https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg</span>)</span><br><span class="line">&#123;% endgallery %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="折叠框-folding"><a href="#折叠框-folding" class="headerlink" title="折叠框 folding"></a>折叠框 folding</h1><div class="tabs" id="folding-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#folding--1">标签语法</button></li><li class="tab"><button type="button" data-href="#folding--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#folding--3">样式预览</button></li><li class="tab"><button type="button" data-href="#folding--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="folding--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% folding 参数（可选）, 标题 %&#125;</span><br><span class="line">![](<span class="link">https://bu.dusays.com/2022/05/19/628533399e7a1.jpg</span>)</span><br><span class="line">&#123;% endfolding %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="folding--2"><ol>
+<li>颜色：blue, cyan, green, yellow, red</li>
+<li>状态：状态填写 open 代表默认打开。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="folding--3"><details class="folding-tag" ><summary> 查看图片测试 </summary>
+              <div class='content'>
+              <p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/628533399e7a1.jpg"></p>
+              </div>
+            </details>
+
+<details class="folding-tag" cyan open><summary> 查看默认打开的折叠框 </summary>
+              <div class='content'>
+              <p>这是一个默认打开的折叠框。</p>
+              </div>
+            </details>
+
+<details class="folding-tag" green><summary> 查看代码测试 </summary>
+              <div class='content'>
+              <p>假装这里有代码块（代码块没法嵌套代码块）</p>
+              </div>
+            </details>
+
+<details class="folding-tag" yellow><summary> 查看列表测试 </summary>
+              <div class='content'>
+              <ul><li>haha</li><li>hehe</li></ul>
+              </div>
+            </details>
+
+<details class="folding-tag" red><summary> 查看嵌套测试 </summary>
+              <div class='content'>
+              <details class="folding-tag" blue><summary> 查看嵌套测试2 </summary>              <div class='content'>              <details class="folding-tag" ><summary> 查看嵌套测试3 </summary>              <div class='content'>              <p>hahaha <span><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src='https://bu.dusays.com/2022/05/19/62853244cef33.png' style='height:24px'></span></p>              </div>            </details>              </div>            </details>
+              </div>
+            </details><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="folding--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&#123;% folding 查看图片测试 %&#125;</span><br><span class="line"></span><br><span class="line">![](<span class="link">https://bu.dusays.com/2022/05/19/628533399e7a1.jpg</span>)</span><br><span class="line"></span><br><span class="line">&#123;% endfolding %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% folding cyan open, 查看默认打开的折叠框 %&#125;</span><br><span class="line"></span><br><span class="line">这是一个默认打开的折叠框。</span><br><span class="line"></span><br><span class="line">&#123;% endfolding %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% folding green, 查看代码测试 %&#125;</span><br><span class="line">假装这里有代码块（代码块没法嵌套代码块）</span><br><span class="line">&#123;% endfolding %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% folding yellow, 查看列表测试 %&#125;</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> haha</span><br><span class="line"><span class="bullet">-</span> hehe</span><br><span class="line"></span><br><span class="line">&#123;% endfolding %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% folding red, 查看嵌套测试 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% folding blue, 查看嵌套测试2 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% folding 查看嵌套测试3 %&#125;</span><br><span class="line"></span><br><span class="line">hahaha <span class="language-xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span><span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#x27;https://bu.dusays.com/2022/05/19/62853244cef33.png&#x27;</span> <span class="attr">style</span>=<span class="string">&#x27;height:24px&#x27;</span>&gt;</span></span><span class="language-xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&#123;% endfolding %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endfolding %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endfolding %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="分栏-tab"><a href="#分栏-tab" class="headerlink" title="分栏 tab"></a>分栏 tab</h1><div class="tabs" id="tab-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#tab--1">标签语法</button></li><li class="tab"><button type="button" data-href="#tab--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#tab--3">样式预览</button></li><li class="tab"><button type="button" data-href="#tab--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="tab--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabs Unique name, [index] %&#125;</span><br><span class="line">&lt;!-- tab [Tab caption] [@icon] --&gt;</span><br><span class="line">Any content (support inline tags too).</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tab--2"><ol>
+<li>Unique name :<ul>
+<li>选项卡块标签的唯一名称，不带逗号。</li>
+<li>将在#id中用作每个标签及其索引号的前缀。</li>
+<li>如果名称中包含空格，则对于生成#id，所有空格将由破折号代替。</li>
+<li>仅当前帖子&#x2F;页面的URL必须是唯一的</li>
+</ul>
+</li>
+<li>[index]:<ul>
+<li>活动选项卡的索引号。</li>
+<li>如果未指定，将选择第一个标签（1）。</li>
+<li>如果index为-1，则不会选择任何选项卡。</li>
+<li>可选参数</li>
+</ul>
+</li>
+<li>[Tab caption]:<ul>
+<li>当前选项卡的标题。</li>
+<li>如果未指定标题，则带有制表符索引后缀的唯一名称将用作制表符的标题。</li>
+<li>如果未指定标题，但指定了图标，则标题将为空。</li>
+<li>可选参数。</li>
+</ul>
+</li>
+<li>[@icon]:<ul>
+<li>FontAwesome图标名称（全名，看起来像“ fas fa-font”）</li>
+<li>可以指定带空格或不带空格；</li>
+<li>例如’Tab caption @icon’ 和 ‘Tab caption@icon’.</li>
+<li>可选参数。</li>
+</ul>
+</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="tab--3"><div class="note primary flat"><p>Demo 1 - 预设选择第一个【默认】</p>
+</div>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">test1 1</button></li><li class="tab"><button type="button" data-href="#test1-2">test1 2</button></li><li class="tab"><button type="button" data-href="#test1-3">test1 3</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p><strong>This is Tab 1.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p><strong>This is Tab 2.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-3"><p><strong>This is Tab 3.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<div class="note primary flat"><p>Demo 2 - 预设选择tabs</p>
+</div>
+<div class="tabs" id="test2"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#test2-1">test2 1</button></li><li class="tab"><button type="button" data-href="#test2-2">test2 2</button></li><li class="tab active"><button type="button" data-href="#test2-3">test2 3</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="test2-1"><p><strong>This is Tab 1.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test2-2"><p><strong>This is Tab 2.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="test2-3"><p><strong>This is Tab 3.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<div class="note primary flat"><p>Demo 3 - 没有预设值</p>
+</div>
+<div class="tabs" id="test3"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#test3-1">test3 1</button></li><li class="tab"><button type="button" data-href="#test3-2">test3 2</button></li><li class="tab"><button type="button" data-href="#test3-3">test3 3</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="test3-1"><p><strong>This is Tab 1.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test3-2"><p><strong>This is Tab 2.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test3-3"><p><strong>This is Tab 3.</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<div class="note primary flat"><p>Demo 4 - 自定义Tab名 + 只有icon + icon和Tab名</p>
+</div>
+<div class="tabs" id="test4"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test4-1">第一个Tab</button></li><li class="tab"><button type="button" data-href="#test4-2"><i class="fab fa-apple-pay" style="text-align: center;"></i></button></li><li class="tab"><button type="button" data-href="#test4-3"><i class="fas fa-bomb"></i>炸弹</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test4-1"><p><strong>tab名字为第一个Tab</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test4-2"><p><strong>只有图标 没有Tab名字</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test4-3"><p><strong>名字+icon</strong></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tab--4"><div class="note primary flat"><p>Demo 1 - 预设选择第一个【默认】</p>
+</div>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 3.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note primary flat"><p>Demo 2 - 预设选择tabs</p>
+</div>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabs test2, 3 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 3.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note primary flat"><p>Demo 3 - 没有预设值</p>
+</div>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabs test3, -1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 3.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note primary flat"><p>Demo 4 - 自定义Tab名 + 只有icon + icon和Tab名</p>
+</div>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabs test4 %&#125;</span><br><span class="line">&lt;!-- tab 第一个Tab --&gt;</span><br><span class="line"><span class="strong">**tab名字为第一个Tab**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab @fab fa-apple-pay --&gt;</span><br><span class="line"><span class="strong">**只有图标 没有Tab名字**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab 炸弹@fas fa-bomb --&gt;</span><br><span class="line"><span class="strong">**名字+icon**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<h1 id="诗词标签-poem"><a href="#诗词标签-poem" class="headerlink" title="诗词标签 poem"></a>诗词标签 poem</h1><div class="tabs" id="poem-"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#poem--1">标签语法</button></li><li class="tab"><button type="button" data-href="#poem--2">配置参数</button></li><li class="tab active"><button type="button" data-href="#poem--3">样式预览</button></li><li class="tab"><button type="button" data-href="#poem--4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="poem--1"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% poem [title],[author] %&#125;</span><br><span class="line">诗词内容</span><br><span class="line">&#123;% endpoem %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="poem--2"><ol>
+<li>title：诗词标题</li>
+<li>author：作者，可以不写</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="poem--3"><div class='poem'><div class='poem-title'>水调歌头</div><div class='poem-author'>苏轼</div><p>丙辰中秋，欢饮达旦，大醉，作此篇，兼怀子由。<br>明月几时有？把酒问青天。<br>不知天上宫阙，今夕是何年？<br>我欲乘风归去，又恐琼楼玉宇，高处不胜寒。<br>起舞弄清影，何似在人间？</p>
+<p>转朱阁，低绮户，照无眠。<br>不应有恨，何事长向别时圆？<br>人有悲欢离合，月有阴晴圆缺，此事古难全。<br>但愿人长久，千里共婵娟。</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="poem--4"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;% poem 水调歌头,苏轼 %&#125;</span><br><span class="line">丙辰中秋，欢饮达旦，大醉，作此篇，兼怀子由。</span><br><span class="line">明月几时有？把酒问青天。</span><br><span class="line">不知天上宫阙，今夕是何年？</span><br><span class="line">我欲乘风归去，又恐琼楼玉宇，高处不胜寒。</span><br><span class="line">起舞弄清影，何似在人间？</span><br><span class="line"></span><br><span class="line">转朱阁，低绮户，照无眠。</span><br><span class="line">不应有恨，何事长向别时圆？</span><br><span class="line">人有悲欢离合，月有阴晴圆缺，此事古难全。</span><br><span class="line">但愿人长久，千里共婵娟。</span><br><span class="line">&#123;% endpoem %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/0xiipgum/">https://fe32.top/articles/0xiipgum/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/Butterfly/">Butterfly</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/05/01/626e8d500f25f.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/articles/9r95s1wt/" title="nvm,npm与nrm"><img class="cover" src="https://bu.dusays.com/2022/05/02/626eaea70e682.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">nvm,npm与nrm</div></div></a></div><div class="next-post pull-right"><a href="/articles/kfwr2gpa/" title="添加Github徽标"><img class="cover" src="https://bu.dusays.com/2022/05/02/626eb40f87b02.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">添加Github徽标</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/articles/hexo1600/" title="基于 Hexo 从零开始搭建个人博客系列"><img class="cover" src="https://bu.dusays.com/2022/06/05/629c65942cd1c.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-05</div><div class="title">基于 Hexo 从零开始搭建个人博客系列</div></div></a></div><div><a href="/articles/hexo1601/" title="基于 Hexo 从零开始搭建个人博客（一）"><img class="cover" src="https://bu.dusays.com/2022/05/08/6277cd74796af.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-08</div><div class="title">基于 Hexo 从零开始搭建个人博客（一）</div></div></a></div><div><a href="/articles/hexo1603/" title="基于 Hexo 从零开始搭建个人博客（三）"><img class="cover" src="https://bu.dusays.com/2022/05/26/628e6ab643d37.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-26</div><div class="title">基于 Hexo 从零开始搭建个人博客（三）</div></div></a></div><div><a href="/articles/hexo1602/" title="基于 Hexo 从零开始搭建个人博客（二）"><img class="cover" src="https://bu.dusays.com/2022/05/25/628d12bdec61c.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-25</div><div class="title">基于 Hexo 从零开始搭建个人博客（二）</div></div></a></div><div><a href="/articles/hexo1604/" title="基于 Hexo 从零开始搭建个人博客（四）"><img class="cover" src="https://bu.dusays.com/2022/05/26/628fa0426213d.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-26</div><div class="title">基于 Hexo 从零开始搭建个人博客（四）</div></div></a></div><div><a href="/articles/hexo1605/" title="基于 Hexo 从零开始搭建个人博客（五）"><img class="cover" src="https://bu.dusays.com/2022/05/29/62939662553c9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-29</div><div class="title">基于 Hexo 从零开始搭建个人博客（五）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">98</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给出回复。</div><div id="qq-btn"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="card-widget tzy-ad-swiper"><div class="swiper card-swiper"><div class="swiper-wrapper"><div class="swiper-slide"><a href="https://fe32.top/sponsorWall/"><img src="https://bu.dusays.com/2023/03/29/642449cacc868.png"/></a></div><div class="swiper-slide"><a href="https://fe32.top/@3.7.1/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/6424524c0d728.png"/></a></div><div class="swiper-slide"><a href="https://www.hack-gov.com.cn/" target="_blank"><img src="https://bu.dusays.com/2023/04/14/64395f73abc24.png"/></a></div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div></div><div class="swiper-pagination"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F-text"><span class="toc-number">1.</span> <span class="toc-text">行内文本样式 text</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E6%96%87%E6%9C%AC-span"><span class="toc-number">2.</span> <span class="toc-text">行内文本 span</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD%E6%96%87%E6%9C%AC-p"><span class="toc-number">3.</span> <span class="toc-text">段落文本 p</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E7%94%A8-note"><span class="toc-number">4.</span> <span class="toc-text">引用 note</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E6%A0%87%E6%A0%87%E7%AD%BE-tip"><span class="toc-number">5.</span> <span class="toc-text">上标标签 tip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%A0%87%E7%AD%BE-anima"><span class="toc-number">6.</span> <span class="toc-text">动态标签 anima</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%8D%E9%80%89%E5%88%97%E8%A1%A8-checkbox"><span class="toc-number">7.</span> <span class="toc-text">复选列表 checkbox</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E9%80%89%E5%88%97%E8%A1%A8-radio"><span class="toc-number">8.</span> <span class="toc-text">单选列表 radio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%BD%B4-timeline"><span class="toc-number">9.</span> <span class="toc-text">时间轴 timeline</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E5%8D%A1%E7%89%87-link"><span class="toc-number">10.</span> <span class="toc-text">链接卡片 link</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github%E5%8D%A1%E7%89%87-ghcard"><span class="toc-number">11.</span> <span class="toc-text">github卡片 ghcard</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github%E5%BE%BD%E6%A0%87-ghbdage"><span class="toc-number">12.</span> <span class="toc-text">github徽标 ghbdage</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E5%8D%A1%E7%89%87-sites"><span class="toc-number">13.</span> <span class="toc-text">网站卡片 sites</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E5%9B%BE%E7%89%87-inlineimage"><span class="toc-number">14.</span> <span class="toc-text">行内图片 inlineimage</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E5%BC%A0%E5%9B%BE%E7%89%87-image"><span class="toc-number">15.</span> <span class="toc-text">单张图片 image</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9F%B3%E9%A2%91-audio"><span class="toc-number">16.</span> <span class="toc-text">音频 audio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E9%A2%91-video"><span class="toc-number">17.</span> <span class="toc-text">视频 video</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%86%8C-gallery"><span class="toc-number">18.</span> <span class="toc-text">相册 gallery</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%98%E5%8F%A0%E6%A1%86-folding"><span class="toc-number">19.</span> <span class="toc-text">折叠框 folding</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%A0%8F-tab"><span class="toc-number">20.</span> <span class="toc-text">分栏 tab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%97%E8%AF%8D%E6%A0%87%E7%AD%BE-poem"><span class="toc-number">21.</span> <span class="toc-text">诗词标签 poem</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/ts30001/" title="一文读懂TS的(.d.ts)文件"><img src="https://bu.dusays.com/2023/04/29/644d384035bca.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="一文读懂TS的(.d.ts)文件"/></a><div class="content"><a class="title" href="/articles/ts30001/" title="一文读懂TS的(.d.ts)文件">一文读懂TS的(.d.ts)文件</a><time datetime="2023-04-30T14:28:06.000Z" title="发表于 2023-04-30 22:28:06">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20001/" title="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法"><img src="https://bu.dusays.com/2023/04/29/644d249bc9001.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法"/></a><div class="content"><a class="title" href="/articles/vue20001/" title="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法">Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法</a><time datetime="2023-04-30T12:34:18.000Z" title="发表于 2023-04-30 20:34:18">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10003/" title="Css中有哪些可继承的属性？"><img src="https://bu.dusays.com/2023/04/18/643e92d5cd535.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Css中有哪些可继承的属性？"/></a><div class="content"><a class="title" href="/articles/css10003/" title="Css中有哪些可继承的属性？">Css中有哪些可继承的属性？</a><time datetime="2023-04-30T08:49:50.000Z" title="发表于 2023-04-30 16:49:50">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/blog9528/" title="关于博客更新的二三事"><img src="https://bu.dusays.com/2023/04/15/6439817900324.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="关于博客更新的二三事"/></a><div class="content"><a class="title" href="/articles/blog9528/" title="关于博客更新的二三事">关于博客更新的二三事</a><time datetime="2023-04-14T16:45:14.000Z" title="发表于 2023-04-15 00:45:14">2023-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/xn2023lb/" title="虚拟列表，我真的会了！"><img src="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="虚拟列表，我真的会了！"/></a><div class="content"><a class="title" href="/articles/xn2023lb/" title="虚拟列表，我真的会了！">虚拟列表，我真的会了！</a><time datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/website/log/">更新日志</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/utils.js"></script><script src="/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://npm.elemecdn.com/ethan4116-blog/nav/js/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="/js/swiper-bundle.js"></script><script defer src="/js/custom/index.js"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-92YZLM7C2B"></script><script> window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-92YZLM7C2B');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="//code.tidio.co/momfs16ll3aqxfwsprsjlqjkgc1nytal.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div></div></div><div id="algolia-tips"><span class="algolia-tips-text">Algolia 提供搜索服务</span></div></div></div><div id="search-mask"></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algoliasearch.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/instantsearch.production.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algolia@latest.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><!-- hexo injector body_end end --></body></html>

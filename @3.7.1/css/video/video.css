@@ -1,0 +1,274 @@
+.fs-video-container video {
+    z-index: 0 !important;
+}
+
+button[id*="danmu_send_opt_tzy"] {
+    margin-right: 0.6em !important;
+    outline: none !important;
+}
+
+.linkActive {
+    color: #6f42c1 !important;
+    pointer-events: none;
+}
+
+#VideoBox .videos-more a:hover {
+    color: #6f42c1 !important;
+}
+
+.vjs-control button {
+    outline: none;
+}
+
+.videoDetail>div {
+    max-width: 296px;
+    height: 192px;
+}
+
+@media(max-width: 768px) {
+    .videos-item {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .videoDetail>div {
+        width: 319px;
+        height: 192px;
+    }
+}
+
+#VideoBox .container .TextBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
+}
+#VideoBox .container .row .videoDetail {
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-bottom: 20px
+}
+
+#VideoBox .container .row .videoDetail>div {
+    text-align: center;
+    margin: auto;
+    margin-top: 15px;
+    box-sizing: border-box;
+    position: relative;
+    background: transparent
+}
+
+#VideoBox .container .row .videoDetail>div>img {
+    border-radius: 6px;
+    transition: all 1s
+}
+
+#VideoBox .container .row .videoDetail>div>img:first-of-type {
+    height: 100%;
+    width: 100%
+}
+
+#VideoBox .container .row .videoDetail>div>img {
+    border-radius: 6px;
+    transition: all 1s
+}
+
+#VideoBox .container .row .videoDetail>div .MarkButton {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    max-width: 54px;
+    max-height: 54px;
+    cursor: pointer
+}
+
+#VideoBox .container .row .videoDetail video {
+    width: 100%;
+    height: 162px;
+    display: flex;
+    border-radius: 6px;
+    outline: 0;
+    cursor: pointer
+}
+
+#VideoBox .container .row .videoDetail>p {
+    margin: auto;
+    height: 36px;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--font-color);
+    line-height: 36px;
+    text-align: center
+}
+
+@media(min-width:544px) {
+    #VideoBox .container .row .videoDetail:hover>div>img:first-of-type {
+        box-shadow: 5px -5px 25px rgba(0, 0, 0, .4);
+        transform: scale(1.03);
+        transition: all 1s;
+        cursor: pointer
+    }
+}
+
+@media(max-width:992px) {
+    #VideoBox .container .row .videoDetail {
+        height: 180px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 35px
+    }
+    #VideoBox .container .row .videoDetail>p {
+        margin: auto;
+        height: 36px;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 36px
+    }
+}
+
+@media(max-width:768px) {
+    #VideoBox .container .row .videoDetail {
+        height: 240px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px
+    }
+    #VideoBox .container .row .videoDetail>p {
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 0
+    }
+}
+
+@media(max-width:576px) {
+    #VideoBox .container .row .videoDetail {
+        height: 240px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px
+    }
+}
+
+.fs-video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1040;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.fs-video-player {
+    width: 60%;
+    max-height: 640px
+}
+
+@media(max-width:768px) {
+    .fs-video-player {
+        width: 80%
+    }
+}
+
+.fs-video-close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    height: 35px;
+    width: 35px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer
+}
+
+@media(max-width:768px) {
+    .fs-video-close {
+        width: 22px;
+        height: 22px;
+        right: 15px
+    }
+}
+
+.fs-video-arrow-right,
+.fs-video-arrow-left {
+    position: absolute;
+    left: 10%;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: 65px;
+    padding: 15px;
+    margin: auto 0 !important;
+    cursor: pointer
+}
+
+.fs-video-arrow-left {
+    display: none
+}
+
+.fs-video-arrow-right {
+    right: 10%;
+    left: auto
+}
+
+.fs-video-arrow-disable {
+    opacity: 0;
+    cursor: default
+}
+
+@media(max-width:768px) {
+    .pc-only {
+        display: none!important
+    }
+    #VideoBox .container .row .videoDetail>div {
+        margin: auto auto 0 auto
+    }
+}
+
+@media(min-width:769px) {
+    .mobile-only {
+        display: none!important
+    }
+}
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, .4)
+}
+
+.wrapper-hide {
+    display: none
+}
+
+.wrapper-show {
+    display: block
+}
+
+.Box1,
+.Box2 {
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180px;
+    height: 60px;
+    line-height: 60px;
+    margin-top: -30px;
+    margin-left: -90px
+}

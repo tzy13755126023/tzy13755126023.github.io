@@ -1,0 +1,542 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>虚拟列表，我真的会了！ | 唐志远の博客</title><meta name="keywords" content="虚拟列表,长数据加载"><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="虚拟列表的使用场景如果我想要在网页中放大量的列表项，纯渲染的话，对于浏览器性能将会是个极大的挑战，会造成滚动卡顿，整体体验非常不好，主要有以下问题：  页面等待时间极长，用户体验差 CPU 计算能力不够，滑动会卡顿 GPU 渲染能力不够，页面会跳屏 RAM 内存容量不够，浏览器崩溃  传统做法对于长列表渲染，传统的方法是使用懒加载的方式，下拉到底部获取新的内容加载进来，其实就相当于是在垂直方向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟列表，我真的会了！">
+<meta property="og:url" content="https://fe32.top/articles/xn2023lb/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="虚拟列表的使用场景如果我想要在网页中放大量的列表项，纯渲染的话，对于浏览器性能将会是个极大的挑战，会造成滚动卡顿，整体体验非常不好，主要有以下问题：  页面等待时间极长，用户体验差 CPU 计算能力不够，滑动会卡顿 GPU 渲染能力不够，页面会跳屏 RAM 内存容量不够，浏览器崩溃  传统做法对于长列表渲染，传统的方法是使用懒加载的方式，下拉到底部获取新的内容加载进来，其实就相当于是在垂直方向">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png">
+<meta property="article:published_time" content="2023-02-14T13:24:50.000Z">
+<meta property="article:modified_time" content="2023-02-14T13:48:04.371Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="虚拟列表">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/xn2023lb/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/index.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/fortawesome.all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/2.10.5/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/2.10.5/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/animate.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/@3.7.1/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#6f42c1","position":"top-left"},
+  source: {
+    jQuery: 'https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-14 21:48:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom:70px}</style><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/ethan.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/plane_v2.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu.css"><meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/@3.7.1/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div></a><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/12/04/638ca9bf7d3dc.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/@3.7.1/">唐志远の博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">虚拟列表，我真的会了！</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-14T13:48:04.371Z" title="更新于 2023-02-14 21:48:04">2023-02-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/@3.7.1/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="虚拟列表，我真的会了！"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="tzy-post">
+
+<h2 id="虚拟列表的使用场景"><a href="#虚拟列表的使用场景" class="headerlink" title="虚拟列表的使用场景"></a>虚拟列表的使用场景</h2><p>如果我想要在网页中放大量的列表项，纯渲染的话，对于浏览器性能将会是个极大的挑战，会造成滚动卡顿，整体体验非常不好，主要有以下问题：</p>
+<ul>
+<li>页面等待时间极长，用户体验差</li>
+<li>CPU 计算能力不够，滑动会卡顿</li>
+<li>GPU 渲染能力不够，页面会跳屏</li>
+<li>RAM 内存容量不够，浏览器崩溃</li>
+</ul>
+<h3 id="传统做法"><a href="#传统做法" class="headerlink" title="传统做法"></a>传统做法</h3><p>对于长列表渲染，传统的方法是使用懒加载的方式，下拉到底部获取新的内容加载进来，其实就相当于是在垂直方向上的分页叠加功能，<strong>但随着加载数据越来越多，浏览器的回流和重绘的开销将会越来越大</strong>，整个滑动也会造成卡顿，这个时候我们就可以考虑使用虚拟列表来解决问题。</p>
+<h3 id="虚拟列表"><a href="#虚拟列表" class="headerlink" title="虚拟列表"></a>虚拟列表</h3><p>其核心思想就是在处理用户滚动时，只改变列表在可视区域的渲染部分，具体步骤为：</p>
+<p>先计算可见区域起始数据的索引值<code>startIndex</code>和当前可见区域结束数据的索引值<code>endIndex</code>，假如元素的高度是固定的，那么<code>startIndex</code>的算法很简单，即<code>startIndex = Math.floor(scrollTop/itemHeight)，endIndex = startIndex + (clientHeight/itemHeight) - 1</code>，再根据<code>startIndex</code>和<code>endIndex</code>取相应范围的数据，渲染到可视区域，然后再计算<code>startOffset</code>（上滚动空白区域）和<code>endOffset</code>（下滚动空白区域），这两个偏移量的作用就是来撑开容器元素的内容，从而起到缓冲的作用，使得滚动条保持平滑滚动，并使滚动条处于一个正确的位置</p>
+<p>上述的操作可以总结成五步：</p>
+<ul>
+<li>不把长列表数据一次性全部直接渲染在页面上</li>
+<li>截取长列表一部分数据用来填充可视区域</li>
+<li>长列表数据不可视部分使用空白占位填充（下图中的startOffset和endOffset区域）</li>
+<li>监听滚动事件根据滚动位置动态改变可视列表</li>
+<li>监听滚动事件根据滚动位置动态改变空白填充</li>
+</ul>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/04/63de2ce894ab0.jpg"></div></div>
+
+
+<h2 id="定高虚拟列表实现步骤"><a href="#定高虚拟列表实现步骤" class="headerlink" title="定高虚拟列表实现步骤"></a>定高虚拟列表实现步骤</h2><blockquote>
+<p>掘金使用的是传统懒加载的方式加载的哈，用的并不是虚拟列表，这里只是想表达一下什么是定高的列表！</p>
+</blockquote>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/04/63de2cf6e083e.jpg"></div></div>
+
+<p>实现的效果应该是：<strong>不论怎么滚动，我们改变的只是滚动条的高度和可视区的元素内容，并没有增加任何多余的元素，下面来看看要怎么实现吧！</strong></p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line">// 虚拟列表DOM结构</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">'container'</span>&gt;</span></span><br><span class="line">  // 监听滚动事件的盒子，该高度继承了父元素的高度</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">'scroll-box'</span> <span class="attr">ref</span>=<span class="string">{containerRef}</span> <span class="attr">onScroll</span>=<span class="string">{boxScroll}</span>&gt;</span></span><br><span class="line">    // 该盒子的高度一定会超过父元素，要不实现不了滚动的效果，而且还要动态的改变它的padding值用于控制滚动条的状态</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">{topBlankFill.current}</span>&gt;</span></span><br><span class="line">      {</span><br><span class="line">      showList.map(item =&gt; <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">'item'</span> <span class="attr">key</span>=<span class="string">{item.commentId</span> || (<span class="attr">Math.random</span>() + <span class="attr">item.comments</span>)}&gt;</span>{item.content}<span class="tag">&lt;/<span class="name">div</span>&gt;</span>)</span><br><span class="line">      }</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="计算容器最大容积数量"><a href="#计算容器最大容积数量" class="headerlink" title="计算容器最大容积数量"></a>计算容器最大容积数量</h3><p>简单来说，就是我们必须要知道在可视区域内最多能够容纳多少个列表项，这是我们在截取内容数据渲染到页面之前关键的步骤之一</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"> <span class="comment">// 滚动容器高度改变后执行的函数</span></span><br><span class="line"><span class="keyword">const</span> changeHeight = useCallback(throttle(<span class="function">() =&gt;</span> {</span><br><span class="line">  <span class="comment">// 容器高度，通过操作dom元素获取高度是因为它不一定是个定值</span></span><br><span class="line">  curContainerHeight.current = containerRef.current.offsetHeight</span><br><span class="line">  <span class="comment">// 列表最大数量，考虑到列表中顶部和底部可能都会出现没有展现完的item</span></span><br><span class="line">  curViewNum.current = <span class="built_in">Math</span>.ceil(curContainerHeight.current / itemHeight) + <span class="number">1</span></span><br><span class="line">}, <span class="number">500</span>), [])</span><br><span class="line"></span><br><span class="line">useEffect(<span class="function">() =&gt;</span> {</span><br><span class="line">  <span class="comment">// 组件第一次挂载需要初始化容器的高度以及最大容纳值</span></span><br><span class="line">  changeHeight()</span><br><span class="line">  <span class="comment">// 因为我们的可视窗口和浏览器大小有关系，所以我们需要监听浏览器大小的变化</span></span><br><span class="line">  <span class="comment">// 当浏览器大小改变之后需要重新执行changeHeight函数计算当前可视窗口对应的最大容纳量是多少</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, changeHeight)</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> {</span><br><span class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">'resize'</span>, changeHeight)</span><br><span class="line">  }</span><br><span class="line">}, [changeHeight])</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="监听滚动事件动态截取数据-amp-amp-设置上下滚动缓冲消除快速滚动白屏"><a href="#监听滚动事件动态截取数据-amp-amp-设置上下滚动缓冲消除快速滚动白屏" class="headerlink" title="监听滚动事件动态截取数据&amp;&amp;设置上下滚动缓冲消除快速滚动白屏"></a>监听滚动事件动态截取数据&amp;&amp;设置上下滚动缓冲消除快速滚动白屏</h3><p>这是虚拟列表的核心之处，不将所有我们请求到的元素渲染出来，而是只渲染我们能够看到的元素，大大减少了容器内的dom节点数量。</p>
+<p>不过有个隐藏的问题我们需要考虑到，当用户滑动过快的时候，很多用户的设备性能并不是很好，很容易出现屏幕已经滚动过去了，但是列表项还没有及时加载出来的情况，这个时候用户就会看到短暂的白屏，对用户的体验非常不好。所以我们需要设置一段缓冲区域，让用户过快的滚动之后还能看到我们提前渲染好的数据，等到缓冲数据滚动完了，我们新的数据也渲染到页面中去了！</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> scrollHandle = <span class="function">() =&gt;</span> {</span><br><span class="line">  <span class="comment">// 注意这个对应的是可视区第一个元素的索引值，而不是第多少个元素</span></span><br><span class="line">  <span class="keyword">let</span> startIndex = <span class="built_in">Math</span>.floor(containerRef.current.scrollTop / itemHeight) <span class="comment">// itemHeight是列表每一项的高度</span></span><br><span class="line">  <span class="comment">// 优化：如果是用户滚动触发的，而且两次startIndex的值都一样，那么就没有必要执行下面的逻辑</span></span><br><span class="line">  <span class="keyword">if</span> (!isNeedLoad &amp;&amp; lastStartIndex.current === startIndex) <span class="keyword">return</span></span><br><span class="line">  isNeedLoad.current = <span class="literal">false</span></span><br><span class="line">  lastStartIndex.current = startIndex</span><br><span class="line">  <span class="keyword">const</span> containerMaxSize = curViewNum.current</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 解决滑动过快出现的白屏问题：注意endIndex要在startIndex人为改变之前就计算好</span></span><br><span class="line"><span class="comment">   * 因为我们实际上需要三板的数据用于兼容低性能的设备，用做上下滚动的缓冲区域，避免滑动的时候出现白屏</span></span><br><span class="line"><span class="comment">   * 现在的startIndex是可视区的第一个元素索引，再加上2倍可视区元素量，刚好在下方就会多出一板来当做缓冲区</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// 此处的endIndex是为了在可视区域的下方多出一板数据</span></span><br><span class="line">  <span class="keyword">let</span> endIndex = startIndex + <span class="number">2</span> * containerMaxSize - <span class="number">1</span></span><br><span class="line">  <span class="comment">// 接近滚动到屏幕底部的时候，就可以请求发送数据了，这个时候触底的并不是可视区的最后一个元素，而是多出那一版的最后一个元素触底了</span></span><br><span class="line">  <span class="keyword">const</span> currLen = dataListRef.current.length</span><br><span class="line">  <span class="keyword">if</span> (endIndex &gt; currLen - <span class="number">1</span>) {</span><br><span class="line">    <span class="comment">// 更新请求参数，发送请求获取新的数据(但是要保证当前不在请求过程中，否则就会重复请求相同的数据)</span></span><br><span class="line">    !isRequestRef.current &amp;&amp; setOptions(<span class="function"><span class="params">state</span> =&gt;</span> ({ <span class="attr">offset</span>: state.offset + <span class="number">1</span> }))</span><br><span class="line">    <span class="comment">// 如果已经滚动到了底部，那么就设置endIndex为最后一个元素索引即可</span></span><br><span class="line">    endIndex = currLen - <span class="number">1</span></span><br><span class="line">  }</span><br><span class="line">  <span class="comment">// 此处的endIndex是为了在可视区域的上方多出一板数据</span></span><br><span class="line">  <span class="comment">// 这里人为的调整startIndex的值，目的就是为了能够在可视区域上方多出一板来当做缓冲区</span></span><br><span class="line">  <span class="keyword">if</span> (startIndex &lt;= containerMaxSize) { <span class="comment">// containerMaxSize是我们之前计算出来的容器容纳量</span></span><br><span class="line">    startIndex = <span class="number">0</span></span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">    startIndex = startIndex - containerMaxSize</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">// 使用slice方法截取数据，但是要记住第二个参数对应的索引元素不会被删除，最多只能删除到它的前一个，所以我们这里的endIndex需要加一</span></span><br><span class="line">  setShowList(dataListRef.current.slice(startIndex, endIndex + <span class="number">1</span>))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="动态设置上下空白占位"><a href="#动态设置上下空白占位" class="headerlink" title="动态设置上下空白占位"></a>动态设置上下空白占位</h3><p>这是虚拟列表的灵魂所在，本质上我们数据量是很少的，一般来说只有几条到十几条数据，如果不对列表做一些附加的操作，连生成滚动条都有点困难，更别说让用户自由操控滚动条滚动了。</p>
+<p>我们必须要用某种方法将内容区域撑起来，这样才会出现比较合适的滚动条。我这里采取的方法就是设置<code>paddingTop</code>和<code>paddingBottom</code>的值来动态的撑开内容区域。</p>
+<p>为什么要动态的改变呢？举个例子，我们向下滑动的时候会更换页面中要展示的数据列表，如果不改变原先的空白填充区域，那么随着滚动条的滚动，原先展示在可视区的第一条数据就会向上移动，虽然我们更新的数据是正确的，但并没有将它们展示在合适的位置。完美的方案是是不仅要展示正确的数据，而且还要改变空白填充区域高度，使得数据能够正确的展示在浏览器视口当中。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 以下代码要放在更新列表数据之前，也是在滚动事件boxScroll当中</span></span><br><span class="line"><span class="comment">// 改变空白填充区域的样式，否则就会出现可视区域的元素与滚动条不匹配的情况，实现不了平滑滚动的效果</span></span><br><span class="line">topBlankFill.current = {</span><br><span class="line">  <span class="comment">// 起始索引就是缓冲区第一个元素的索引，索引为多少就代表前面有多少个元素</span></span><br><span class="line">  paddingTop: <span class="string">`<span class="subst">${startIndex * itemHeight}</span>px`</span>,</span><br><span class="line">  <span class="comment">// endIndex是缓冲区的最后一个元素，可能不在可视区内；用dataListRef数组最后一个元素的索引与endIndex相减就可以得到还没有渲染元素的数目</span></span><br><span class="line">  paddingBottom: <span class="string">`<span class="subst">${(dataListRef.current.length - <span class="number">1</span> - endIndex) * itemHeight}</span>px`</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="下拉置底自动请求和加载数据"><a href="#下拉置底自动请求和加载数据" class="headerlink" title="下拉置底自动请求和加载数据"></a>下拉置底自动请求和加载数据</h3><p>在真实的开发场景中，我们不会一次性请求1w、10w条数据过来，这样请求时间那么长，用户早就把页面关掉了，还优化个屁啊哈哈！</p>
+<p>所以真实开发中，我们还是要结合原来的懒加载方式，等到下拉触底的时候去加载新的数据进来，放置到缓存数据当中，然后我们再根据滚动事件决定具体渲染哪一部分的数据到页面上去。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 组件刚挂载以及下拉触底的时候请求更多数据</span></span><br><span class="line">useEffect(<span class="function">() =&gt;</span> {</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; {</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">      <span class="comment">// 表明当前正处于请求过程中</span></span><br><span class="line">      isRequestRef.current = <span class="literal">true</span></span><br><span class="line">      <span class="keyword">const</span> { offset } = options</span><br><span class="line">      <span class="keyword">let</span> limit = <span class="number">20</span></span><br><span class="line">      <span class="keyword">if</span> (offset === <span class="number">1</span>) limit = <span class="number">40</span></span><br><span class="line">      <span class="keyword">const</span> { <span class="attr">data</span>: { comments, more } } = <span class="keyword">await</span> axios({</span><br><span class="line">        url: <span class="string">`http://localhost:3000/comment/music?id=<span class="subst">${<span class="number">186015</span> - offset}</span>&amp;limit=<span class="subst">${limit}</span>&amp;offset=1`</span></span><br><span class="line">      })</span><br><span class="line">      isNeedLoad.current = more</span><br><span class="line">      <span class="comment">// 将新请求到的数据添加到存储列表数据的变量当中</span></span><br><span class="line">      dataListRef.current = [...dataListRef.current, ...comments]</span><br><span class="line">      <span class="comment">// 必选要在boxScroll之前将isRequestRef设为false，因为boxScroll函数内部会用到这个变量</span></span><br><span class="line">      isRequestRef.current = <span class="literal">false</span></span><br><span class="line">      <span class="comment">// 请求完最新数据的时候需要重新触发一下boxScroll函数，因为容器内的数据、空白填充区域可能需要变化</span></span><br><span class="line">      boxScroll()</span><br><span class="line">    } <span class="keyword">catch</span> (err) {</span><br><span class="line">      isRequestRef.current = <span class="literal">false</span></span><br><span class="line">      <span class="built_in">console</span>.log(err);</span><br><span class="line">    }</span><br><span class="line">  })()</span><br><span class="line">  <span class="comment">// 在boxScroll函数里面，一旦发生了触底操作就会去改变optiosn的值</span></span><br><span class="line">}, [options])</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="滚动事件请求动画帧进行节流优化"><a href="#滚动事件请求动画帧进行节流优化" class="headerlink" title="滚动事件请求动画帧进行节流优化"></a>滚动事件请求动画帧进行节流优化</h4><p>虚拟列表很依赖于滚动事件，考虑到用户可能会滑动很快，我们在用节流优化的时候事件必须要设置的够短，否则还是会出现白屏现象。</p>
+<p>这里我没有用传统的节流函数，而是用到了请求动画帧帮助我们进行节流，这里就不做具体介绍了。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 利用请求动画帧做了一个节流优化</span></span><br><span class="line"><span class="keyword">let</span> then = useRef(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">const</span> boxScroll = <span class="function">() =&gt;</span> {</span><br><span class="line">  <span class="keyword">const</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 这里的等待时间不宜设置过长，不然会出现滑动到空白占位区域的情况</span></span><br><span class="line"><span class="comment">   * 因为间隔时间过长的话，太久没有触发滚动更新事件，下滑就会到padding-bottom的空白区域</span></span><br><span class="line"><span class="comment">   * 电脑屏幕的刷新频率一般是60HZ，渲染的间隔时间为16.6ms，我们的时间间隔最好小于两次渲染间隔16.6*2=33.2ms，一般情况下30ms左右，</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (now - then.current &gt; <span class="number">30</span>) {</span><br><span class="line">    then.current = now</span><br><span class="line">    <span class="comment">// 重复调用scrollHandle函数，让浏览器在下一次重绘之前执行函数，可以确保不会出现丢帧现象</span></span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(scrollHandle)</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当然，填充空白区域、模拟滚动条还有其它的办法，比如根据总数据量让一个盒子撑开父盒子用于生成滚动条，根据<code>startIndex</code>计算出可视区域距离顶部的距离并调节内容区域元素的<code>transform</code>属性，即<code>startOffset = scrollTop \- (scrollTop % this.itemSize)</code>，让内容区域一直暴露在可视区域内</p>
+<p>目前为止，我们已经实现了固定高度的列表项用虚拟列表来展示的功能！接下里我们将会介绍关于不定高（其高度由内容进行撑开）的列表项如何用虚拟列表进行优化</p>
+<h2 id="不定高虚拟列表实现步骤"><a href="#不定高虚拟列表实现步骤" class="headerlink" title="不定高虚拟列表实现步骤"></a>不定高虚拟列表实现步骤</h2><blockquote>
+<p>微博是一个很典型的不定高虚拟列表，大家感兴趣的话可以去看一下哦！</p>
+</blockquote>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/04/63de2cffacfd5.jpg"></div></div>
+
+<p>在之前的实现中，列表项的高度是固定的，因为高度固定，所以可以很轻易的就能获取列表项的整体高度以及滚动时的显示数据与对应的偏移量。而实际应用的时候，当列表中包含文本、图片之类的可变内容，会导致列表项的高度并不相同。</p>
+<p>我们在列表渲染之前，确实没有办法知道每一项的高度，但是又必须要渲染出来，那怎么办呢？</p>
+<p>这里有一个解决方法，就是<strong>先给没有渲染出来的列表项设置一个预估高度，等到这些数据渲染成真实dom元素了之后，再获取到他们的真实高度去更新原来设置的预估高度</strong>，下面我们来看看跟定高列表有什么不同，具体要怎么实现吧！</p>
+<h3 id="请求到新数据对数据进行初始化（设置预估高度）"><a href="#请求到新数据对数据进行初始化（设置预估高度）" class="headerlink" title="请求到新数据对数据进行初始化（设置预估高度）"></a>请求到新数据对数据进行初始化（设置预估高度）</h3><p>预估高度的设置其实是有技巧的，列表项预估高度设置的越大，展现出来的数据就会越少，所以当预估高度比实际高度大很多的时候，很容易出现可视区域数据量太少而引起的可视区域出现部分空白。为了避免这种情况，我们的预估高度应该设置为列表项产生的最小值，这样尽管可能会多渲染出几条数据，但能保证首次呈现给用户的画面中没有空白</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 请求更多的数据</span></span><br><span class="line">useEffect(<span class="function">() =&gt;</span> {</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; {</span><br><span class="line">    <span class="comment">// 只有当前不在请求状态的时候才可以发送新的请求</span></span><br><span class="line">    <span class="keyword">if</span> (!isRequestRef.current) {</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'发送请求了'</span>);</span><br><span class="line">      <span class="keyword">try</span> {</span><br><span class="line">        isRequestRef.current = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">const</span> { offset } = options</span><br><span class="line">        <span class="keyword">let</span> limit = <span class="number">20</span></span><br><span class="line">        <span class="keyword">if</span> (offset === <span class="number">1</span>) limit = <span class="number">40</span></span><br><span class="line">        <span class="keyword">const</span> { <span class="attr">data</span>: { comments, more } } = <span class="keyword">await</span> axios({</span><br><span class="line">          url: <span class="string">`http://localhost:3000/comment/music?id=<span class="subst">${<span class="number">186015</span> - offset}</span>&amp;limit=<span class="subst">${limit}</span>&amp;offset=1`</span></span><br><span class="line">        })</span><br><span class="line">        isNeedLoad.current = more</span><br><span class="line">        <span class="comment">// 获取缓存中最后一个数据的索引值，如果没有，则返回-1</span></span><br><span class="line">        <span class="keyword">const</span> lastIndex = dataListRef.current.length ? dataListRef.current[dataListRef.current.length - <span class="number">1</span>].index : -<span class="number">1</span></span><br><span class="line">        <span class="comment">// 先将请求到的数据添加到缓存数组中去</span></span><br><span class="line">        dataListRef.current = [...dataListRef.current, ...comments]</span><br><span class="line">        <span class="keyword">const</span> dataList = dataListRef.current</span><br><span class="line">        <span class="comment">// 将刚刚请求到的新数据做一下处理，为他们添加上对应的索引值、预估高度、以及元素首尾距离容器顶部的距离</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = lastIndex + <span class="number">1</span>, len = dataListRef.current.length; i &lt; len; i++) {</span><br><span class="line">          dataList[i].index = i</span><br><span class="line">          <span class="comment">// 预估高度是列表项对应的最小高度</span></span><br><span class="line">          dataList[i].height = <span class="number">63</span></span><br><span class="line">          <span class="comment">// 每一个列表项头部距离容器顶部的距离等于上一个元素尾部距离容器顶部的距离</span></span><br><span class="line">          dataList[i].top = dataList[i - <span class="number">1</span>]?.bottom || <span class="number">0</span></span><br><span class="line">          <span class="comment">// 每一个列表项尾部距离容器顶部的距离等于上一个元素头部距离容器顶部的距离加上自身列表项的高度</span></span><br><span class="line">          dataList[i].bottom = dataList[i].top + dataList[i].height</span><br><span class="line">        }</span><br><span class="line">        isRequestRef.current = <span class="literal">false</span></span><br><span class="line">        boxScroll()</span><br><span class="line">      } <span class="keyword">catch</span> (err) {</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">      } <span class="keyword">finally</span> {</span><br><span class="line">        isRequestRef.current = <span class="literal">false</span></span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  })()</span><br><span class="line">  <span class="comment">// eslint-disable-next-line</span></span><br><span class="line">}, [options])</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="每次列表更新之后将列表项真实高度更新缓存中的预估高度"><a href="#每次列表更新之后将列表项真实高度更新缓存中的预估高度" class="headerlink" title="每次列表更新之后将列表项真实高度更新缓存中的预估高度"></a>每次列表更新之后将列表项真实高度更新缓存中的预估高度</h3><p>在<code>React</code>函数式组件中，<code>useEffect</code>只要不传第二个参数，就可以实现类组件<code>componentDidUpdate</code>生命周期函数的作用，只要我们重新渲染一次列表组件，就会重新计算一下当前列表每一项中的真实高度并更新到缓存中去，当下次我们再用到缓存中的这些数据时，使用的就是真实高度了</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 每次组件重新渲染即用户滚动更改了数据之后需要将列表中我们还不知道的列表项高度更新到我们的缓存数据中去，以便下一次更新的时候能够正常渲染</span></span><br><span class="line">useEffect(<span class="function">() =&gt;</span> { </span><br><span class="line">  <span class="keyword">const</span> doms = containerRef.current.children[<span class="number">0</span>].children</span><br><span class="line">  <span class="keyword">const</span> len = doms.length</span><br><span class="line">  <span class="comment">// 因为一开始我们没有请求数据，所以即使组件渲染完了，但是没有列表项，此时不需要执行后续操作</span></span><br><span class="line">  <span class="keyword">if</span> (len) {</span><br><span class="line">    <span class="comment">// 遍历所有的列表结点，根据结点的真实高度去更改缓存中的高度</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) {</span><br><span class="line">      <span class="keyword">const</span> realHeight = doms[i].offsetHeight</span><br><span class="line">      <span class="keyword">const</span> originHeight = showList[i].height</span><br><span class="line">      <span class="keyword">const</span> dValue = realHeight - originHeight</span><br><span class="line">      <span class="comment">// 如果列表项的真实高度就是缓存中的高度，则不需要进行更新</span></span><br><span class="line">      <span class="keyword">if</span> (dValue) {</span><br><span class="line">        <span class="keyword">const</span> index = showList[i].index</span><br><span class="line">        <span class="keyword">const</span> allData = dataListRef.current</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">           * 如果列表项的真实高度不是缓存中的高度，那么不仅要更新缓存中这一项的bottom和height属性</span></span><br><span class="line"><span class="comment">           * 在该列表项后续的所有列表项的top、bottom都会受到它的影响，所以我们又需要一层for循环进行更改缓存中后续的值</span></span><br><span class="line"><span class="comment">           */</span></span><br><span class="line">        allData[index].bottom += dValue</span><br><span class="line">        allData[index].height = realHeight</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">           * 注意：这里更改的一定要是缓存数组中对应位置后续的所有值，如果只改变的是showList值的话</span></span><br><span class="line"><span class="comment">           * 会造成dataList间断性的bottom和下一个top不连续，因为startIndex、endIndex以及空白填充区域都是依据top和bottom值来进行计算的</span></span><br><span class="line"><span class="comment">           * 所以会导致最后计算的结果出错，滑动得来的startIndex变化幅度大且滚动条不稳定，出现明显抖动问题</span></span><br><span class="line"><span class="comment">           */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = index + <span class="number">1</span>, len = allData.length; j &lt; len; j++) {</span><br><span class="line">          allData[j].top = allData[j - <span class="number">1</span>].bottom</span><br><span class="line">          allData[j].bottom += dValue</span><br><span class="line">        }</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">// eslint-disable-next-line</span></span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="得到可视区域的起始和结束元素索引-amp-amp-设置上下滚动缓冲区域消除快速滚动白屏"><a href="#得到可视区域的起始和结束元素索引-amp-amp-设置上下滚动缓冲区域消除快速滚动白屏" class="headerlink" title="得到可视区域的起始和结束元素索引&amp;&amp;设置上下滚动缓冲区域消除快速滚动白屏"></a>得到可视区域的起始和结束元素索引&amp;&amp;设置上下滚动缓冲区域消除快速滚动白屏</h3><p>列表项的<code>bottom</code>属性代表的就是该元素尾部到容器顶部的距离，不难发现，可视区的第一个元素的<code>bottom</code>是第一个大于滚动高度的；可视区最后一个元素的<code>bottom</code>是第一个大于（滚动高度+可视高度）的。我们可以利用这条规则遍历缓存数组找到对应的<code>startIndex</code>和<code>endIndex</code></p>
+<p>由于我们的缓存数据，本身就是有顺序的，所以获取开始索引的方法可以考虑通过二分查找的方式来降低检索次数，减少时间复杂度。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 得到要渲染数据的起始索引和结束索引</span></span><br><span class="line"><span class="keyword">const</span> getIndex = <span class="function">() =&gt;</span> {</span><br><span class="line">  <span class="comment">// 设置缓冲区域的数据量</span></span><br><span class="line">  <span class="keyword">const</span> aboveCount = <span class="number">5</span></span><br><span class="line">  <span class="keyword">const</span> belowCount = <span class="number">5</span></span><br><span class="line">  <span class="comment">// 结果数组，里面包含了起始索引和结束索引</span></span><br><span class="line">  <span class="keyword">const</span> resObj = {</span><br><span class="line">    startIndex: <span class="number">0</span>,</span><br><span class="line">    endIndex: <span class="number">0</span>,</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">const</span> scrollTop = containerRef.current.scrollTop</span><br><span class="line">  <span class="keyword">const</span> dataList = dataListRef.current</span><br><span class="line">  <span class="keyword">const</span> len = dataList.length</span><br><span class="line">  <span class="comment">// 设置上层缓冲区，如果索引值大于缓冲区域，那么就需要减小startIndex的值用于设置顶层缓冲区</span></span><br><span class="line">  <span class="keyword">const</span> startIndex = binarySearch(scrollTop)</span><br><span class="line">  <span class="keyword">if</span> (startIndex &lt;= aboveCount) {</span><br><span class="line">    resObj.startIndex = <span class="number">0</span></span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">    resObj.startIndex = startIndex - aboveCount</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓冲数据中第一个bottom大于滚动高度加上可视区域高度的元素就是可视区域最后一个元素</span></span><br><span class="line"><span class="comment">     * 如果没有找到的话就说明当前滚动的幅度过大，缓存中没有数据的bottom大于我们的目标值，所以搜索不到对应的索引，我们只能拿缓存数据中的最后一个元素补充上</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  <span class="keyword">const</span> endIndex = binarySearch(scrollTop + curContainerHeight.current) || len - <span class="number">1</span></span><br><span class="line">  <span class="comment">// 增大endIndex的索引值用于为滚动区域下方设置一段缓冲区，避免快速滚动所导致的白屏问题</span></span><br><span class="line">  resObj.endIndex = endIndex + belowCount</span><br><span class="line">  <span class="keyword">return</span> resObj</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由于我们的缓存数据，本身就是有顺序的，所以获取开始索引的方法可以考虑通过二分查找的方式来降低检索次数：</span></span><br><span class="line"><span class="keyword">const</span> binarySearch = <span class="function">(<span class="params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="keyword">const</span> list = dataListRef.current</span><br><span class="line">  <span class="keyword">let</span> start = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> end = list.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> tempIndex = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span> (start &lt;= end) {</span><br><span class="line">    <span class="keyword">let</span> midIndex = <span class="built_in">parseInt</span>((start + end) / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">let</span> midValue = list[midIndex].bottom;</span><br><span class="line">    <span class="keyword">if</span> (midValue === value) {</span><br><span class="line">      <span class="comment">// 说明当前滚动区域加上可视区域刚好是一个结点的边界，那么我们可以以其下一个结点作为末尾元素</span></span><br><span class="line">      <span class="keyword">return</span> midIndex + <span class="number">1</span>;</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (midValue &lt; value) {</span><br><span class="line">      <span class="comment">// 由于当前值与目标值还有一定的差距，所以我们需要增加start值以让下次中点的落点更靠后</span></span><br><span class="line">      start = midIndex + <span class="number">1</span>;</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (midValue &gt; value) {</span><br><span class="line">      <span class="comment">// 因为我们的目的并不是找到第一个满足条件的值，而是要找到满足条件的最小索引值</span></span><br><span class="line">      <span class="keyword">if</span> (tempIndex === <span class="literal">null</span> || tempIndex &gt; midIndex) {</span><br><span class="line">        tempIndex = midIndex;</span><br><span class="line">      }</span><br><span class="line">      <span class="comment">// 由于我们要继续找更小的索引，所以需要让end-1以缩小范围，让下次中点的落点更靠前</span></span><br><span class="line">      end--</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> tempIndex;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="监听滚动事件动态截取数据-amp-amp-动态设置上下空白占位"><a href="#监听滚动事件动态截取数据-amp-amp-动态设置上下空白占位" class="headerlink" title="监听滚动事件动态截取数据&amp;&amp;动态设置上下空白占位"></a>监听滚动事件动态截取数据&amp;&amp;动态设置上下空白占位</h3><p>动态截取数据的操作和定高的虚拟列表几乎一样，区别比较大的地方就在<code>padding</code>值的计算方式上。在定高的列表中，我们可以根据起始索引值和结尾索引值直接计算出空白填充区域的高度。</p>
+<p>其实在不定高的列表中，计算方式更加简单，因为<code>startIndex</code>对应元素的<code>top</code>值就是我们需要填充的上空白区域，下空白区域也可以根据整个列表的高度（最后一个元素的bottom值）和<code>endIndex</code>对应元素的<code>bottom</code>值之差得出</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> scrollHandle = <span class="function">() =&gt;</span> {</span><br><span class="line">  <span class="comment">// 获取当前要渲染元素的起始索引和结束索引值</span></span><br><span class="line">  <span class="keyword">let</span> { startIndex, endIndex } = getIndex()</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 如果是用户滚动触发的，而且两次startIndex的值都一样，那么就没有必要执行下面的逻辑，</span></span><br><span class="line"><span class="comment">     * 除非是用户重新请求了之后需要默认执行一次该函数，这是一种特殊情况，就是startIndex没变，但需要执行后续的操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  <span class="keyword">if</span> (!isNeedLoad &amp;&amp; lastStartIndex.current === startIndex) <span class="keyword">return</span></span><br><span class="line">  <span class="comment">// 渲染完一次之后就需要初始化isNeedLoad</span></span><br><span class="line">  isNeedLoad.current = <span class="literal">false</span></span><br><span class="line">  <span class="comment">// 用于实时监控lastStartIndex的值</span></span><br><span class="line">  lastStartIndex.current = startIndex</span><br><span class="line">  <span class="comment">// 下层缓冲区域最后的元素接触到屏幕底部的时候，就可以请求发送数据了</span></span><br><span class="line">  <span class="keyword">const</span> currLen = dataListRef.current.length</span><br><span class="line">  <span class="keyword">if</span> (endIndex &gt;= currLen - <span class="number">1</span>) {</span><br><span class="line">    <span class="comment">// 当前不在请求状态下时才可以改变请求参数发送获取更多数据的请求</span></span><br><span class="line">    !isRequestRef.current &amp;&amp; setOptions(<span class="function"><span class="params">state</span> =&gt;</span> ({ <span class="attr">offset</span>: state.offset + <span class="number">1</span> }))</span><br><span class="line">    <span class="comment">// 注意endIndex不可以大于缓存中最后一个元素的索引值</span></span><br><span class="line">    endIndex = currLen - <span class="number">1</span></span><br><span class="line">  }</span><br><span class="line">  <span class="comment">// 空白填充区域的样式</span></span><br><span class="line">  topBlankFill.current = {</span><br><span class="line">    <span class="comment">// 改变空白填充区域的样式，起始元素的top值就代表起始元素距顶部的距离，可以用来充当paddingTop值</span></span><br><span class="line">    paddingTop: <span class="string">`<span class="subst">${dataListRef.current[startIndex].top}</span>px`</span>,</span><br><span class="line">    <span class="comment">// 缓存中最后一个元素的bottom值与endIndex对应元素的bottom值的差值可以用来充当paddingBottom的值</span></span><br><span class="line">    paddingBottom: <span class="string">`<span class="subst">${dataListRef.current[dataListRef.current.length - <span class="number">1</span>].bottom - dataListRef.current[endIndex].bottom}</span>px`</span></span><br><span class="line">  }</span><br><span class="line">  setShowList(dataListRef.current.slice(startIndex, endIndex + <span class="number">1</span>))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="问题思考"><a href="#问题思考" class="headerlink" title="问题思考"></a>问题思考</h3><p>我们虽然实现了根据列表项动态高度下的虚拟列表，但如果列表项中包含图片，并且列表高度由图片撑开。在这种场景下，由于图片会发送网络请求，列表项可能已经渲染到页面中了，但是图片还没有加载出来，此时无法保证我们在获取列表项真实高度时图片是否已经加载完成，获取到的高度有无包含图片高度，从而造成计算不准确的情况。</p>
+<p>但是这种任意由图片来撑开盒子大小的场景很少见，因为这样会显得整个列表很不规则。大多数展示图片的列表场景，其实都是提前确定要展示图片的尺寸的，比如微博，1张图片的尺寸是多少，2x2，3x3的尺寸是多少都是提前设计好的，只要我们给img标签加了固定高度，这样就算图片还没有加载出来，但是我们也能够准确的知道列表项的高度是多少。</p>
+<p>如果你真的遇到了这种列表项会由图片任意撑开的场景，可以给图片绑定<code>onload</code>事件，等到它加载完之后再重新计算一下列表的高度，然后把它更新到缓存数据中，这是一种方法。其次，还可以使用ResizeObserver来监听列表项内容区域的高度改变，从而实时获取每一列表项的高度，只不过MDN有说道这只是在实验中的一个功能，所以暂时可能没有办法兼容所有的浏览器！</p>
+<p>如果大家有其它更好的方法，可以在评论区交流哦！</p>
+</div>
+
+<blockquote>
+<p>原文链接 : <a target="_blank" rel="noopener" href="https://juejin.cn/post/7085941958228574215">Running53 - 虚拟列表，我真的会了！</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/xn2023lb/">https://fe32.top/articles/xn2023lb/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/@3.7.1/tags/%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8/">虚拟列表</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" data-sites="facebook,twitter,google,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/@3.7.1/articles/uni10089/"><img class="prev-cover" data-lazy-src="https://bu.dusays.com/2022/12/04/638caada75585.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Uni-App 如何实现消息推送功能？</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/@3.7.1/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>本站只保留入口，即将不再更新内容，请切换成回最新版本。</div><div id="qq-btn"><a id="a-qun" href="https://fe32.top/" target="_blank">回最新版本 ✨</a></div><div id="qq-btn" style="margin-top:10px"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="xpand" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">虚拟列表的使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%81%9A%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">传统做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8"><span class="toc-number">1.2.</span> <span class="toc-text">虚拟列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E9%AB%98%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">定高虚拟列表实现步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%AE%B9%E5%99%A8%E6%9C%80%E5%A4%A7%E5%AE%B9%E7%A7%AF%E6%95%B0%E9%87%8F"><span class="toc-number">2.1.</span> <span class="toc-text">计算容器最大容积数量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6%E5%8A%A8%E6%80%81%E6%88%AA%E5%8F%96%E6%95%B0%E6%8D%AE-amp-amp-%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%BB%9A%E5%8A%A8%E7%BC%93%E5%86%B2%E6%B6%88%E9%99%A4%E5%BF%AB%E9%80%9F%E6%BB%9A%E5%8A%A8%E7%99%BD%E5%B1%8F"><span class="toc-number">2.2.</span> <span class="toc-text">监听滚动事件动态截取数据&amp;&amp;设置上下滚动缓冲消除快速滚动白屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%B8%8B%E7%A9%BA%E7%99%BD%E5%8D%A0%E4%BD%8D"><span class="toc-number">2.3.</span> <span class="toc-text">动态设置上下空白占位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E6%8B%89%E7%BD%AE%E5%BA%95%E8%87%AA%E5%8A%A8%E8%AF%B7%E6%B1%82%E5%92%8C%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="toc-number">2.4.</span> <span class="toc-text">下拉置底自动请求和加载数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6%E8%AF%B7%E6%B1%82%E5%8A%A8%E7%94%BB%E5%B8%A7%E8%BF%9B%E8%A1%8C%E8%8A%82%E6%B5%81%E4%BC%98%E5%8C%96"><span class="toc-number">2.4.1.</span> <span class="toc-text">滚动事件请求动画帧进行节流优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%AE%9A%E9%AB%98%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">不定高虚拟列表实现步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%88%B0%E6%96%B0%E6%95%B0%E6%8D%AE%E5%AF%B9%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88%E8%AE%BE%E7%BD%AE%E9%A2%84%E4%BC%B0%E9%AB%98%E5%BA%A6%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">请求到新数据对数据进行初始化（设置预估高度）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%8F%E6%AC%A1%E5%88%97%E8%A1%A8%E6%9B%B4%E6%96%B0%E4%B9%8B%E5%90%8E%E5%B0%86%E5%88%97%E8%A1%A8%E9%A1%B9%E7%9C%9F%E5%AE%9E%E9%AB%98%E5%BA%A6%E6%9B%B4%E6%96%B0%E7%BC%93%E5%AD%98%E4%B8%AD%E7%9A%84%E9%A2%84%E4%BC%B0%E9%AB%98%E5%BA%A6"><span class="toc-number">3.2.</span> <span class="toc-text">每次列表更新之后将列表项真实高度更新缓存中的预估高度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%97%E5%88%B0%E5%8F%AF%E8%A7%86%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%B5%B7%E5%A7%8B%E5%92%8C%E7%BB%93%E6%9D%9F%E5%85%83%E7%B4%A0%E7%B4%A2%E5%BC%95-amp-amp-%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%BB%9A%E5%8A%A8%E7%BC%93%E5%86%B2%E5%8C%BA%E5%9F%9F%E6%B6%88%E9%99%A4%E5%BF%AB%E9%80%9F%E6%BB%9A%E5%8A%A8%E7%99%BD%E5%B1%8F"><span class="toc-number">3.3.</span> <span class="toc-text">得到可视区域的起始和结束元素索引&amp;&amp;设置上下滚动缓冲区域消除快速滚动白屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6%E5%8A%A8%E6%80%81%E6%88%AA%E5%8F%96%E6%95%B0%E6%8D%AE-amp-amp-%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%B8%8B%E7%A9%BA%E7%99%BD%E5%8D%A0%E4%BD%8D"><span class="toc-number">3.4.</span> <span class="toc-text">监听滚动事件动态截取数据&amp;&amp;动态设置上下空白占位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83"><span class="toc-number">3.5.</span> <span class="toc-text">问题思考</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/xn2023lb/" title="虚拟列表，我真的会了！"><img data-lazy-src="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="虚拟列表，我真的会了！"/></a><div class="content"><a class="title" href="/@3.7.1/articles/xn2023lb/" title="虚拟列表，我真的会了！">虚拟列表，我真的会了！</a><time datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/uni10089/" title="Uni-App 如何实现消息推送功能？"><img data-lazy-src="https://bu.dusays.com/2022/12/04/638caada75585.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Uni-App 如何实现消息推送功能？"/></a><div class="content"><a class="title" href="/@3.7.1/articles/uni10089/" title="Uni-App 如何实现消息推送功能？">Uni-App 如何实现消息推送功能？</a><time datetime="2023-01-12T06:47:47.000Z" title="发表于 2023-01-12 14:47:47">2023-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/hexo1618/" title="Hexo + Butterfly 侧边栏公众号"><img data-lazy-src="https://bu.dusays.com/2023/01/05/63b6cb1a2bab2.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Hexo + Butterfly 侧边栏公众号"/></a><div class="content"><a class="title" href="/@3.7.1/articles/hexo1618/" title="Hexo + Butterfly 侧边栏公众号">Hexo + Butterfly 侧边栏公众号</a><time datetime="2023-01-05T12:50:31.000Z" title="发表于 2023-01-05 20:50:31">2023-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/uni10088/" title="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法"><img data-lazy-src="https://bu.dusays.com/2023/01/05/63b6bcddb26d2.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法"/></a><div class="content"><a class="title" href="/@3.7.1/articles/uni10088/" title="Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法">Uni-App 提交 App应用 到 Google Play 提示 API 级别过低的解决办法</a><time datetime="2023-01-05T08:05:31.000Z" title="发表于 2023-01-05 16:05:31">2023-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/blog9527/" title="时光飞逝，博客两周年啦"><img data-lazy-src="https://bu.dusays.com/2022/12/13/63987cfb1d701.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="时光飞逝，博客两周年啦"/></a><div class="content"><a class="title" href="/@3.7.1/articles/blog9527/" title="时光飞逝，博客两周年啦">时光飞逝，博客两周年啦</a><time datetime="2022-12-11T15:45:14.000Z" title="发表于 2022-12-11 23:45:14">2022-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://bu.dusays.com/2022/12/04/638ca9bf7d3dc.webp')"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/wallpaper/">一些壁纸</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/"><img src="https://lskypro.acozycotage.net/LightPicture/2023/01/7062b6bb75b640b7.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div><div class="copyright">&copy;2020 - 2023  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Ethan.Tzy</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.✨✨✨<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://icp.gov.moe/?keyword=20220686" title="本站已加入萌ICP豪华套餐，萌ICP备20220686号"><img src="https://img.shields.io/badge/%E8%90%8CICP%E5%A4%87-20220686-fe1384?style-flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAAByxJREFUSInl1nlwVeUZx/HPuTckkD0kQFiCEEIUlNUCAqKoSBV1AIt1ikpVLFbLONjWGUXbmWrbweJMy7hUxbbTjsUq6KCiWEvr0kE2WVK2QCKBJCxJgEASsienfxwqMob+3Zm+f93z3vM+32f5vc9z+H9bwVcfOp/YQ+1prhhEZS1VDQzqQ1MjiQmIC5Liwm3lBWpqFimrulb/7A/067vM2IsOBZ2h8MhJQW6KMDNVsKeaizKEyUlsKueqgWJ39AMJF3QpDCNYr1SaEig/lWNX2Z1h6dH5/lVyGdVIZFf7MHo9bEfh9rCg/+8NyHlN77QTsnpQ0i2y08VK+BosfhbW0cHxqmSfFd9qW+l9Pi+5WltFdGTsOBbO5dJcdh3lN5+xff0Y2zuelXjRsyYUrjOu4BVJaavlpbWIJRBLOM+J81O95AAnTtM9vNHGknut3zdT48FutJE3koWTuG4oSXH+VsInX3B9IdcVUNfCuv08t4GjO6NspOa3BNcOXx1eOugVHQnrTMkTuyWrC/BjRZO9uPYTpw7HhTWkXcLd45l9GblpHD7NWzt5ZTMXZ/OdkTy+lvR07rmcmWffq6pn9W5e/oymfcT6kJbXHiydMyVYkL/x66n+ZMcctQfjhgxl6UIGZ3Ooltd2RIZqjqKRS0ew9cFIA1cO5urlLHuPZWsZPJiZw7gqn0VT2HCIR9+jvCQhfHPrLGyE2Hng2roBxHnmJoZnc9drbD3I6QaaWkjpSVoeu4+x5XB05qMDqCenHz37UHmcFRv54ZuMeoYrB/L0DPRgZ0WfrsXVKzPX3nYykrn3dUZl8+Q0Qox/gc/L6ZlKzxQefo+UROpa6Z4VCedkPd8YyJYHI3u5T/HAShZNQxsXZfR3pCtwRW066VEeOuIUVUf77+9jTw2pycTOJml7Je1t9EgiI5X2jkgyze1fCSSdtjhBiJCkpKyuI+5oTdAtkTCgVwrbKsl8ko6QjO40tZ67EpkpdIbRf20dkbPpPTjdwsSX6I5dJYy4hoQAaZQdDy4A1iEMI613T6LtBPXJpPakrjGqc1Y6CTFq62htJp5KRwPJKWSkU3WKiiPEEqO6xgM6oZmctJhDXYH7Z59xuCyKpK6R26ZE+ys3MWYoN1/Mc5uoqmbEQJ6fTc/ulJ3i/lUc+YIfzeKhKzjVHN31A3XRHddKSrf6/6DOV3VTcw1hVKfkxOhaPDAe1UwfwmNTqT1Drxw+nE9xNXetIjHG2vnoxoT+rNrN2Of58Rp6JZ+ldKes5kjX4G7dKuikpoERfaltYnQ/DOSS3hEAFk9lXQkLnmf7Ib65lPJT3HU1+46Tm8rYvgzKYVA2h+vQIMjvewHwdSN20MiOSmZczO4a1hSzYi77T7CiiPF5JMTZexjJ5OagkwNV9M+MnJ09nKU3smgyQ3PYWoEO4fUjii4QceJmevJuMeP6csUAln4atcbSGoqOUpjD30uZNwnpHNtN3lC+NZa1xeT34pGVTJ3PL9+Ohs6GQ8gVtHZs6VLVwZhBReGwoXvt3THM/hP0SWVnCR8f4PMjkffjB/DQS8waxpHFfFgaaeHZDRRtJn0yP5tF31ymFVJ2nN27GD66KBzca2/XEWdkUpD3Fmd4tYj0FMS54Q9UnuaDUv6yE/24ewWP/DU6N/d1fvousYEs28DyLVEvGDOAt/egmSkXv2VYn3NBfpXbua6J8hMFFvy2RHsL+57gmX+w/AN651PfEDWQzLRI+afqIqOxFDJT6Rbn9Bmad3PnTH5wIxOXkJTWGiz57hCDsyqDWVldRNzeyOh+paaPfpFKnvqQX88iZwDVx0lLJqUHbe3EkZ1Odm+yUqK2GHYKmhvIG8fyeTz9IY5x67jnFPapdPDkl6jzwEF9IDjZJlgwfbG+o2u8+g4rd7D/UYI41TXnevV5K4j2q6uESckUP8rvNrH6fUH/sRXB9AlPONMSDZ8uazwoi56JjEyvdftV88jinhf4uIzmJRQOoOYgja0RKAiIBZxpjvZH5tP0c97axcLlyBXOuWZemJTYFFbUCU+1dl3j8PGSyFhnJ7EkYcWh7/njqpep5xfzWTyZZ7dEg73xOJKiGqf3YenNLBjLTz7i539COg/OvSOYO2GFo/VRG0Zwe0YX4Ns3R7NXSCxBeM8IthXfZvGf3xCWc/kkXvg2vVP4YB/rDzC1gGlDo+50/xvs2khKPrNnzAzmTH5HbzR0fkkKro93Ab5vx9kfaGgT3lLA5EyWbRpoTdHbSreOppGJV/PwlRTksK+aZz5l6z+RLBgxaau5k2cJelTKzmRQMq0d51J8UxL+23d1TDTcj7WQllZu4YwxDo+eZc22X9mwd6gN65GIFmQzampxcMOoR1xeuMbpVoqromsXdG3+wmCiekNtfSSmiUNWu2zgap+WjlZW8X11TeNkpWwICvNfCm8u3Cmxg4PN0VdmEJw7/7+0/g32RaqCbhRecAAAAABJRU5ErkJggg=="></a>&nbsp;<a target="_blank" href="https://vercel.com/"><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="在线聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="fa-solid fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="fa-solid fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="fa-solid fa-arrow-rotate-right"></i></div><div class="rightMenu-item" id="menu-home"><i class="fa-solid fa-house"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="fa-solid fa-copy"></i><span>复制文本</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="fa-solid fa-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="fa-solid fa-copy"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="fa-solid fa-copy"></i><span>复制图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="fa-solid fa-download"></i><span>下载图片</span></div><div class="rightMenu-item" id="menu-search"><i class="fa-solid fa-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="fa-solid fa-magnifying-glass"></i><span>百度搜索</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-radompage"><i class="fa-solid fa-shoe-prints"></i><span>随便逛逛</span></div><a class="rightMenu-item menu-link" href="/archives/"><i class="fa-solid fa-archive"></i><span>文章归档</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="fa-solid fa-folder-open"></i><span>文章分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="fa-solid fa-tags"></i><span>文章标签</span></a><a class="rightMenu-item" id="menu-goto-comment" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item menu-link" href="/sponsorWall/"><i class="fa-solid fa-money-check-alt"></i><span>赞助墙</span></a></div><div class="rightMenu-group rightMenu-line rightMenuNormal"><div class="rightMenu-item" id="menu-translate"><i class="fa-solid fa-earth-asia"></i><span>繁简切换</span></div><div class="rightMenu-item" id="menu-readmode"><i class="fa-solid fa-book-open"></i><span>阅读模式</span></div><div class="rightMenu-item" id="menu-print"><i class="fa-solid fa-print fa-fw"></i><span>打印页面</span></div><div class="rightMenu-item" id="menu-copy"><i class="fa-solid fa-share"></i><span>分享本页</span></div></div></div><div id="rightmenu-mask"></div><div id="myscoll"></div><div><script src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script src="/@3.7.1/"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/utils.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/tw_cn.js"></script><script src="https://npm.elemecdn.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/search/algolia.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        //- const ele = document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)')
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo.fe32.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="pjax-reload"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInX');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow.min.js"></script><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow_init.js"></script><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/cat.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/issues.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople1.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/zdog.dist.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople.js"></script><canvas id="universe"></canvas><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/universe.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/ethan_tzy.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu@1111.js"></script><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/meting.min.js"></script><script src="https://npm.elemecdn.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener toc scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+
+  typeof preloader === 'object' && preloader.initLoading()
+
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  //- document.querySelectorAll('script[data-pjax]').forEach(item => {
+  
+  document.querySelectorAll('script[data-pjax], .pjax-reload script').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+//- document.addEventListener('pjax:send', function () {
+//-   typeof preloader === 'object' && preloader.initLoading()
+  
+//-   if (window.aplayers) {
+//-     for (let i = 0; i < window.aplayers.length; i++) {
+//-       if (!window.aplayers[i].options.fixed) {
+//-         window.aplayers[i].destroy()
+//-       }
+//-     }
+//-   }
+
+//-   typeof typed === 'object' && typed.destroy()
+
+//-   //reset readmode
+//-   const $bodyClassList = document.body.classList
+//-   $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+//- })
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    if (false) {
+      location.hash && e.request.responseURL !== location.href ? pjax.loadUrl(location.href) : pjax.loadUrl('/404.html')
+      return
+    }
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

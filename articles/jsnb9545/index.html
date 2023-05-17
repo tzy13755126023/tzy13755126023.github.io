@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>V8 是如何执行 JavaScript 代码的? | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="JS 代码执行过程在了解 V8 的执行 JavaScript 代码的机制之前，我们先来看看编译型和解释型语言的区别。 编译型语言和解释型语言机器是不能直接理解代码的。所以，在执行程序之前，需要将代码翻译成机器能读懂的机器语言。按语言的执行流程，可以把计算机语言划分为编译型语言和解释型语言:   编译型语言: 在代码运行前编译器直接将对应的代码转换成机器码，运行时不需要再重新翻译，直接可以使用编译后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="V8 是如何执行 JavaScript 代码的?">
+<meta property="og:url" content="https://fe32.top/articles/jsnb9545/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="JS 代码执行过程在了解 V8 的执行 JavaScript 代码的机制之前，我们先来看看编译型和解释型语言的区别。 编译型语言和解释型语言机器是不能直接理解代码的。所以，在执行程序之前，需要将代码翻译成机器能读懂的机器语言。按语言的执行流程，可以把计算机语言划分为编译型语言和解释型语言:   编译型语言: 在代码运行前编译器直接将对应的代码转换成机器码，运行时不需要再重新翻译，直接可以使用编译后">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/09/25/6330594ccf1c0.png">
+<meta property="article:published_time" content="2022-09-25T13:23:31.000Z">
+<meta property="article:modified_time" content="2023-05-17T10:01:10.181Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="前端进阶">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/09/25/6330594ccf1c0.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/jsnb9545/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fjGallery.min.js',
+      css: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'V8 是如何执行 JavaScript 代码的?',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-17 18:01:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/swiper-bundle.css"><link rel="stylesheet" href="/css/tzy.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-bg"><div class="loader"><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+// 20230312 add
+setTimeout(function(){ preloader.endLoading();}, 5000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">98</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/06/09/62a0e5cc8bfd2.png')"><nav id="nav"><span id="blog-info"><a href="/" title="唐志远の博客"><span class="site-name">唐志远の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">V8 是如何执行 JavaScript 代码的?</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-25T13:23:31.000Z" title="发表于 2022-09-25 21:23:31">2022-09-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-17T10:01:10.181Z" title="更新于 2023-05-17 18:01:10">2023-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JavaScript/">JavaScript</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5910</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="V8 是如何执行 JavaScript 代码的?"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="JS-代码执行过程"><a href="#JS-代码执行过程" class="headerlink" title="JS 代码执行过程"></a>JS 代码执行过程</h2><p>在了解 V8 的执行 JavaScript 代码的机制之前，我们先来看看<strong>编译型</strong>和<strong>解释型</strong>语言的区别。</p>
+<h3 id="编译型语言和解释型语言"><a href="#编译型语言和解释型语言" class="headerlink" title="编译型语言和解释型语言"></a>编译型语言和解释型语言</h3><p>机器是不能直接理解代码的。所以，在执行程序之前，需要将代码翻译成机器能读懂的机器语言。按语言的执行流程，可以把计算机语言划分为编译型语言和解释型语言: </p>
+<ul>
+<li><strong>编译型语言</strong>: 在代码运行前编译器直接将对应的代码转换成机器码，运行时不需要再重新翻译，直接可以使用编译后的结果</li>
+<li><strong>解释型语言</strong>: 需要将代码转换成机器码，和编译型语言的区别在于运行时需要转换。解释型语言的执行速度要慢于编译型语言，因为解释型语言每次执行都需要把源码转换一次才能执行。</li>
+</ul>
+<p>Java 和 C++ 等语言都是编译型语言，而 JavaScript 是解释性语言，它整体的执行速度会略慢于编译型的语言。V8 是众多浏览器的 JS 引擎中性能表现最好的一个，并且它是 Chrome 的内核，Node.js 也是基于 V8 引擎研发的。</p>
+<p>编译型语言和解释器语言代码执行的具体流程如下: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330667876afb.png"/></div></div>
+
+<p>两者的执行流程如下: </p>
+<ul>
+<li>在编译型语言的编译过程中，编译器首先会依次对源代码进行词法分析、语法分析，生成抽象语法树（AST），然后优化代码，最后再生成处理器能够理解的机器码。如果编译成功，将会生成一个可执行的文件。但如果编译过程发生了语法或者其他的错误，那么编译器就会抛出异常，最后的二进制文件也不会生成成功。</li>
+<li>在解释型语言的解释过程中，同样解释器也会对源代码进行词法分析、语法分析，并生成抽象语法树（AST），不过它会再基于抽象语法树生成字节码，最后再根据字节码来执行程序、输出结果。</li>
+</ul>
+<h3 id="V8-执行代码过程"><a href="#V8-执行代码过程" class="headerlink" title="V8 执行代码过程"></a>V8 执行代码过程</h3><p>V8 在执行过程用到了 <strong>解释器</strong> 和 <strong>编译器</strong> 。 其执行过程如下: </p>
+<ol>
+<li>Parse 阶段: V8 引擎将 JS 代码转换成 AST（抽象语法树）</li>
+<li>Ignition 阶段: 解释器将 AST 转换为字节码，解析执行字节码也会为下一个阶段优化编译提供需要的信息</li>
+<li>TurboFan 阶段: 编译器利用上个阶段收集的信息，将字节码优化为可以执行的机器码</li>
+<li>Orinoco 阶段: 垃圾回收阶段，将程序中不再使用的内存空间进行回收</li>
+</ol>
+<p>这里前三个步骤是 JavaScript 的执行过程，最后一步是垃圾回收的过程。下面就先来看看V8 执行 JavaScript 的过程。</p>
+<h4 id="生成抽象语法树"><a href="#生成抽象语法树" class="headerlink" title="生成抽象语法树"></a>生成抽象语法树</h4><p>这个过程就是将源代码转换为抽象语法树（AST），并生成执行上下文，执行上下文就是代码在执行过程中的环境信息。</p>
+<p>将 JS 代码解析成 AST主要分为两个阶段: </p>
+<ol>
+<li>词法分析: 这个阶段会将源代码拆成最小的、不可再分的词法单元，称为 token。比如代码 var a &#x3D; 1;  通常会被分解成 var 、a、&#x3D;、1、;  这五个词法单元。代码中的空格在 JavaScript 中是直接忽略的，简单来说就是将 JavaScript 代码解析成一个个令牌（Token）。</li>
+<li>语法分析: 这个过程是将上一步生成的 token 数据，根据语法规则转为 AST。如果源码符合语法规则，这一步就会顺利完成。如果源码存在语法错误，这一步就会终止，并抛出一个语法错误，简单来说就是将令牌组装成一棵抽象的语法树（AST）。</li>
+</ol>
+<p>通过词法分析会对代码逐个字符进行解析，生成类似下面结构的令牌（Token），这些令牌类型各不相同，有关键字、标识符、符号、数字等。代码 var a &#x3D; 1;  会转化为下面这样的令牌: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Keyword</span>(<span class="keyword">var</span>)</span><br><span class="line"><span class="title class_">Identifier</span>(name)</span><br><span class="line"><span class="title class_">Punctuator</span>(=)</span><br><span class="line"><span class="title class_">Number</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>语法分析阶段会用令牌生成一棵抽象语法树，生成树的过程中会去除不必要的符号令牌，然后按照语法规则来生成。下面来看两段代码: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一段代码</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 第二段代码</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span> (a,b) &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将这两段代码分别转换成 AST 抽象语法树之后返回的 JSON 如下: </p>
+<p>第一段代码，编译后的结果: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Program&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VariableDeclaration&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;declarations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VariableDeclarator&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">9</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Identifier&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;init&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Literal&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">8</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">9</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;raw&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;var&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;sourceType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>它的结构大致如下: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330667b36b44.png"/></div></div>
+
+<p>第二段代码，编译出来的结果: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Program&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">38</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;FunctionDeclaration&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">38</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Identifier&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">9</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">12</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sum&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;expression&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;generator&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;async&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;params&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Identifier&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">14</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">15</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Identifier&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">16</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">17</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;BlockStatement&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">19</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">38</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ReturnStatement&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">23</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">36</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;argument&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;BinaryExpression&quot;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">30</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">35</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;left&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Identifier&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">30</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">31</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;operator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;+&quot;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;right&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Identifier&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="number">34</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="number">35</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;sourceType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>它的结构大致如下: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330667e5988f.png"/></div></div>
+
+<p>可以看到，AST 只是源代码语法结构的一种抽象的表示形式，计算机也不会去直接去识别 JS 代码，转换成抽象语法树也只是识别这一过程中的第一步。AST 的结构和代码的结构非常相似，其实也可以把 AST 看成代码的结构化的表示，编译器或者解释器后续的工作都需要依赖于 AST。</p>
+<p><strong>AST的应用场景:</strong> </p>
+<p>AST 是一种很重要的数据结构，很多地方用到了AST。比如在 Babel 中，Babel 是一个代码转码器，可以将 ES6 代码转为 ES5 代码。Babel 的工作原理就是先将 ES6 源码转换为 AST，然后再将 ES6 语法的 AST 转换为 ES5 语法的 AST，最后利用 ES5 的 AST 生成 JavaScript 源代码。</p>
+<p>除了 Babel 之外，ESLint 也使用到了 AST。ESLint 是一个用来检查 JavaScript 编写规范的插件，其检测流程也是需要将源码转换为 AST，然后再利用 AST 来检查代码规范化的问题。</p>
+<p>除了上述应用场景，AST 的应用场景还有很多: </p>
+<ul>
+<li>JS 反编译，语法解析</li>
+<li>代码高亮</li>
+<li>关键字匹配</li>
+<li>代码压缩。</li>
+</ul>
+<h4 id="生成字节码"><a href="#生成字节码" class="headerlink" title="生成字节码"></a>生成字节码</h4><p>有了 抽象语法树 AST 和执行上下文后，就轮到解释器就登场了，它会根据 AST 生成字节码，并解释执行字节码。</p>
+<p>在 V8 的早期版本中，是通过 AST 直接转换成机器码的。将 AST 直接转换为机器码会存在一些问题: </p>
+<ul>
+<li>直接转换会带来内存占用过大的问题，因为将抽象语法树全部生成了机器码，而机器码相比字节码占用的内存多了很多;  </li>
+<li>某些 JavaScript 使用场景使用解释器更为合适，解析成字节码，有些代码没必要生成机器码，进而尽可能减少了占用内存过大的问题。</li>
+</ul>
+<p>为了解决内存占用问题，就在 V8 引擎中引入了字节码。那什么是字节码呢？为什么引入字节码就能解决内存占用问题呢？</p>
+<span class='p blue'>字节码就是介于 AST 和机器码之间的一种代码。</span>需要将其转换成机器码后才能执行，字节码是对机器码的一个抽象描述，相对于机器码而言，它的代码量更小，从而可以减少内存消耗。解释器除了可以快速生成没有优化的字节码外，还可以执行部分字节码。
+
+<h4 id="生成机器码"><a href="#生成机器码" class="headerlink" title="生成机器码"></a>生成机器码</h4><p>生成字节码之后，就进入执行阶段了，实际上，<span class='p blue'>这一步就是将字节码生成机器码。</span></p>
+<p>一般情况下，如果字节码是第一次执行，那么解释器就会逐条解释执行。在执行字节码过程中，如果发现有热代码（重复执行的代码，运行次数超过某个阈值就被标记为热代码），那么后台的编译器就会把该段热点的字节码编译为高效的机器码，然后当再次执行这段被优化的代码时，只需要执行编译后的机器码即可，这样提升了代码的执行效率。</p>
+<p>字节码配合解释器和编译器的技术就是 即时编译（JIT）。在 V8 中就是指解释器在解释执行字节码的同时，收集代码信息，当它发现某一部分代码变热了之后，编译器便闪亮登场，把热点的字节码转换为机器码，并把转换后的机器码保存起来，以备下次使用。</p>
+<p>因为 V8 引擎是多线程的，编译器的编译线程和生成字节码不会在同一个线程上，这样可以和解释器相互配合着使用，不受另一方的影响。下面是JIT技术的工作机制: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330668170580.png"/></div></div>
+
+<p>解释器在得到 AST 之后，会按需进行解释和执行。也就是说如果某个函数没有被调用，则不会去解释执行它。在这个过程中解释器会将一些重复可优化的操作收集起来生成分析数据，然后将生成的字节码和分析数据传给编译器，编译器会依据分析数据来生成高度优化的机器码。</p>
+<p>优化后的机器码的作用和缓存很类似，当解释器再次遇到相同的内容时，就可以直接执行优化后的机器码。当然优化后的代码有时可能会无法运行（比如函数参数类型改变），那么会再次反优化为字节码交给解释器。</p>
+<p>整个过程如下图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330668595a0e.png"/></div></div>
+
+<h4 id="执行过程优化"><a href="#执行过程优化" class="headerlink" title="执行过程优化"></a>执行过程优化</h4><p>如果 JavaScript 代码在执行前都要完全经过解析才能执行，那可能会面临以下问题: </p>
+<ul>
+<li>代码执行时间变长: 一次性解析所有代码会增加代码的运行时间</li>
+<li>消耗更多内存: 解析完的 AST 以及根据 AST 编译后的字节码都会存放在内存中，会占用更多内存空间</li>
+<li>占用磁盘空间: 编译后的代码会缓存在磁盘上，占用磁盘空间</li>
+</ul>
+<p>所以，V8 引擎使用了<span class='p blue'>延迟解析</span>:  在解析过程中，对于不是立即执行的函数，只进行预解析;  只有当函数调用时，才对函数进行全量解析。</p>
+<p>进行预解析时，只验证函数语法是否有效、解析函数声明、确定函数作用域，不生成 AST，而实现预解析的，就是 Pre-Parser 解析器。</p>
+<p>以下面代码为例: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> a = <span class="number">666</span>;</span><br><span class="line"><span class="keyword">const</span> c = <span class="number">996</span>;</span><br><span class="line"><span class="title function_">sum</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>V8 解析器是从上往下解析代码的，当解析器遇到函数声明 sum 时，发现它不是立即执行，所以会用 Pre-Parser 解析器对其预解析，过程中只会解析函数声明，不会解析函数内部代码，不会为函数内部代码生成 AST。</p>
+<p>之后解释器会把 AST 编译为字节码并执行，解释器会按照自上而下的顺序执行代码，先执行 const a &#x3D; 666;   和 const c &#x3D; 996;  ，然后执行函数调用 sum(1, 1) ，这时 Parser 解析器才会继续解析函数内的代码、生成 AST，再交给解释器编译执行。</p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="JS-内存管理机制"><a href="#JS-内存管理机制" class="headerlink" title="JS 内存管理机制"></a>JS 内存管理机制</h3><p>计算机程序语言都运行在对应的代码引擎上，使用内存过程可以分为以下三个步骤: </p>
+<ol>
+<li>分配所需要的系统内存空间</li>
+<li>使用分配到的内存进行读或写等操作</li>
+<li>不需要使用内存时，将其空间释放或者归还</li>
+</ol>
+<p>在 JavaScript 中，当创建变量时，系统会自动给对象分配对应的内存，来看下面的例子: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">123</span>;  <span class="comment">// 给数值变量分配栈内存</span></span><br><span class="line"><span class="keyword">var</span> etf = <span class="string">&quot;ARK&quot;</span>;  <span class="comment">// 给字符串分配栈内存</span></span><br><span class="line"><span class="comment">// 给对象及其包含的值分配堆内存</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;tom&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">13</span></span><br><span class="line">&#125;;  </span><br><span class="line"><span class="comment">// 给数组及其包含的值分配内存</span></span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="literal">null</span>, <span class="string">&quot;str&quot;</span>];  </span><br><span class="line"><span class="comment">// 给函数分配内存</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a, b</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 中的数据分为两类: </p>
+<ul>
+<li>基本类型: 这些类型在内存中会占据固定的内存空间，它们的值都保存在栈空间中，直接可以通过值来访问这些</li>
+<li>引用类型: 由于引用类型值大小不固定，栈内存中存放地址指向堆内存中的对象，是通过引用来访问的</li>
+</ul>
+<p>栈内存中的基本类型，可以通过操作系统直接处理;  而堆内存中的引用类型，正是由于可以经常变化，大小不固定，因此需要 JavaScript 的引擎通过垃圾回收机制来处理。所谓的垃圾回收是指: <span class='p blue'>JavaScript代码运行时，需要分配内存空间来储存变量和值。当变量不在参与运行时，就需要系统收回被占用的内存空间。</span>Javascript 具有自动垃圾回收机制，会定期对那些不再使用的变量、对象所占用的内存进行释放，原理就是找到不再使用的变量，然后释放掉其占用的内存。</p>
+<p>JavaScript中存在两种变量: 局部变量和全局变量。全局变量的生命周期会持续要页面卸载;  而局部变量声明在函数中，它的生命周期从函数执行开始，直到函数执行结束，在这个过程中，局部变量会在堆或栈中存储它们的值，当函数执行结束后，这些局部变量不再被使用，它们所占有的空间就会被释放。不过，当局部变量被外部函数使用时，其中一种情况就是闭包，在函数执行结束后，函数外部的变量依然指向函数内部的局部变量，此时局部变量依然在被使用，所以不会回收。</p>
+<h3 id="V8-垃圾回收过程"><a href="#V8-垃圾回收过程" class="headerlink" title="V8 垃圾回收过程"></a>V8 垃圾回收过程</h3><p>先来看看 Chrome 浏览器的垃圾回收过程: </p>
+<p><strong>① 通过 GC Root 标记空间中活动对象和⾮活动对象</strong> </p>
+<p>⽬前 V8 采⽤的 <span class='p blue'>可访问性</span> 算法来判断堆中的对象是否是活动对象。这个算法是将⼀些 GC Root 作为初始存活的对象的集合，从 GC Roots 对象出发，遍历 GC Root 中所有对象: </p>
+<ul>
+<li>通过 GC Root 遍历到的对象是<span class='p blue'>可访问的</span>，必须保证这些对象应该在内存中保留，可访问的对象称为<span class='p blue'>活动对象</span></li>
+<li>通过 GC Roots 没有遍历到的对象是<span class='p blue'>不可访问的</span>，这些不可访问的对象就可能被回收，不可访问的对象称为<span class='p blue'>⾮活动对象</span></li>
+</ul>
+<p><strong>② 回收⾮活动对象所占据的内存</strong></p>
+<p>在所有的标记完成之后，统⼀清理内存中所有被标记为可回收的对象。</p>
+<p><strong>③ 内存整理</strong></p>
+<p>⼀般来说，频繁回收对象后，内存中就会存在⼤量不连续空间，这些不连续的内存空间称为内存碎⽚。当内存中出现了⼤量的内存碎⽚之后，如果需要分配较⼤的连续内存时，就有可能出现内存不⾜的情况，所以最后⼀步需要整理这些内存碎⽚。这步其实是可选的，因为有的垃圾回收器不会产⽣内存碎⽚。<br>以上就是⼤致的垃圾回收流程。⽬前 V8 使用了两个垃圾回收器: <span class='p blue'>主垃圾回收器和副垃圾回收器</span>。下面就来看看 V8 是如何实现垃圾回收的。<br>在 V8 中，<span class='p blue'>会把堆分为新生代和老生代两个区域，新生代中存放的是生存时间短的对象，老生代中存放生存时间久的对象:</span></p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/633066878cf39.png"/></div></div>
+
+<p>新⽣代通常只⽀持 1～8M 的容量，⽽⽼⽣代⽀持的容量就⼤很多。对于这两块区域，V8分别使⽤两个不同的垃圾回收器，以便更⾼效地实施垃圾回收: </p>
+<ul>
+<li>副垃圾回收器: 负责新⽣代的垃圾回收</li>
+<li>主垃圾回收器: 负责⽼⽣代的垃圾回</li>
+</ul>
+<blockquote>
+<p>副垃圾回收器（新生代）</p>
+</blockquote>
+<p>副垃圾回收器主要负责新⽣代的垃圾回收。大多数的对象最开始都会被分配在新生代，该存储空间相对较小，分为两个空间: from 空间（对象区）和 to 空间（空闲区）。</p>
+<p>新加⼊的对象都会存放到对象区域，当对象区域快被写满时，就需要执⾏⼀次垃圾清理操作: 首先要对对象区域中的垃圾做标记，标记完成之后，就进入垃圾清理阶段。副垃圾回收器会把这些存活的对象复制到空闲区域中，同时它还会把这些对象有序地排列起来。这个复制过程就相当于完成了内存整理操作，复制后空闲区域就没有内存碎片了: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330668a7d0eb.png"/></div></div>
+
+<p>完成复制后，对象区域与空闲区域进行角色翻转，也就是原来的对象区域变成空闲区域，原来的空闲区域变成了对象区域，这种算法称之为 Scavenge 算法，这样就完成了垃圾对象的回收操作。同时，这种角色翻转的操作还能让新生代中的这两块区域无限重复使用下去: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/6330668c678ac.png"/></div></div>
+
+<p>不过，副垃圾回收器每次执⾏清理操作时，都需要将存活的对象从对象区域复制到空闲区域，复制操作需要时间成本，如果新⽣区空间设置得太⼤了，那么每次清理的时间就会过久，所以<span class='p blue'>为了执⾏效率，⼀般新⽣区的空间会被设置得⽐较⼩</span>。也正是因为新⽣区的空间不⼤，所以很容易被存活的对象装满整个区域，副垃圾回收器⼀旦监控对象装满了，便执⾏垃圾回收。同时，副垃圾回收器还会采⽤对象晋升策略，也就是移动那些经过两次垃圾回收依然还存活的对象到⽼⽣代中。</p>
+<blockquote>
+<p>主垃圾回收器（老生代）</p>
+</blockquote>
+<p>主垃圾回收器主要负责⽼⽣代中的垃圾回收。除了新⽣代中晋升的对象，⼀些⼤的对象会直接被分配到⽼⽣代⾥。因此，⽼⽣代中的对象有两个特点: </p>
+<ul>
+<li>对象占⽤空间⼤</li>
+<li>对象存活时间⻓</li>
+</ul>
+<p>由于⽼⽣代的对象⽐较⼤，若要在⽼⽣代中使⽤ Scavenge 算法进⾏垃圾回收，复制这些⼤的对象将会花费较多时间，从⽽导致回收执⾏效率不⾼，同时还会浪费空间。所以，主垃圾回收器采⽤标记清除的算法进⾏垃圾回收。</p>
+<p>这种方式分为标记和清除两个阶段: </p>
+<ul>
+<li>标记阶段:  从一组根元素开始，递归遍历这组根元素，在这个遍历过程中，能到达的元素称为活动对象，没有到达的元素就可以判断为垃圾数据</li>
+<li>清除阶段:  主垃圾回收器会直接将标记为垃圾的数据清理掉</li>
+</ul>
+<p>这两个阶段如图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/63306694906a2.png"/></div></div>
+
+<p>对垃圾数据进⾏标记，然后清除，这就是标记清除算法，不过对⼀块内存多次执⾏标记清除算法后，会产⽣⼤量不连续的内存碎⽚。⽽碎⽚过多会导致⼤对象⽆法分配到⾜够的连续内存，于是⼜引⼊了另外⼀种算法——标记整理。</p>
+<p>这个算法的标记过程仍然与标记清除算法⾥的是⼀样的，先标记可回收对象，但后续步骤不是直接对可回收对象进⾏清理，⽽是让所有存活的对象都向⼀端移动，然后直接清理掉这⼀端之外的内存: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/633066971a699.png"/></div></div>
+
+<blockquote>
+<p>全停顿 </p>
+</blockquote>
+<p>我们知道，JavaScript 是单行线语言，运行在主线程上。一旦执行垃圾回收算法，都需要将正在执行的 JavaScript 脚本暂停下来，待垃圾回收完毕后再恢复脚本执行。这种行为叫做<span class='p blue'>全停顿</span>。</p>
+<p>主垃圾回收器执行一次完整的垃圾回收流程如下图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/63306699a9c8b.png"/></div></div>
+
+<p>在 V8 新生代的垃圾回收中，因其空间较小，且存活对象较少，所以全停顿的影响不大。但老生代中，如果在执行垃圾回收的过程中，占用主线程时间过久，主线程是不能做其他事情的，需要等待执行完垃圾回收操作才能做其他事情，这将就可能会造成页面的卡顿现象。</p>
+<p>为了降低老生代的垃圾回收而造成的卡顿，V8 将标记过程分为一个个的子标记过程，同时让垃圾回收标记和 JavaScript 应用逻辑交替进行，直到标记阶段完成，这个算法称为<span class='p blue'>增量标记算法</span>。如下图所示: </p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/25/633066a04f948.png"/></div></div>
+
+<p>使用增量标记算法可以把一个完整的垃圾回收任务拆分为很多小的任务，这些小的任务执行时间比较短，可以穿插在其他的 JavaScript 任务中间执行，这样当执行代码时，就不会让用户因为垃圾回收任务而感受到页面的卡顿了。</p>
+<h3 id="减少垃圾回收"><a href="#减少垃圾回收" class="headerlink" title="减少垃圾回收"></a>减少垃圾回收</h3><p>虽然浏览器可以进行垃圾自动回收，但是当代码比较复杂时，垃圾回收所带来的代价较大，所以应该尽量减少垃圾回收: </p>
+<ul>
+<li>对数组进行优化:  在清空一个数组时，最简单的方法就是给其赋值为[ ]，但是与此同时会创建一个新的空对象，可以将数组的长度设置为0，以此来达到清空数组的目的</li>
+<li>对object进行优化:  对象尽量复用，对于不再使用的对象，就将其设置为null，尽快被回收</li>
+<li>对函数进行优化:  在循环中的函数表达式，如果可以复用，尽量放在函数的外面</li>
+</ul>
+<div class="note no-icon flat"><p>原文链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OobHbsVbBEM8kiIIts8P_w">前端充电宝-V8 是如何执行 JavaScript 代码的?</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/jsnb9545/">https://fe32.top/articles/jsnb9545/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/09/25/6330594ccf1c0.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/articles/hexo1613/" title="请收下这只可爱的猫咪吧"><img class="cover" src="https://bu.dusays.com/2022/09/18/63271d6fcf62d.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">请收下这只可爱的猫咪吧</div></div></a></div><div class="next-post pull-right"><a href="/articles/blsh9527/" title="推荐几款好看又好用的开源博客"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e8e480b609.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">推荐几款好看又好用的开源博客</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/articles/jsnb9527/" title="JavaScript 核心进阶"><img class="cover" src="https://bu.dusays.com/2022/06/09/62a0e411ed838.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-09</div><div class="title">JavaScript 核心进阶</div></div></a></div><div><a href="/articles/jsnb9528/" title="前端基础进阶（一）：内存空间详细图解"><img class="cover" src="https://bu.dusays.com/2022/06/10/62a229f378f16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-10</div><div class="title">前端基础进阶（一）：内存空间详细图解</div></div></a></div><div><a href="/articles/jsnb9529/" title="前端基础进阶（二）：执行上下文详细图解"><img class="cover" src="https://bu.dusays.com/2022/06/12/62a5cb5aa2fe2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（二）：执行上下文详细图解</div></div></a></div><div><a href="/articles/jsnb9530/" title="前端基础进阶（三）：变量对象详解"><img class="cover" src="https://bu.dusays.com/2022/06/12/62a5de91bc968.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（三）：变量对象详解</div></div></a></div><div><a href="/articles/jsnb9532/" title="前端基础进阶（五）：闭包"><img class="cover" src="https://bu.dusays.com/2022/06/13/62a742049639e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-13</div><div class="title">前端基础进阶（五）：闭包</div></div></a></div><div><a href="/articles/jsnb9531/" title="前端基础进阶（四）：作用域与作用域链"><img class="cover" src="https://bu.dusays.com/2022/06/12/62a5fe9aaff7a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（四）：作用域与作用域链</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">98</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给出回复。</div><div id="qq-btn"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="card-widget tzy-ad-swiper"><div class="swiper card-swiper"><div class="swiper-wrapper"><div class="swiper-slide"><a href="https://fe32.top/sponsorWall/"><img src="https://bu.dusays.com/2023/03/29/642449cacc868.png"/></a></div><div class="swiper-slide"><a href="https://fe32.top/@3.7.1/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/6424524c0d728.png"/></a></div><div class="swiper-slide"><a href="https://www.hack-gov.com.cn/" target="_blank"><img src="https://bu.dusays.com/2023/04/14/64395f73abc24.png"/></a></div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div></div><div class="swiper-pagination"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">JS 代码执行过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">编译型语言和解释型语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V8-%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">V8 执行代码过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91"><span class="toc-number">1.2.1.</span> <span class="toc-text">生成抽象语法树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AD%97%E8%8A%82%E7%A0%81"><span class="toc-number">1.2.2.</span> <span class="toc-text">生成字节码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%9C%BA%E5%99%A8%E7%A0%81"><span class="toc-number">1.2.3.</span> <span class="toc-text">生成机器码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%BC%98%E5%8C%96"><span class="toc-number">1.2.4.</span> <span class="toc-text">执行过程优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.</span> <span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JS-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">2.1.</span> <span class="toc-text">JS 内存管理机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V8-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">V8 垃圾回收过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.3.</span> <span class="toc-text">减少垃圾回收</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/ts30001/" title="一文读懂TS的(.d.ts)文件"><img src="https://bu.dusays.com/2023/04/29/644d384035bca.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="一文读懂TS的(.d.ts)文件"/></a><div class="content"><a class="title" href="/articles/ts30001/" title="一文读懂TS的(.d.ts)文件">一文读懂TS的(.d.ts)文件</a><time datetime="2023-04-30T14:28:06.000Z" title="发表于 2023-04-30 22:28:06">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20001/" title="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法"><img src="https://bu.dusays.com/2023/04/29/644d249bc9001.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法"/></a><div class="content"><a class="title" href="/articles/vue20001/" title="Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法">Property 'xxx' does not exist on type 'AxiosResponse&lt;any, any&gt;' 的解决办法</a><time datetime="2023-04-30T12:34:18.000Z" title="发表于 2023-04-30 20:34:18">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10003/" title="Css中有哪些可继承的属性？"><img src="https://bu.dusays.com/2023/04/18/643e92d5cd535.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Css中有哪些可继承的属性？"/></a><div class="content"><a class="title" href="/articles/css10003/" title="Css中有哪些可继承的属性？">Css中有哪些可继承的属性？</a><time datetime="2023-04-30T08:49:50.000Z" title="发表于 2023-04-30 16:49:50">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/blog9528/" title="关于博客更新的二三事"><img src="https://bu.dusays.com/2023/04/15/6439817900324.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="关于博客更新的二三事"/></a><div class="content"><a class="title" href="/articles/blog9528/" title="关于博客更新的二三事">关于博客更新的二三事</a><time datetime="2023-04-14T16:45:14.000Z" title="发表于 2023-04-15 00:45:14">2023-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/xn2023lb/" title="虚拟列表，我真的会了！"><img src="https://bu.dusays.com/2023/02/14/63eb8e14bf9af.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="虚拟列表，我真的会了！"/></a><div class="content"><a class="title" href="/articles/xn2023lb/" title="虚拟列表，我真的会了！">虚拟列表，我真的会了！</a><time datetime="2023-02-14T13:24:50.000Z" title="发表于 2023-02-14 21:24:50">2023-02-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/website/log/">更新日志</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/utils.js"></script><script src="/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://npm.elemecdn.com/ethan4116-blog/nav/js/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="/js/swiper-bundle.js"></script><script defer src="/js/custom/index.js"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-92YZLM7C2B"></script><script> window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-92YZLM7C2B');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="//code.tidio.co/momfs16ll3aqxfwsprsjlqjkgc1nytal.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div></div></div><div id="algolia-tips"><span class="algolia-tips-text">Algolia 提供搜索服务</span></div></div></div><div id="search-mask"></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algoliasearch.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/instantsearch.production.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algolia@latest.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><!-- hexo injector body_end end --></body></html>
