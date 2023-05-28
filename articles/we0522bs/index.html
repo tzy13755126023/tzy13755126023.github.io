@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Web页面全链路性能优化指南 | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="性能优化不单指优化一个页面的打开速度，在开发环境将一个项目的启动时间缩短使开发体验更好也属于性能优化，大文件上传时为其添加分片上传、断点续传也属于性能优化。在项目开发以及用户使用的过程中，能够让任何一个链路快一点，都可以被叫做性能优化。 本文会对web页面的全链路进行完整的讲解并针对每一步找到能做的性能优化点，本文的目标是极致的性能优化。 本文的大致流程为先讲理论知识，比如如何评价一个页面的性能好">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Web页面全链路性能优化指南 | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="baidu-site-verification" content="codeva-ujex1yc5TZ"><meta name="description" content="性能优化不单指优化一个页面的打开速度，在开发环境将一个项目的启动时间缩短使开发体验更好也属于性能优化，大文件上传时为其添加分片上传、断点续传也属于性能优化。在项目开发以及用户使用的过程中，能够让任何一个链路快一点，都可以被叫做性能优化。 本文会对web页面的全链路进行完整的讲解并针对每一步找到能做的性能优化点，本文的目标是极致的性能优化。 本文的大致流程为先讲理论知识，比如如何评价一个页面的性能好">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web页面全链路性能优化指南">
 <meta property="og:url" content="https://fe32.top/articles/we0522bs/index.html">
@@ -549,7 +549,7 @@ if (false) {
       setTimeout(runFn,0)
       return
     } 
-    getScript('https://npm.elemecdn.com/ethan4116-blog/nav/js/twikoo.all.min.js').then(runFn)
+    getScript('https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/twikoo.all.min.js').then(runFn)
   }
 
   if ('Twikoo' === 'Twikoo' || !true) {

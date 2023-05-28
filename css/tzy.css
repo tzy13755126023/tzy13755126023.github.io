@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-09 20:53:40
  * @LastEditors: tzy1997
- * @LastEditTime: 2023-04-30 00:26:52
+ * @LastEditTime: 2023-05-29 01:00:02
  */
 /*
  * @Descripttion: 
@@ -92,6 +92,10 @@ body {
 
 #post #article-container img {
     margin: .8rem auto .6rem
+}
+
+#post #article-container a.link-card div.left img {
+    margin: 0 auto 0.8rem;
 }
 
 /* 去掉 H1 - H6 hover after */
@@ -1121,6 +1125,9 @@ blockquote {
     color: var(--tzy-theme) !important;
     cursor: pointer !important;
 }
+.tk-action-link {
+    text-decoration: none !important;
+}
 
 [data-theme="dark"] .tk-icon.__comments,
 [data-theme="dark"] .tk-action-icon,
@@ -1926,3 +1933,25 @@ blockquote {
 }
 
 /* 友链页面 END */
+
+
+/*哔哩哔哩 视频适配  START */
+
+.bilibili {
+    position: relative;
+    width: 100%;
+    height: 0;
+    /*高度设置这里无效，设置为0，用padding撑开div*/
+    padding-bottom: 75%;
+    /*68%到80%都可以*/
+}
+
+.bilibili iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+/*哔哩哔哩 视频适配  END */
