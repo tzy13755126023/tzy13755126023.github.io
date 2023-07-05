@@ -184,7 +184,7 @@ if (document.body.clientWidth > 992) {
                     btf.scrollToDest(0, 500)
                 });
             $(".link-open").click(function () {
-                window.open("https://fe32.top/sponsorWall/")
+                window.open("https://tzy1997.com/sponsorWall/")
             });
             return this;
         }

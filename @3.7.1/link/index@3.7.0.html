@@ -1,0 +1,736 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>友情链接 | 唐志远の博客</title><meta name="keywords" content="唐志远の博客,hexo,butterfly,唐志远的博客,Tzy,前端"><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="自 2022-08-21 日起，友链页 将按照【博文数量】进行排名（除道祖境和金仙境外），如果境界相同，则按友链申请时间排序。    境界 博文数量    道祖境 *   金仙境 *   炼虚 200+   化神 150-200   元婴 100-150   结丹 50-100   筑基 20-50   炼气 0-20   后期计划会根据站内文章数量、文章质量、网站seo、流畅速度等维度进行综合排">
+<meta property="og:type" content="website">
+<meta property="og:title" content="友情链接">
+<meta property="og:url" content="https://fe32.top/link/index@3.7.0.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="自 2022-08-21 日起，友链页 将按照【博文数量】进行排名（除道祖境和金仙境外），如果境界相同，则按友链申请时间排序。    境界 博文数量    道祖境 *   金仙境 *   炼虚 200+   化神 150-200   元婴 100-150   结丹 50-100   筑基 20-50   炼气 0-20   后期计划会根据站内文章数量、文章质量、网站seo、流畅速度等维度进行综合排">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/05/03/627010707b598.webp">
+<meta property="article:published_time" content="2020-12-11T12:32:36.000Z">
+<meta property="article:modified_time" content="2023-06-27T14:39:00.868Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="唐志远の博客,hexo,butterfly,唐志远的博客,Tzy,前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/05/03/627010707b598.webp"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/link/index@3.7.0"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/index.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/fortawesome.all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/animate.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/@3.7.1/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#6f42c1","position":"top-left"},
+  source: {
+    jQuery: 'https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/justifiedGallery/3.8.1/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js',
+      css: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-06-27 22:39:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom:70px}</style><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/css/ethan.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/plane_v2.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu.css"><meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/@3.7.1/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div></a><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">101</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page has-video bg-cover" id="page-header" style="background-image: url('https://bu.dusays.com/2022/05/03/627010707b598.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/@3.7.1/">唐志远の博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/@3.7.1/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/@3.7.1/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/@3.7.1/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/@3.7.1/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page child" href="/@3.7.1/movies/"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page child" href="/@3.7.1/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/@3.7.1/specialEffects/"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page child" href="/@3.7.1/wallpaper/"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/@3.7.1/sponsorWall/"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/frdcenter/"><i class="fa-fw fa-fw fas fa-fish-fins"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/@3.7.1/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-coffee"></i><span> 其他</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/@3.7.1/demandWall/"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page child" href="/@3.7.1/nav.html"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">友情链接</h1></div><video id="index-video" autoplay="" loop="" muted=""><source src="https://txmov2.a.yximgs.com/upic/2022/08/07/00/BMjAyMjA4MDcwMDE2NDJfMjk1MTM4ODg1MV84MTE3MTcxMTgzNl8wXzM=_b_B00ee5be4dc32a72d96c65087d1257936.mp4"></video></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><div class="flink"><p>自 2022-08-21 日起，友链页 将按照【博文数量】进行排名（除道祖境和金仙境外），如果境界相同，则按友链申请时间排序。</p>
+<table>
+<thead>
+<tr>
+<th align="center">境界</th>
+<th align="center">博文数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">道祖境</td>
+<td align="center">*</td>
+</tr>
+<tr>
+<td align="center">金仙境</td>
+<td align="center">*</td>
+</tr>
+<tr>
+<td align="center">炼虚</td>
+<td align="center">200+</td>
+</tr>
+<tr>
+<td align="center">化神</td>
+<td align="center">150-200</td>
+</tr>
+<tr>
+<td align="center">元婴</td>
+<td align="center">100-150</td>
+</tr>
+<tr>
+<td align="center">结丹</td>
+<td align="center">50-100</td>
+</tr>
+<tr>
+<td align="center">筑基</td>
+<td align="center">20-50</td>
+</tr>
+<tr>
+<td align="center">炼气</td>
+<td align="center">0-20</td>
+</tr>
+</tbody></table>
+<p>后期计划会根据站内文章数量、文章质量、网站seo、流畅速度等维度进行综合排序，敬请期待。</p>
+<!-- '技术','生活','社区' -->
+
+<div class="flink">
+<h2>道祖境</h2>
+<div class="flink-desc">给道祖境修士倒茶 🍵</div>
+<div class="site-card-group"><a class="site-card" href="https://fe32.top/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg"><span class="title">Ethan.Tzy</span><span class="desc">古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.zhheo.com/"><div class="img"><div class="is-type is-type-0">生活</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/22/637cd4a6d798f.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://npm.elemecdn.com/guli-heo/img/avatar2.png"><span class="title">张洪Heo</span><span class="desc"> 分享设计与科技生活</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.thyuu.com/"><div class="img"><div class="is-type is-type-0">生活</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/27/6331d40767918.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG"><span class="title">风记星辰</span><span class="desc"> 分享生活，留下感动</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://dusays.com/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/21/6287d1dae7bb9.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cdn.dusays.com/avatar.png"><span class="title">杜老师说</span><span class="desc"> 师者，传道，授业，解惑！</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://siteweb.cn/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://www.siteweb.cn/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://websitecssjs.oss-cn-beijing.aliyuncs.com/links/favicon.ico"><span class="title">御网尚书</span><span class="desc"> 源自于热爱网络安全</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.fomal.cc/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://source.fomal.cc/siteshot/www.fomal.cn.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp"><span class="title">Fomalhaut🥝</span><span class="desc"> Future is now 🍭🍭🍭</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.acozycotage.net/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://lskypro.acozycotage.net/LightPicture/2022/12/f70147f60c9ffdef.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://lskypro.acozycotage.net/LightPicture/2023/01/7062b6bb75b640b7.jpg"><span class="title">Acozycotage</span><span class="desc"> 寄言燕雀莫相唣，自有云霄万里高 🍭🍭🍭</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://code.haiyong.site/"><div class="img"><div class="is-type is-type-0">社区</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://code.haiyong.site/"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://code.haiyong.site/wp-content/uploads/2022/10/logo.jpg"/><span class="title">海拥资源库</span><span class="desc"> 神级源码资源网，堪称程序员的充电站</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://www.iculture.cc/"><div class="img"><div class="is-type is-type-0">社区</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0d2f8712b.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.iculture.cc/icon/logo.png"><span class="title">FancyPig's blog</span><span class="desc"> 专注于网络安全与技术分享</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://wo.aziyuan.cn/"><div class="img"><div class="is-type is-type-0">社区</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/17/6376317a9f3c2.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://wo.aziyuan.cn/zjs/ico.png"><span class="title">一念倾城</span><span class="desc"> 念念不忘，必有回响</span></div></a>
+</div>
+
+<h2>金仙境</h2>
+<div class="flink-desc">给金仙境修士加鸡腿 🍗</div>
+<div class="site-card-group"><a class="site-card" target="_blank" rel="noopener" href="https://hexo.io/zh-tw/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285272d5cf22.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg"><span class="title">Hexo</span><span class="desc">Hexo 官方网站</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://butterfly.js.org/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285273f28c3c.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://butterfly.js.org//image/avatar.png"><span class="title">JerryC</span><span class="desc">Bufferfly 主题作者</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://xaoxuu.com/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/62852754eb5c4.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/62866f6ad307e.png"><span class="title">xaoxuu</span><span class="desc">Volantis 主题作者</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://yisous.xyz/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/27/6331d45cbbf3f.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/09/01/63103c5038313.webp"><span class="title">LYXの小破站</span><span class="desc">人有悲欢离合 月有阴晴圆缺</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://akilar.top/"><div class="img"><div class="is-type is-type-0">技术</div><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/628525ea91f60.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png"><span class="title">Akilarの糖果屋</span><span class="desc">期待您的光临！</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://sunhwee.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/636796ad8f2d3.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://sunhwee.com/medias/avatars/hwsun.jpg"><span class="title">洪卫の博客</span><span class="desc">UESTC CVer！</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.hclonely.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://blog.hclonely.com/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/62867055a691e.jpg"><span class="title">HCLonely</span><span class="desc">丰富的第三方插件</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://yangchaoyi.vip/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/19/6285263be9ee2.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/62866f666e714.png"><span class="title">超逸の技术博客</span><span class="desc">不是只会写业务代码の前端攻城狮</span></div></a>
+</div>
+
+<!-- <h2>我的小伙伴们</h2>
+<div class="flink-desc">那些人，那些事</div>
+<div class="site-card-group"></div> -->
+
+<h2>炼虚</h2>
+<div class="flink-desc"> 博文 200+ </div>
+
+<div class="site-card-group">
+<a class="site-card" target="_blank" rel="noopener" href="https://www.zywvvd.com"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/14/63eb9ad6ad88e.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.zywvvd.com/image/avatar.png"><span class="title">又见苍岚</span><span class="desc"> 蓝天依旧，明眸如初</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.lyshark.com"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1bf715770.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.lyshark.com/images/baidu_logo.png"><span class="title">LyShark - 孤风洗剑</span><span class="desc"> 道，可道，非常道；名，可名，非常名</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://zsyyblog.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img.zsyyblog.com/siteshot.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img.zsyyblog.com/favicon.jpg"><span class="title">竹山一叶</span><span class="desc"> 来了就不想走的小家</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://discover304.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/22/637cd4c82f53b.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://discover304.top/img/head.jpg"><span class="title">Haobo’s Blog</span><span class="desc"> 半只脚跨入炼丹师的大门的新人</span></div></a></div>
+
+<h2>化神</h2>
+<div class="flink-desc"> 博文 150+ </div>
+
+<div class="site-card-group">暂无化神境修士~</div>
+
+<h2>元婴</h2>
+<div class="flink-desc"> 博文 100+ </div>
+
+<div class="site-card-group"><a class="site-card" target="_blank" rel="noopener" href="https://blog.hikki.site"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1b895cb23.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/04/636511250b21b.jpg"><span class="title">小码博客</span><span class="desc"> 喜欢的东西就努力去追求，万一成功了呢!</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.juanertu.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0d6c3f788.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.juanertu.com/images/avatar.png"><span class="title">二兔</span><span class="desc">二兔和他的朋友们</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.nesxc.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0ec797d30.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://public.cdn.nesxc.com/avatar.jpg"><span class="title">小N同学</span><span class="desc"> 青石落晚巷 故人未还乡</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.kobal.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0dcfdedb4.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.kobal.cn/img/avatar.webp"><span class="title">爱编程的小明</span><span class="desc"> 不要温和地走进那个良夜</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://www.yuzhang.wang/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://www.yuzhang.wang/"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/628671b94aa84.png"/><span class="title">YuZhangWang的领域</span><span class="desc"> 两岸猿声啼不住 轻舟已过万重山</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://sianx.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0d9d80c4d.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cdn.bilicdn.tk/npm/picture-sianx@1.0.0/Blog/logo.png"><span class="title">Sianx’s Blog</span><span class="desc"> 总之岁月漫长</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://zhangshier.vip/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/14/63711807d0f15.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/14/63711b2bf2e44.webp"><span class="title">张时贰</span><span class="desc"> 环转码，爱敲代码的小张！</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://mdcm.yang5201314.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1d361dc08.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image-1309791158.cos.ap-guangzhou.myqcloud.com/butterfly/blog_other/93801118587.webp"><span class="title">Luckys-yangの小栈</span><span class="desc"> 循环的圆,不循环的缘</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="http://lengmo714.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/14/637117ee0c206.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/14/63711a76f3d0d.jpg"><span class="title">三尺青锋</span><span class="desc"> 莫忘少年凌云志,曾许人间第一流</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://hycbook.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd10122931b.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://pic.hycbook.com/i/hexo/person_img/兼一头像.jpg"><span class="title">兼一书虫</span><span class="desc"> 知足且上进，温柔而坚定，生活中的温暖总会与你不期而遇。</span></div></a></div>
+
+<h2>结丹</h2>
+<div class="flink-desc"> 博文 50+ </div>
+
+<div class="site-card-group"><a class="site-card" target="_blank" rel="noopener" href="https://lptexas.top"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://lptexas.top/img/web-info/Screenshot_blog.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://lptexas.top/img/web-info/avator.jpg"><span class="title">lptexas - の - 小狼窝</span><span class="desc"> 记录学习与生活，分享技术与快乐~</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://shunliu.xyz"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0f14adf82.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/628670d590bb4.jpg"><span class="title">程序员评测室</span><span class="desc">We meansure the Future!</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://codeanime.cc/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2021/09/03/c5450b91e87b0.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/628671a6be3e8.png"><span class="title">Codeanime</span><span class="desc">一只さくら荘🌸 の 二刺猿</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://xingchuangyang.gitee.io"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0f83343aa.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://pic.chuangyang.xin/519b2a7e3594fb98f7d6842dd6d71162.jpg"><span class="title">猿来是你</span><span class="desc"> Java、PHP、Android</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.sunguoqi.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0fbd52d7c.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.sunguoqi.com/upload/avatar.png"><span class="title">小孙同学</span><span class="desc"> 一个理性的浪漫主义者。</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.fullcomb.top"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cloud.fullcomb.top/private/source/image/siteshot/siteshot_me.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cloud.fullcomb.top/private/source/image/build/roselia/avatar.webp"><span class="title">Smile Diary</span><span class="desc"> 不管是怎样的舞台，我都会以微笑面对</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="http://alexwjj.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b710b5df3fb54751836952aa5f3f8dd3~tplv-k3u1fbpfcp-watermark.image?"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="http://alexwjj.github.io/img/logo.png"><span class="title">俊劫的学习基地</span><span class="desc"> 一个前端学习资源很多的小混子</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://jinyu.host/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0fd8677fe.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cdn.jinyu.host/avatar.jpg"><span class="title">轨道兔</span><span class="desc"> 为我自己，为友与仇，人与兽，爱者与不爱者</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://dddachui.top"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://dddachui.top/download/other/screenindex.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://dddachui.top/download/other/wanye.jpg"><span class="title">dddachui</span><span class="desc"> 运维本是逆天而行,死在路上也很正常</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.leonus.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd0feb2afcd.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://q1.qlogo.cn/g?b=qq&amp;nk=553344777&amp;s=5"><span class="title">Leonus's blog</span><span class="desc"> 进一寸有进一寸的欢喜</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://dyfa.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1000c55fa.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://nekodeng.gitee.io/medias/avatar.jpg"><span class="title">itsNeko</span><span class="desc"> 十万伏特皮卡丘</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://adguy.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/30/63af03da66b26.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/30/63af03cfc8b6a.jpg"><span class="title">adguy</span><span class="desc"> 十年饮冰，难凉热血</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.liveout.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1df19ce21.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://yy.liveout.cn/photo/photo2.jpg"><span class="title">Echo’s blog</span><span class="desc"> 韶华不为少年留 恨悠悠 几时休</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://haiyong.site"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://haiyong.site"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://haiyong.site/img/favicon.png"><span class="title">海拥</span><span class="desc"> 一个乐于分享技术与快乐的博主</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://inkss.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd110c0d20a.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://o.static.szyink.com/common/static/hexo/inkss.jpeg"><span class="title">枋柚梓的猫会发光</span><span class="desc"> 繁星永存，记忆更古不变。</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://anzhiy.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/anzhiy.cn.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.anzhiy.cn/adminuploads/1/2022/09/15/63232b7d91d22.jpg"><span class="title">安知鱼`Blog</span><span class="desc"> 生活明朗，万物可爱</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.jayhrn.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/allowJPG/wait/20/width/600/crop/950/https://blog.jayhrn.com"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cdn1.tianli0.top/gh/Jayhrn/CDN/img/avatar.png"><span class="title">Jayhrn</span><span class="desc"> 念念不忘，必有回响</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://cpen.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.cpen.top/image/cpen.top.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.cpen.top/image/avatar.jpg"><span class="title">Mycpen</span><span class="desc"> 这是一个有趣的博客</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.yyyzyyyz.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd119902028.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG"><span class="title">Black Flies</span><span class="desc"> When nothing goes right,just go left.</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://kmar.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd124da7de8.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/628671fff359d.jpg"><span class="title">山岳库博</span><span class="desc"> 开发学习启发性二刺</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.panghai.top"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1342ee007.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.panghai.top/img/avatar.png"><span class="title">心流</span><span class="desc"> 保持谨慎，保持乐观</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="http://xiaoyiblog.fun/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/22/637cd4db30f56.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://myblogphoto-1313051656.cos.ap-guangzhou.myqcloud.com/avatar/1b4d050c7866c14679709b4d8aec0cd4.jpg"><span class="title">努力搬砖的小易</span><span class="desc"> 记录前端技术的成长之路</span></div></a>
+
+<!-- date 20230214 -->
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.zzgpro.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/14/63eb9a899b20e.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://static.zzgpro.top/logo.svg"><span class="title">小周の代码之路</span><span class="desc"> 愿文字记录下成长的旅程</span></div></a>
+</div>
+
+<h2>筑基</h2>
+<div class="flink-desc"> 博文 20+ </div>
+<div class="site-card-group"><a class="site-card" target="_blank" rel="noopener" href="https://www.imql.life/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd10266bf1b.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img.imql.life/avatar.jpg"><span class="title">学习与生活</span><span class="desc">It’s a beautiful day!</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.realwds.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd103546586.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/62867097a20d6.jpg"><span class="title">realwds’s blog</span><span class="desc">数学系的挨踢者</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://chaospring.com"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://chaospring.com"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/62867180d59de.jpg"/><span class="title">Chaospring</span><span class="desc">一个小站，期待着能有客人到来~</span></div></a> -->
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://www.jnylife.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://www.jnylife.com/"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/628671ca87a49.gif"/><span class="title">今年勇</span><span class="desc"> 期待您的光临！</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://xinxin-l.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd10e6adb0d.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://xinxin-l.github.io/img/tx.jpg"><span class="title">xinxin</span><span class="desc"> Evething is gonna be fine</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.easyf12.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://ik.imagekit.io/easyf12/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_2022-07-21_124320_MyLevfvrl.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://ik.imagekit.io/easyf12/avatar_0jamNlJZ4.jpg"><span class="title">一蓑烟雨</span><span class="desc"> 竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.blatr.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.blatr.cn/blogPic/839c1ebc-0c8c-444c-9a65-f9f3e895ace0_2-08-07T14-36050Ze.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.blatr.cn/images/adminAvatar.jpg"><span class="title">青灯暮雨</span><span class="desc"> 再渺小的星光，也有属于它的光芒</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://soora33.github.io"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd113b58c89.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://minaseinori.oss-cn-hongkong.aliyuncs.com/blog/nayuta.jpg"><span class="title">sora33</span><span class="desc"> 海内存知己,天涯若比邻</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.cnortles.top"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd115e4bcae.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://source.cnortles.top/avatar.png"><span class="title">落星屋</span><span class="desc"> 科学是使人的精神变得勇敢的最好途径</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://wjnba.gitee.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/636797c0b25d8.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://raw.githubusercontents.com/wjnba/resources/main/img/202205231730917.jpeg"><span class="title">wjnba的博客</span><span class="desc"> 君子以坦荡立于世间，必将步步生花，一路繁华</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://www.fomal.cc/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/allowJPG/wait/20/width/600/crop/950/https://fomal.cc/"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp"/><span class="title">Fomalhaut🥝</span><span class="desc"> Future is now 🍭🍭🍭</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://roydon.xyz/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/636797e3282a7.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://s1.ax1x.com/2022/11/12/ziJpaq.jpg"><span class="title">roydon</span><span class="desc"> 如琉璃般飘落</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://nkupp.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd11716e89b.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://nkupp.com/images/avatar.png"><span class="title">NK’S Blog</span><span class="desc"> 山不向我走来,我便向山走去</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://xlenco.eu.org/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd11a8744a4.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367af264c26b.webp"><span class="title">Xlenco</span><span class="desc"> 最好的地方,是没去过的地方。最好的时光，是回不来的时光</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.shifeiti.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd11b8879e1.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://other.shifeiti.com/logo/logo.png"><span class="title">是非题</span><span class="desc"> 记录生活，热爱跑步，学习 FPGA 中</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.goku.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd11c80b4ff.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://ghproxy.com/https://raw.githubusercontent.com/sgr997/images/main/blog/avatar.jpg"><span class="title">Pei’s Blog</span><span class="desc"> 随记随看</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://ttzz.eu.org/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1212ec954.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://kingpo.netlify.app/images/avatar.png"><span class="title">六月长河</span><span class="desc"> 桃李春风一杯酒，江湖夜雨十年灯</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.shang.ac.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367ad62c478d.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://resources.shang.ac.cn/20221026/favicon.jpg"><span class="title">北岛林屿</span><span class="desc"> 我不能给你全世界，但是我所有的星光，全部都给你</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.9998k.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367ad08d72dc.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.9998k.cn/g.jpg"><span class="title">MoyiTech的小站</span><span class="desc"> 物联网开源硬件技术分享交流，记录学习过程中的点点滴滴，分享互联网精神！(9998K.CN)</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://linjiangyu.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/22/637cd4ea21c07.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://linjiangyu.com/upload/favicon.jpg"><span class="title">你会发光叭</span><span class="desc"> 风起于青萍之末，浪起于微澜之间</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://pochacco.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367ad29bff5b.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://pochacco.top/img/Avatar.gif"><span class="title">鹿啵包の小窝</span><span class="desc"> 落日橘子海，揽尽世间温柔</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.4t.pw/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd122c50eba.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.4t.pw/img/favicon.webp"><span class="title">怕冷爱上雪</span><span class="desc"> 千里之行，始于足下</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://tabotef134.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1c79b2bb7.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://q.qlogo.cn/g?b=qq&amp;nk=2056517872&amp;s=0"><span class="title">咬一口激动的鱼</span><span class="desc"> 风带来了种子，时间使之发芽</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://prong.ltd"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://prong-1316442664.cos.ap-nanjing.myqcloud.com/picgo/202301252110840.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://prong-1316442664.cos.ap-nanjing.myqcloud.com/picgo/202301242359645.webp"><span class="title">Prong</span><span class="desc"> 尖头叉子在霍格沃茨的休息室~</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.lmx0.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1e4da5c36.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://s1.vika.cn/space/2023/01/08/ccf7921738f741dbbd0a261c4b8fce1c"><span class="title">Lmx0</span><span class="desc"> 学如逆水行舟，不进则退</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://csuk1.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://csuk1.github.io/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367986e301e7.png"><span class="title">csuk1’s blog</span><span class="desc"> web菜狗</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://dorakika.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd12f7c6091.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/63679885c5d2e.jpg"><span class="title">DORAKIKA</span><span class="desc"> 热爱漫无边际，生活自有分寸</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://bio-w.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd137e2ae20.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/10/17/634d313602a1e.png"><span class="title">西瓜撞地球</span><span class="desc"> 我在人间贩卖彩虹</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.gmcj0816.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd13e1ca4ed.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.gmcj0816.top/img/SeriousWission_TouXiangPic.jpg"><span class="title">七鳄の学习格</span><span class="desc"> 如果世界多了精彩，每一位都是创造者，大家都是你的观众</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://mumushu1.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://s1.vika.cn/space/2022/09/20/d6549b99ad4149be8cebca26c4a371e0"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://pic2.zhimg.com/v2-786f59b6202258d45951f7b8fe6efd43_xl.jpg?source=32738c0c"><span class="title">mumumu1的个人小站</span><span class="desc"> 在最高点乘着叶片往前飞</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://issey.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img.issey.top/img/202209210151958.png"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img.issey.top/img/touxiang.jpg"><span class="title">issey的博客</span><span class="desc"> 前路漫漫，算法作伴。愿一路有你~</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.waer.ltd/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd13f48c7bc.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://images.waer.ltd/img/bachiyaojian.jpeg"><span class="title">八尺妖剑</span><span class="desc"> 惟有热爱，可抵岁月漫长!</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.toolka.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd14f7b5e72.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.toolka.cn/usr/uploads/2022/10/714557602.jpg"><span class="title">白衣少年の博客</span><span class="desc"> 一名编程爱好者的博客，博客主要用来记录与分享编程、学习中的知识点</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://coder-fang.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/13/63988b3c19df6.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://coder-fang.github.io/img/avatar.jpg"><span class="title">杉菜酱子</span><span class="desc"> 闲梦江南梅熟日，夜船吹笛雨萧萧。人语驿边桥</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://chengzi516.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://imgbed.link/file/11547"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://imgbed.link/file/11088"><span class="title">丞子的Blog</span><span class="desc"> 记录摸鱼的每一天</span></div></a>
+
+<!-- date 20230214 -->
+<a class="site-card" target="_blank" rel="noopener" href="https://wuxingzzz.top"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.wuxingzzz.top/article/1592180893591904258.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.wuxingzzz.top/hexo/IMG_3969.JPG"><span class="title">小吉崽汁の窝</span><span class="desc"> A programmer of vegetable chicken</span></div></a></div>
+
+<h2>炼气</h2>
+<div class="flink-desc">练气期竟恐怖如斯</div>
+
+<div class="site-card-group">
+<a class="site-card" target="_blank" rel="noopener" href="https://space.greyh.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd123e09d07.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367afdae6261.png"><span class="title">灰鸿の空间</span><span class="desc">一名科技爱好者的空间</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.app966.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/06/6367980aee45f.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.app966.cn/img/qq.jpg"><span class="title">Superhero</span><span class="desc"> 夜色难免黑凉，前行必有曙光。</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://daydream.icu/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://static.daydream.icu/halo/3-%E5%B0%8F%E4%B9%94-1.JPG"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://daydream.icu/logo"><span class="title">白日梦</span><span class="desc"> 技术与博客同龄</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://szraz.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://szraz.cn/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://oc.arcitcgn.cn/2022/07/11/62cbadded38bf.jpg"><span class="title">宏的自留地</span><span class="desc"> 好折腾的初中生</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://linxingjue.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd12a328498.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.nitutu.com/uploads/allimg/200409/2136411052-6.jpeg"><span class="title">麟星爵</span><span class="desc"> 一个快乐的技术小白</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://mcj.life/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd13293534b.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://s2.loli.net/2022/08/20/HvOtPq8dEXY9ygz.jpg"><span class="title">析悦子</span><span class="desc"> 走向数学路上的梦</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://xiaomingwy.xyz/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://xiaomingwy.xyz/"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img1.imgtp.com/2022/08/28/2JUzoKXV.png"/><span class="title">小明`Blog</span><span class="desc"> 有人说 淤青可以好，喜欢的人也可以忘掉</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://meinming.github.io/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd13cd4bf3b.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://s3.bmp.ovh/imgs/2022/06/26/fc8a0b6031008974.jpg"><span class="title">xiaoming</span><span class="desc"> 知行合一，厚德载物</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.lsenyu.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1aa03962b.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://lsenyu.cn/logo1.jpg"><span class="title">森语博客</span><span class="desc"> 有幸遇见，恰巧合拍</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.hao-hacker.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/14/637117c5d5dee.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/14/63711b3a31441.webp"><span class="title">好黑客</span><span class="desc"> 好黑客-专注于网络安全</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.zoulicheng.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/17/63763680687cd.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://zoulicheng.oss-cn-shanghai.aliyuncs.com/img/quin.jpg"><span class="title">猪里程</span><span class="desc"> 记录读研以及工作的点点滴滴</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://daiyu-233.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/13/63988ab53d5f7.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://daiyu-233.top/img/avatar.png"><span class="title">呆鱼</span><span class="desc"> 命运之所以称为命运，正是因为它无可改变</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.qingyi1220.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://www.qingyi1220.cn/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.qingyi1220.cn/img/Tsingyi.jpg"><span class="title">青衣</span><span class="desc"> 世界既不黑也不白，而是一道精致的灰</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.xiaozhuzi.xyz/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/13/63988ac53196b.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://ghost.xiaozhuzi.xyz/cc3/99.jpg"><span class="title">子辰辰</span><span class="desc"> 一个渗透测试在学的小菜鸡</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://ahao666.xyz/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/30/63af055c222c8.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/13671/QQavatar.jpg"><span class="title">Ahao博客网站</span><span class="desc"> 让花成花，让树成树</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://wangxi.online/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/12/30/63af056a1e6d6.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://cdn.wangxi.online/img/favicon.jpg"><span class="title">LuckyWangXi</span><span class="desc"> 无限进步！</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://sansui.vip/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd160fc9853.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://s1.ax1x.com/2023/01/19/pS88XWD.jpg"><span class="title">三岁の小窝</span><span class="desc"> 不染尘世哀愁，道尽人间温柔</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://opeach.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/01/13/63c11ecfa0e6b.webp"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://opeach.cn/media/avatar.webp"/><span class="title">HiPeach</span><span class="desc"> 妙不可言</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://zhouenpei0523.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/01/13/63c11ee2e6c29.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://imgs.zhouenpei0523.top/i/2022/07/31/dvpwnk.webp"><span class="title">MYAN</span><span class="desc"> 过去已去,未来已来</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.recclay.cc/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1b0381713.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.recclay.cc/img/recclay.png"><span class="title">ReCclay🖥️</span><span class="desc"> 芯片硅农，别忘无恙🧐</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.phbeats.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1cbfb602a.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/01/12/63c020b7e26af.jpg"><span class="title">Phbeats-Blog</span><span class="desc"> 记录学习历程和生活感悟</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://wsbblog.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd1d7509fb1.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://wsbblog.cn/img/wsb.webp"><span class="title">wsbのblog</span><span class="desc"> 己所不欲，勿施于人</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.catchwang.com"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/03/63dd114d15853.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://www.catchwang.com/wp-content/themes/zibll/img/logo-day-com-short.png"><span class="title">Catch Wang</span><span class="desc"> 未来路长 · 勿忘初心</span></div></a>
+
+<!-- date 20230214 -->
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.ivil.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/14/63eb9a601a825.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://blog.ivil.top/img/logo.png"><span class="title">Hc’s Blog</span><span class="desc"> 相遇即是上上签</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://gavin-chen.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/14/63eb9ac61a404.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://i.imgtg.com/2023/01/06/GZRKN.jpg"><span class="title">南方嘉木</span><span class="desc"> 不畏将来，不念过往</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://eternalcoder.cc/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/14/63eb9a9e96ac7.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://eternalcoder.cc/img/avatar.png"><span class="title">小周同学</span><span class="desc"> 不忘过去</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://blog.wyun521.top/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/02/14/63eb9a7654d23.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://mysource-hexo.wyun521.top/img/avatar/7.jpg"><span class="title">Sunday</span><span class="desc"> 代码改变世界</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.blackpumpkin.xyz/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src=" https://figure.pages.dev/img/index_img.jpg"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://figure.pages.dev/img/avatar.jpg"><span class="title">黑心の南瓜</span><span class="desc"> 抛掉过去,不一定有好的开始,但一定不会比过去坏</span></div></a>
+</div>
+
+<h2>尚未互联</h2>
+<div class="flink-desc">望修士早日互联</div>
+
+<div class="site-card-group"><a class="site-card" target="_blank" rel="noopener" href="https://goog.tech/blog/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://goog.tech/blog/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://avatars.githubusercontent.com/u/43493852?v=4"><span class="title">GoogTech</span><span class="desc"> Developer</span></div></a>
+</div>
+
+<h2>失联者</h2>
+<div class="flink-desc">望修士早日回归</div>
+
+<div class="site-card-group">
+<a class="site-card" target="_blank" rel="noopener" href="https://www.codecheng.com/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://www.codecheng.com"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://codecheng-1305009997.cos.ap-chengdu.myqcloud.com/img/20210501222811.webp"><span class="title">CodeCheng</span><span class="desc">抬头仰望满天繁星，为你绽放闪烁不息</span></div></a>
+<!-- <a class="site-card" target="_blank" rel="noopener" href="https://szraz.cn/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://szraz.cn/"/></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://oc.arcitcgn.cn/2022/07/11/62cbadded38bf.jpg"/><span class="title">宏的自留地</span><span class="desc"> 好折腾的初中生</span></div></a> -->
+<a class="site-card" target="_blank" rel="noopener" href="https://xiaomingwy.xyz/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://xiaomingwy.xyz/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://img1.imgtp.com/2022/08/28/2JUzoKXV.png"><span class="title">小明`Blog</span><span class="desc"> 有人说 淤青可以好，喜欢的人也可以忘掉</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://www.yuzhang.wang/"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://www.yuzhang.wang/"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/628671b94aa84.png"><span class="title">YuZhangWang的领域</span><span class="desc"> 两岸猿声啼不住 轻舟已过万重山</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://chaospring.com"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://chaospring.com"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/05/20/62867180d59de.jpg"><span class="title">Chaospring</span><span class="desc">一个小站，期待着能有客人到来~</span></div></a>
+<a class="site-card" target="_blank" rel="noopener" href="https://opeach.cn"><div class="img"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/01/13/63c11ecfa0e6b.webp"></div><div class="info"><img class="no-lightbox" src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://opeach.cn/media/avatar.webp"><span class="title">HiPeach</span><span class="desc"> 妙不可言</span></div></a></div>
+
+
+</div>
+<br>
+<div class="link-box">
+    <h2 class="no-icon-tzy">💖</h2> 
+    <h2 class="masked no-icon-tzy">&nbsp;申请友链格式</h2>
+</div>
+
+<p>在下方评论处留言</p>
+
+<figure class="highlight yaml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">your</span> <span class="string">Blog's</span> <span class="string">name</span></span><br><span class="line"><span class="attr">link:</span> <span class="string">your</span> <span class="string">Blog's</span> <span class="string">address</span></span><br><span class="line"><span class="attr">avatar:</span> <span class="string">your</span> <span class="string">Blog's</span> <span class="string">avatar</span></span><br><span class="line"><span class="attr">descr:</span> <span class="string">the</span> <span class="string">description</span> <span class="string">of</span> <span class="string">your</span> <span class="string">blog</span></span><br><span class="line"><span class="attr">screenshot:</span> <span class="string">the</span> <span class="string">screenshot</span> <span class="string">of</span> <span class="string">your</span> <span class="string">website</span> <span class="comment"># 此项可不填 会根据贵站链接调用API自动获取截图</span></span><br></pre></td></tr></tbody></table></figure>
+
+<div class="link-box">
+    <h2 class="no-icon-tzy">😋</h2>
+    <h2 class="masked no-icon-tzy">&nbsp;相关注意事项</h2>
+</div>
+
+<ul>
+<li>本站不参与商业性网站、下载站、视频站等</li>
+<li>不添加广告网站，网站要有一定数量的原创文章，建站一月以上</li>
+<li>网站要有维护，定期或不定期均可，线下朋友请忽略这一条</li>
+<li><span class="p cyan">申请友链</span> 在评论区留言即可，<span class="p cyan">但需先添加本站友链</span>（申请格式如下文所述）</li>
+<li>如果你想联系我，在<a href="../about/"> About </a>页面中有我的相关联系方式</li>
+</ul>
+<div class="link-box">
+    <h2 class="no-icon-tzy">👲</h2>
+    <h2 class="masked no-icon-tzy">&nbsp;我的基本信息</h2>
+</div>
+
+<figure class="highlight yml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Ethan.Tzy</span></span><br><span class="line"><span class="attr">link:</span> <span class="string">https://fe32.top/</span></span><br><span class="line"><span class="attr">avatar:</span> <span class="string">https://bu.dusays.com/2022/05/02/626f92e193879.jpg</span></span><br><span class="line"><span class="attr">descr:</span> <span class="string">古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志</span></span><br><span class="line"><span class="attr">screenshot:</span> <span class="string">https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg</span></span><br></pre></td></tr></tbody></table></figure></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/@3.7.1/archives/"><div class="headline">文章</div><div class="length-num">101</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/tags/"><div class="headline">标签</div><div class="length-num">73</div></a></div><div class="card-info-data-item is-center"><a href="/@3.7.1/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/@3.7.1/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>本站只保留入口，即将不再更新内容，请切换成回最新版本。</div><div id="qq-btn"><a id="a-qun" href="https://fe32.top/" target="_blank">回最新版本 ✨</a></div><div id="qq-btn" style="margin-top:10px"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="xpand" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/joy10001/" title="被发现了，这些吊炸天的摸鱼网站！"><img data-lazy-src="https://bu.dusays.com/2023/06/18/648f1359dc90f.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="被发现了，这些吊炸天的摸鱼网站！"/></a><div class="content"><a class="title" href="/@3.7.1/articles/joy10001/" title="被发现了，这些吊炸天的摸鱼网站！">被发现了，这些吊炸天的摸鱼网站！</a><time datetime="2023-06-18T16:40:07.000Z" title="发表于 2023-06-19 00:40:07">2023-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/vue20002/" title="解决 Vue 中使用 Echarts 出现 There Is a Chart Instance Already Initialized on the Dom 的警告问题"><img data-lazy-src="https://bu.dusays.com/2023/06/18/648ed3f987511.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="解决 Vue 中使用 Echarts 出现 There Is a Chart Instance Already Initialized on the Dom 的警告问题"/></a><div class="content"><a class="title" href="/@3.7.1/articles/vue20002/" title="解决 Vue 中使用 Echarts 出现 There Is a Chart Instance Already Initialized on the Dom 的警告问题">解决 Vue 中使用 Echarts 出现 There Is a Chart Instance Already Initialized on the Dom 的警告问题</a><time datetime="2023-06-18T16:20:32.000Z" title="发表于 2023-06-19 00:20:32">2023-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/hexo1619/" title="如何新窗口打开导航链接？"><img data-lazy-src="https://bu.dusays.com/2023/06/04/647c9bb365e09.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="如何新窗口打开导航链接？"/></a><div class="content"><a class="title" href="/@3.7.1/articles/hexo1619/" title="如何新窗口打开导航链接？">如何新窗口打开导航链接？</a><time datetime="2023-06-04T13:53:07.000Z" title="发表于 2023-06-04 21:53:07">2023-06-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/ts30001/" title="一文读懂TS的(.d.ts)文件"><img data-lazy-src="https://bu.dusays.com/2023/04/29/644d384035bca.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="一文读懂TS的(.d.ts)文件"/></a><div class="content"><a class="title" href="/@3.7.1/articles/ts30001/" title="一文读懂TS的(.d.ts)文件">一文读懂TS的(.d.ts)文件</a><time datetime="2023-04-30T14:28:06.000Z" title="发表于 2023-04-30 22:28:06">2023-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/@3.7.1/articles/vue20001/" title="Property 'Xxx' Does Not Exist on Type 'AxiosResponse&lt;any, Any&gt;' 的解决办法"><img data-lazy-src="https://bu.dusays.com/2023/04/29/644d249bc9001.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="Property 'Xxx' Does Not Exist on Type 'AxiosResponse&lt;any, Any&gt;' 的解决办法"/></a><div class="content"><a class="title" href="/@3.7.1/articles/vue20001/" title="Property 'Xxx' Does Not Exist on Type 'AxiosResponse&lt;any, Any&gt;' 的解决办法">Property 'Xxx' Does Not Exist on Type 'AxiosResponse&lt;any, Any&gt;' 的解决办法</a><time datetime="2023-04-30T12:34:18.000Z" title="发表于 2023-04-30 20:34:18">2023-04-30</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-bolt"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/@3.7.1/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/Butterfly/"><span class="card-category-list-name">Butterfly</span><span class="card-category-list-count">26</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/CSS/"><span class="card-category-list-name">CSS</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/Github/"><span class="card-category-list-name">Github</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/IOS/"><span class="card-category-list-name">IOS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/JavaScript/"><span class="card-category-list-name">JavaScript</span><span class="card-category-list-count">23</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/Node/"><span class="card-category-list-name">Node</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/React/"><span class="card-category-list-name">React</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/@3.7.1/categories/Typescript/"><span class="card-category-list-name">Typescript</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">101</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2020-12-09T16:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">253.4k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-07-05T13:20:07.438Z"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://bu.dusays.com/2022/05/03/627010707b598.webp')"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a target="_blank" rel="noopener" href="https://tzy1997.com/articles/hexo1600/">建站指南</a><a target="_blank" rel="noopener" href="https://tzy1997.com/nav.html">网址导航</a></li><li><a target="_blank" rel="noopener" href="https://tzy1997.com/sponsorWall/">来杯咖啡</a><a target="_blank" rel="noopener" href="https://tzy1997.com/comments/">留点什么</a></li><li><a target="_blank" rel="noopener" href="https://tzy1997.com/about/">关于博主</a><a target="_blank" rel="noopener" href="https://tzy1997.com/archives/">文章归档</a></li><li><a target="_blank" rel="noopener" href="https://tzy1997.com/categories/">文章分类</a><a target="_blank" rel="noopener" href="https://tzy1997.com/tags/">文章标签</a></li><li><a target="_blank" rel="noopener" href="https://tzy1997.com/gallery/">我的相册</a><a target="_blank" rel="noopener" href="https://tzy1997.com/bangumis/">我的追番</a></li><li><a target="_blank" rel="noopener" href="https://tzy1997.com/specialEffects/">一些特效</a><a target="_blank" rel="noopener" href="https://tzy1997.com/wallpaper/">一些壁纸</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a target="_blank" rel="noopener" href="https://tzy1997.com/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.startly.cn/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div><div class="copyright">&copy;2020 - 2023  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Ethan.Tzy</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.✨✨✨<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://icp.gov.moe/?keyword=20220686" title="本站已加入萌ICP豪华套餐，萌ICP备20220686号"><img src="https://img.shields.io/badge/%E8%90%8CICP%E5%A4%87-20220686-fe1384?style-flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAAByxJREFUSInl1nlwVeUZx/HPuTckkD0kQFiCEEIUlNUCAqKoSBV1AIt1ikpVLFbLONjWGUXbmWrbweJMy7hUxbbTjsUq6KCiWEvr0kE2WVK2QCKBJCxJgEASsienfxwqMob+3Zm+f93z3vM+32f5vc9z+H9bwVcfOp/YQ+1prhhEZS1VDQzqQ1MjiQmIC5Liwm3lBWpqFimrulb/7A/067vM2IsOBZ2h8MhJQW6KMDNVsKeaizKEyUlsKueqgWJ39AMJF3QpDCNYr1SaEig/lWNX2Z1h6dH5/lVyGdVIZFf7MHo9bEfh9rCg/+8NyHlN77QTsnpQ0i2y08VK+BosfhbW0cHxqmSfFd9qW+l9Pi+5WltFdGTsOBbO5dJcdh3lN5+xff0Y2zuelXjRsyYUrjOu4BVJaavlpbWIJRBLOM+J81O95AAnTtM9vNHGknut3zdT48FutJE3koWTuG4oSXH+VsInX3B9IdcVUNfCuv08t4GjO6NspOa3BNcOXx1eOugVHQnrTMkTuyWrC/BjRZO9uPYTpw7HhTWkXcLd45l9GblpHD7NWzt5ZTMXZ/OdkTy+lvR07rmcmWffq6pn9W5e/oymfcT6kJbXHiydMyVYkL/x66n+ZMcctQfjhgxl6UIGZ3Ooltd2RIZqjqKRS0ew9cFIA1cO5urlLHuPZWsZPJiZw7gqn0VT2HCIR9+jvCQhfHPrLGyE2Hng2roBxHnmJoZnc9drbD3I6QaaWkjpSVoeu4+x5XB05qMDqCenHz37UHmcFRv54ZuMeoYrB/L0DPRgZ0WfrsXVKzPX3nYykrn3dUZl8+Q0Qox/gc/L6ZlKzxQefo+UROpa6Z4VCedkPd8YyJYHI3u5T/HAShZNQxsXZfR3pCtwRW066VEeOuIUVUf77+9jTw2pycTOJml7Je1t9EgiI5X2jkgyze1fCSSdtjhBiJCkpKyuI+5oTdAtkTCgVwrbKsl8ko6QjO40tZ67EpkpdIbRf20dkbPpPTjdwsSX6I5dJYy4hoQAaZQdDy4A1iEMI613T6LtBPXJpPakrjGqc1Y6CTFq62htJp5KRwPJKWSkU3WKiiPEEqO6xgM6oZmctJhDXYH7Z59xuCyKpK6R26ZE+ys3MWYoN1/Mc5uoqmbEQJ6fTc/ulJ3i/lUc+YIfzeKhKzjVHN31A3XRHddKSrf6/6DOV3VTcw1hVKfkxOhaPDAe1UwfwmNTqT1Drxw+nE9xNXetIjHG2vnoxoT+rNrN2Of58Rp6JZ+ldKes5kjX4G7dKuikpoERfaltYnQ/DOSS3hEAFk9lXQkLnmf7Ib65lPJT3HU1+46Tm8rYvgzKYVA2h+vQIMjvewHwdSN20MiOSmZczO4a1hSzYi77T7CiiPF5JMTZexjJ5OagkwNV9M+MnJ09nKU3smgyQ3PYWoEO4fUjii4QceJmevJuMeP6csUAln4atcbSGoqOUpjD30uZNwnpHNtN3lC+NZa1xeT34pGVTJ3PL9+Ohs6GQ8gVtHZs6VLVwZhBReGwoXvt3THM/hP0SWVnCR8f4PMjkffjB/DQS8waxpHFfFgaaeHZDRRtJn0yP5tF31ymFVJ2nN27GD66KBzca2/XEWdkUpD3Fmd4tYj0FMS54Q9UnuaDUv6yE/24ewWP/DU6N/d1fvousYEs28DyLVEvGDOAt/egmSkXv2VYn3NBfpXbua6J8hMFFvy2RHsL+57gmX+w/AN651PfEDWQzLRI+afqIqOxFDJT6Rbn9Bmad3PnTH5wIxOXkJTWGiz57hCDsyqDWVldRNzeyOh+paaPfpFKnvqQX88iZwDVx0lLJqUHbe3EkZ1Odm+yUqK2GHYKmhvIG8fyeTz9IY5x67jnFPapdPDkl6jzwEF9IDjZJlgwfbG+o2u8+g4rd7D/UYI41TXnevV5K4j2q6uESckUP8rvNrH6fUH/sRXB9AlPONMSDZ8uazwoi56JjEyvdftV88jinhf4uIzmJRQOoOYgja0RKAiIBZxpjvZH5tP0c97axcLlyBXOuWZemJTYFFbUCU+1dl3j8PGSyFhnJ7EkYcWh7/njqpep5xfzWTyZZ7dEg73xOJKiGqf3YenNLBjLTz7i539COg/OvSOYO2GFo/VRG0Zwe0YX4Ns3R7NXSCxBeM8IthXfZvGf3xCWc/kkXvg2vVP4YB/rDzC1gGlDo+50/xvs2khKPrNnzAzmTH5HbzR0fkkKro93Ab5vx9kfaGgT3lLA5EyWbRpoTdHbSreOppGJV/PwlRTksK+aZz5l6z+RLBgxaau5k2cJelTKzmRQMq0d51J8UxL+23d1TDTcj7WQllZu4YwxDo+eZc22X9mwd6gN65GIFmQzampxcMOoR1xeuMbpVoqromsXdG3+wmCiekNtfSSmiUNWu2zgap+WjlZW8X11TeNkpWwICvNfCm8u3Cmxg4PN0VdmEJw7/7+0/g32RaqCbhRecAAAAABJRU5ErkJggg=="></a>&nbsp;<a target="_blank" href="https://vercel.com/"><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat_btn" type="button" title="在线聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="fa-solid fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="fa-solid fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="fa-solid fa-arrow-rotate-right"></i></div><div class="rightMenu-item" id="menu-home"><i class="fa-solid fa-house"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="fa-solid fa-copy"></i><span>复制文本</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="fa-solid fa-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="fa-solid fa-copy"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="fa-solid fa-copy"></i><span>复制图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="fa-solid fa-download"></i><span>下载图片</span></div><div class="rightMenu-item" id="menu-search"><i class="fa-solid fa-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="fa-solid fa-magnifying-glass"></i><span>百度搜索</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-radompage"><i class="fa-solid fa-shoe-prints"></i><span>随便逛逛</span></div><a class="rightMenu-item menu-link" href="/archives/"><i class="fa-solid fa-archive"></i><span>文章归档</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="fa-solid fa-folder-open"></i><span>文章分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="fa-solid fa-tags"></i><span>文章标签</span></a><a class="rightMenu-item" id="menu-goto-comment" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item menu-link" href="/sponsorWall/"><i class="fa-solid fa-money-check-alt"></i><span>赞助墙</span></a></div><div class="rightMenu-group rightMenu-line rightMenuNormal"><div class="rightMenu-item" id="menu-translate"><i class="fa-solid fa-earth-asia"></i><span>繁简切换</span></div><div class="rightMenu-item" id="menu-readmode"><i class="fa-solid fa-book-open"></i><span>阅读模式</span></div><div class="rightMenu-item" id="menu-print"><i class="fa-solid fa-print fa-fw"></i><span>打印页面</span></div><div class="rightMenu-item" id="menu-copy"><i class="fa-solid fa-share"></i><span>分享本页</span></div></div></div><div id="rightmenu-mask"></div><div id="myscoll"></div><div><script src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script src="/@3.7.1/"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/utils.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/tw_cn.js"></script><script src="https://npm.elemecdn.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/search/algolia.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      onCommentLoaded: function () {
+        //- const ele = document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)')
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo.fe32.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://fastly.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="pjax-reload"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('github-badge');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInX');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '100ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow.min.js"></script><script defer="defer" src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/wow_init.js"></script><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/cat.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/issues.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople1.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/zdog.dist.js"></script><script defer data-pjax src="https://npm.elemecdn.com/ethan4116-blog/lib/js/other/two-people/twopeople.js"></script><canvas id="universe"></canvas><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/universe.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/@3.7.1/js/ethan_tzy.js"></script><script defer src="https://npm.elemecdn.com/ethan4116-blog/lib/right-menu/rightMenu@1111.js"></script><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-92YZLM7C2B"></script><script> window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-92YZLM7C2B');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?bbcbaf179f87d03d28c3ba72c79a5640";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/meting.min.js"></script><script src="https://npm.elemecdn.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener toc scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+
+  typeof preloader === 'object' && preloader.initLoading()
+
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  //- document.querySelectorAll('script[data-pjax]').forEach(item => {
+  
+  document.querySelectorAll('script[data-pjax], .pjax-reload script').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+//- document.addEventListener('pjax:send', function () {
+//-   typeof preloader === 'object' && preloader.initLoading()
+  
+//-   if (window.aplayers) {
+//-     for (let i = 0; i < window.aplayers.length; i++) {
+//-       if (!window.aplayers[i].options.fixed) {
+//-         window.aplayers[i].destroy()
+//-       }
+//-     }
+//-   }
+
+//-   typeof typed === 'object' && typed.destroy()
+
+//-   //reset readmode
+//-   const $bodyClassList = document.body.classList
+//-   $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+//- })
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    if (false) {
+      location.hash && e.request.responseURL !== location.href ? pjax.loadUrl(location.href) : pjax.loadUrl('/404.html')
+      return
+    }
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

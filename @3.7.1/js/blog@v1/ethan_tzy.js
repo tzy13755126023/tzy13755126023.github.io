@@ -8,7 +8,7 @@
  */
 
 /* 打印信息 */
-// console.log("\n %c Ethan_Blog v1.0.0 %c 博客地址为：https://fe32.top \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #030307;color: #fadfa3;padding:5px 0;")
+// console.log("\n %c Ethan_Blog v1.0.0 %c 博客地址为：https://tzy1997.com \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #030307;color: #fadfa3;padding:5px 0;")
 // console.log("\n %c QQ：2938526863 %c VX: ethan4116                    \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #030307;color: #fadfa3;padding:5px 0;")
 // console.log(`%c
 //     I wish you to become your own sun , no need to rely on who’s light.                                                   
