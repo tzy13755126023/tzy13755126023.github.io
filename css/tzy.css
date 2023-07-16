@@ -121,6 +121,16 @@ body {
     }
 }
 
+/* aside侧边栏 作者头像 hover 动画 */
+
+.avatar-img img:hover {
+    transform: rotate(666turn) !important;
+    transition-delay: 1s;
+    transition-property: all;
+    transition-duration: 59s;
+    transition-timing-function: cubic-bezier(.34, 0, .84, 1);
+}
+
 /* aside侧边栏 最新评论 6px圆角 */
 #card-newest-comments .aside-list .aside-list-item a>img {
     border-radius: 6px;
@@ -1009,12 +1019,12 @@ blockquote {
 
 /* ---- Twikoo评论样式 ---- START */
 
-#twikoo a{
+#twikoo a {
     color: var(--tzy-theme);
     text-decoration: underline;
 }
 
-#twikoo .tk-footer a{
+#twikoo .tk-footer a {
     text-decoration: none;
 }
 
@@ -1117,6 +1127,7 @@ blockquote {
     color: var(--tzy-theme) !important;
     cursor: pointer !important;
 }
+
 .tk-action-link {
     text-decoration: none !important;
 }
@@ -1801,7 +1812,7 @@ blockquote {
         max-width: 100%;
         text-overflow: ellipsis;
     }
-    
+
     .swiper-pagination-fraction,
     .swiper-pagination-custom,
     .swiper-horizontal>.swiper-pagination-bullets,

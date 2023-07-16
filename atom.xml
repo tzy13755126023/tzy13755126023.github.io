@@ -6,7 +6,7 @@
   <link href="https://fe32.top/atom.xml" rel="self"/>
   
   <link href="https://fe32.top/"/>
-  <updated>2023-07-07T14:49:24.692Z</updated>
+  <updated>2023-07-16T09:32:44.876Z</updated>
   <id>https://fe32.top/</id>
   
   <author>
@@ -15,6 +15,67 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue3 如何将页面生成 pdf 导出</title>
+    <link href="https://fe32.top/articles/vue20003/"/>
+    <id>https://fe32.top/articles/vue20003/</id>
+    <published>2023-07-15T17:10:14.000Z</published>
+    <updated>2023-07-16T09:32:44.876Z</updated>
+    
+    
+    <summary type="html">html2Canvas + jspdf 将页面生产 pdf 导出。</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://fe32.top/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://fe32.top/tags/Vue/"/>
+    
+    <category term="pdf" scheme="https://fe32.top/tags/pdf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>亲测有效！Typora 安装激活教程</title>
+    <link href="https://fe32.top/articles/typra001/"/>
+    <id>https://fe32.top/articles/typra001/</id>
+    <published>2023-07-15T16:53:26.000Z</published>
+    <updated>2023-07-15T17:06:42.302Z</updated>
+    
+    
+    <summary type="html">分享 Typora 安装激活教程，写文章的速度这不得起飞！！！</summary>
+    
+    
+    
+    <category term="破解教程" scheme="https://fe32.top/categories/%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="Typora" scheme="https://fe32.top/tags/Typora/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>el-date-picker 宽度溢出浏览器问题</title>
+    <link href="https://fe32.top/articles/ele266ui/"/>
+    <id>https://fe32.top/articles/ele266ui/</id>
+    <published>2023-07-15T16:47:19.000Z</published>
+    <updated>2023-07-16T09:29:20.650Z</updated>
+    
+    
+    <summary type="html">解决 vue3 + el-date-picker 宽度溢出浏览器问题。</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://fe32.top/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://fe32.top/tags/Vue/"/>
+    
+    <category term="Element-UI" scheme="https://fe32.top/tags/Element-UI/"/>
+    
+  </entry>
   
   <entry>
     <title>Element Plus el-table 自定义合并行和列</title>
@@ -44,7 +105,7 @@
     <link href="https://fe32.top/articles/jsnb9548/"/>
     <id>https://fe32.top/articles/jsnb9548/</id>
     <published>2023-07-07T13:50:56.000Z</published>
-    <updated>2023-07-07T14:12:28.008Z</updated>
+    <updated>2023-07-07T15:36:19.986Z</updated>
     
     
     <summary type="html">javaScript 将对象数组，按字母顺序排序。</summary>
@@ -183,7 +244,7 @@
     <link href="https://fe32.top/articles/blog9528/"/>
     <id>https://fe32.top/articles/blog9528/</id>
     <published>2023-04-14T16:45:14.000Z</published>
-    <updated>2023-06-18T16:51:05.452Z</updated>
+    <updated>2023-07-15T17:09:11.072Z</updated>
     
     
     <summary type="html">简述博客相比上一版本（v3.7.1）做了哪些优化</summary>
@@ -372,19 +433,17 @@
     <link href="https://fe32.top/articles/blog9527/"/>
     <id>https://fe32.top/articles/blog9527/</id>
     <published>2022-12-11T15:45:14.000Z</published>
-    <updated>2023-06-04T16:01:03.557Z</updated>
+    <updated>2023-07-15T17:10:04.229Z</updated>
     
     
     <summary type="html">随便聊聊这两年半的博客练习生~</summary>
     
     
     
-    <category term="随笔" scheme="https://fe32.top/categories/%E9%9A%8F%E7%AC%94/"/>
+    <category term="Butterfly" scheme="https://fe32.top/categories/Butterfly/"/>
     
     
     <category term="博客记录" scheme="https://fe32.top/tags/%E5%8D%9A%E5%AE%A2%E8%AE%B0%E5%BD%95/"/>
-    
-    <category term="随笔" scheme="https://fe32.top/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -2793,7 +2852,7 @@ Vercel Domains（包含 https:&amp;#x2F;&amp;#x2F; 前缀，例如 &lt;a href=&q
     <link href="https://fe32.top/articles/hexo1610/"/>
     <id>https://fe32.top/articles/hexo1610/</id>
     <published>2022-07-17T05:44:49.000Z</published>
-    <updated>2023-05-17T10:01:10.207Z</updated>
+    <updated>2023-07-15T14:23:05.760Z</updated>
     
     
       
@@ -2829,14 +2888,15 @@ Vercel Domains（包含 https:&amp;#x2F;&amp;#x2F; 前缀，例如 &lt;a href=&q
 &lt;li&gt;&lt;a href=&quot;https://fe32.top/articles/hexo1617/&quot;&gt;Hexo + Butterfly 自定义页脚&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://fe32.top/articles/hexo1618/&quot;&gt;Hexo + Butterfly 侧边栏公众号&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;本站效果&quot;&gt;&lt;a href=&quot;#本站效果&quot; class=&quot;headerlink&quot; title=&quot;本站效果&quot;&gt;&lt;/a&gt;本站效果&lt;/h2&gt;&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2023/04/29/644d31c55b993.jpg&quot; alt=&quot;本站 v4.7.0 用的是 tidio，效果仅做参考&quot;/&gt;&lt;/div&gt;&lt;span class=&quot;image-caption&quot;&gt;本站 v4.7.0 用的是 tidio，效果仅做参考&lt;/span&gt;&lt;/div&gt;
+&lt;h2 id=&quot;本站效果&quot;&gt;&lt;a href=&quot;#本站效果&quot; class=&quot;headerlink&quot; title=&quot;本站效果&quot;&gt;&lt;/a&gt;本站效果&lt;/h2&gt;&lt;p&gt;注意: 由于&lt;code&gt;tidio&lt;/code&gt;每月次数限制，本站于【2023&amp;#x2F;07&amp;#x2F;15】重新切换回&lt;code&gt;Crisp&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2023/04/29/644d31c55b993.jpg&quot; alt=&quot;本站 v4.7.0 用的是 tidio，效果仅做参考&quot;/&gt;&lt;/div&gt;&lt;span class=&quot;image-caption&quot;&gt;本站 v4.7.0 用的是 tidio，效果仅做参考&lt;/span&gt;&lt;/div&gt;
 
 &lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/07/17/62d3b90696c98.webp&quot; alt=&quot;本站 v3.7.1 用的是 crisp，效果仅做参考&quot;/&gt;&lt;/div&gt;&lt;span class=&quot;image-caption&quot;&gt;本站 v3.7.1 用的是 crisp，效果仅做参考&lt;/span&gt;&lt;/div&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;从3.0开始，Butterfly主题内置了多种在线聊天工具。你可以选择开启一种，方便你与访客的交流。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&quot;tabs&quot; id=&quot;span-&quot;&gt;&lt;ul class=&quot;nav-tabs&quot;&gt;&lt;li class=&quot;tab active&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--1&quot;&gt;通用设置&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--2&quot;&gt;crisp&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--3&quot;&gt;chatra&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--4&quot;&gt;tidio （本站所用）&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--5&quot;&gt;Gitter&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--6&quot;&gt;daovoice&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div class=&quot;tab-contents&quot;&gt;&lt;div class=&quot;tab-item-content active&quot; id=&quot;span--1&quot;&gt;&lt;p&gt;关于这些在线聊天的工具，主题提供了一个按钮可以打开&amp;#x2F;关闭聊天窗口，这个聊天按钮将会出现在右下角里。你只需要把&lt;code&gt;chat_btn&lt;/code&gt;打开就行。&lt;/p&gt;
+&lt;div class=&quot;tabs&quot; id=&quot;span-&quot;&gt;&lt;ul class=&quot;nav-tabs&quot;&gt;&lt;li class=&quot;tab active&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--1&quot;&gt;通用设置&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--2&quot;&gt;crisp （本站所用）&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--3&quot;&gt;chatra&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--4&quot;&gt;tidio&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--5&quot;&gt;Gitter&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#span--6&quot;&gt;daovoice&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div class=&quot;tab-contents&quot;&gt;&lt;div class=&quot;tab-item-content active&quot; id=&quot;span--1&quot;&gt;&lt;p&gt;关于这些在线聊天的工具，主题提供了一个按钮可以打开&amp;#x2F;关闭聊天窗口，这个聊天按钮将会出现在右下角里。你只需要把&lt;code&gt;chat_btn&lt;/code&gt;打开就行。&lt;/p&gt;
 &lt;p&gt;修改主题配置文件&lt;code&gt;_config.butterfly.yml&lt;/code&gt;，将&lt;code&gt;chat_btn&lt;/code&gt;设置成&lt;code&gt;true&lt;/code&gt;。&lt;/p&gt;
 &lt;figure class=&quot;highlight yml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Chat Button [recommend]&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# It will create a button in the bottom right corner of website, and hide the origin button&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;chat_btn:&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/07/17/62d3befac1c5c.webp&quot;/&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9608,7 +9668,7 @@ OK，一个简单的拖拽，就这样愉快的实现了。点击下面的链接
     <link href="https://fe32.top/articles/contra128/"/>
     <id>https://fe32.top/articles/contra128/</id>
     <published>2022-02-19T10:34:13.000Z</published>
-    <updated>2023-05-17T10:01:10.174Z</updated>
+    <updated>2023-07-16T09:45:48.044Z</updated>
     
     
       
@@ -9940,11 +10000,11 @@ CSS文件每年的大小都在不断增长，中等页面的CSS文件大约 &lt;
   </entry>
   
   <entry>
-    <title>记录关于Vue+element-ui的系列问题</title>
+    <title>记录关于 Vue + element-ui 的系列问题</title>
     <link href="https://fe32.top/articles/ele265ui/"/>
     <id>https://fe32.top/articles/ele265ui/</id>
     <published>2021-11-25T10:43:44.000Z</published>
-    <updated>2023-05-17T10:01:09.756Z</updated>
+    <updated>2023-07-15T16:51:02.158Z</updated>
     
     
       
@@ -11004,9 +11064,9 @@ CSS文件每年的大小都在不断增长，中等页面的CSS文件大约 &lt;
     <category term="随笔" scheme="https://fe32.top/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="随笔" scheme="https://fe32.top/tags/%E9%9A%8F%E7%AC%94/"/>
-    
     <category term="日记" scheme="https://fe32.top/tags/%E6%97%A5%E8%AE%B0/"/>
+    
+    <category term="随笔" scheme="https://fe32.top/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
