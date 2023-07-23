@@ -6,7 +6,7 @@
   <link href="https://fe32.top/atom.xml" rel="self"/>
   
   <link href="https://fe32.top/"/>
-  <updated>2023-07-17T15:09:51.381Z</updated>
+  <updated>2023-07-23T16:17:54.132Z</updated>
   <id>https://fe32.top/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>如何将路径字符串数组(string[])转成树结构(treeNode[])？</title>
+    <link href="https://fe32.top/articles/vue20004/"/>
+    <id>https://fe32.top/articles/vue20004/</id>
+    <published>2023-07-23T16:56:12.000Z</published>
+    <updated>2023-07-23T16:17:54.132Z</updated>
+    
+    
+    <summary type="html">vue + element-plus 将路径字符串数组转换成目标树结构，并用el-tree成功渲染。</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://fe32.top/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://fe32.top/tags/Vue/"/>
+    
+    <category term="Element Plus" scheme="https://fe32.top/tags/Element-Plus/"/>
+    
+  </entry>
+  
+  <entry>
     <title>分享ikun小鸡仔表情包 300+</title>
     <link href="https://fe32.top/articles/ikun0001/"/>
     <id>https://fe32.top/articles/ikun0001/</id>
     <published>2023-07-16T15:35:17.000Z</published>
-    <updated>2023-07-17T15:09:51.381Z</updated>
+    <updated>2023-07-23T11:20:11.950Z</updated>
     
     
     <summary type="html">只因你太美，啊只因你太美！！！</summary>
@@ -42,7 +63,7 @@
     <link href="https://fe32.top/articles/vue20003/"/>
     <id>https://fe32.top/articles/vue20003/</id>
     <published>2023-07-15T17:10:14.000Z</published>
-    <updated>2023-07-19T14:36:16.037Z</updated>
+    <updated>2023-07-23T15:27:32.168Z</updated>
     
     
     <summary type="html">html2Canvas + jspdf 将页面生产 pdf 导出。</summary>
@@ -2179,7 +2200,7 @@
     <link href="https://fe32.top/articles/hexo1612/"/>
     <id>https://fe32.top/articles/hexo1612/</id>
     <published>2022-08-07T14:54:07.000Z</published>
-    <updated>2023-06-05T14:24:36.169Z</updated>
+    <updated>2023-07-23T11:33:55.964Z</updated>
     
     
     <summary type="html">Hexo + Butterfly 博客搭建中遇到的一些常见问题！</summary>
@@ -8233,7 +8254,7 @@ OK，一个简单的拖拽，就这样愉快的实现了。点击下面的链接
     <link href="https://fe32.top/articles/hexo1601/"/>
     <id>https://fe32.top/articles/hexo1601/</id>
     <published>2022-05-08T13:30:46.000Z</published>
-    <updated>2023-05-17T10:01:10.214Z</updated>
+    <updated>2023-07-23T11:33:25.337Z</updated>
     
     
       
@@ -8261,7 +8282,7 @@ OK，一个简单的拖拽，就这样愉快的实现了。点击下面的链接
 &lt;h2 id=&quot;安装-Node&quot;&gt;&lt;a href=&quot;#安装-Node&quot; class=&quot;headerlink&quot; title=&quot;安装 Node&quot;&gt;&lt;/a&gt;安装 Node&lt;/h2&gt;&lt;div class=&quot;tabs&quot; id=&quot;安装方式-&quot;&gt;&lt;ul class=&quot;nav-tabs&quot;&gt;&lt;li class=&quot;tab active&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#安装方式--1&quot;&gt;方式一&lt;/button&gt;&lt;/li&gt;&lt;li class=&quot;tab&quot;&gt;&lt;button type=&quot;button&quot; data-href=&quot;#安装方式--2&quot;&gt;方式二&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div class=&quot;tab-contents&quot;&gt;&lt;div class=&quot;tab-item-content active&quot; id=&quot;安装方式--1&quot;&gt;&lt;p&gt;对于前端工程师，或正打算学习前端相关知识，建议用&lt;code&gt;nvm&lt;/code&gt;来管理&lt;code&gt;Node&lt;/code&gt;版本，请移步教程 &lt;a href=&quot;https://fe32.top/articles/9r95s1wt/&quot;&gt;nvm,npm与nrm&lt;/a&gt;。&lt;/p&gt;&lt;button type=&quot;button&quot; class=&quot;tab-to-top&quot; aria-label=&quot;scroll to top&quot;&gt;&lt;i class=&quot;fas fa-arrow-up&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;tab-item-content&quot; id=&quot;安装方式--2&quot;&gt;&lt;p&gt;如果你不需要灵活切换&lt;code&gt;Node&lt;/code&gt;版本，走下面的教程即可。&lt;/p&gt;
 &lt;details class=&quot;folding-tag&quot; yellow&gt;&lt;summary&gt; 查看步骤 &lt;/summary&gt;
               &lt;div class=&#39;content&#39;&gt;
-              &lt;ol&gt;&lt;li&gt;打开&lt;code&gt;Node&lt;/code&gt;官网，下载和自己系统相配的&lt;code&gt;Node&lt;/code&gt;的安装程序，否则会出现安装问题。&lt;br&gt;下载地址：&lt;a href=&quot;https://nodejs.org/en/download/&quot;&gt;https://nodejs.org/en/download/&lt;/a&gt;&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/6279474912af2.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;如果后面美化过程中需要拉取豆瓣信息，哔哩哔哩番剧等，建议安装较低的 Node 版本(v12.18.0)。&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/6279474fd4a8e.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;查看历史版本，找到 v12.18.0 进行下载。&lt;/li&gt;&lt;li&gt;下载后傻瓜式安装即可，安装的目录可以使用默认目录【C:&amp;#x2F;Program Files&amp;#x2F;nodejs&amp;#x2F;】，也可以自定义路径。&lt;/li&gt;&lt;li&gt;安装完成后，检查是否安装成功。在键盘按下&lt;kbd&gt;win&lt;/kbd&gt; + &lt;kbd&gt;R&lt;/kbd&gt;键，输入&lt;code&gt;CMD&lt;/code&gt;，然后回车，打开CMD窗口，执行&lt;code&gt;node -v&lt;/code&gt;命令，看到版本信息，则说明安装成功。&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/6279501e8eb8f.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/627950224668f.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;修改&lt;code&gt;npm&lt;/code&gt;源。npm下载各种模块，默认是从国处服务器下载，速度较慢，建议配置成淘宝镜像。打开CMD窗口，运行如下命令:&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm config &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; registry https://registry.npm.taobao.org&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;&lt;/ol&gt;
+              &lt;ol&gt;&lt;li&gt;打开&lt;code&gt;Node&lt;/code&gt;官网，下载和自己系统相配的&lt;code&gt;Node&lt;/code&gt;的安装程序，否则会出现安装问题。&lt;br&gt;下载地址：&lt;a href=&quot;https://nodejs.org/en/download/&quot;&gt;https://nodejs.org/en/download/&lt;/a&gt;&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/6279474912af2.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;del&gt;如果后面美化过程中需要拉取豆瓣信息，哔哩哔哩番剧等，建议安装较低的 Node 版本(v12.18.0)&lt;/del&gt;&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/6279474fd4a8e.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;!-- 查看历史版本，找到 v12.18.0 进行下载。 --&gt;&lt;del&gt;查看历史版本，找到 v12.18.0 进行下载。&lt;/del&gt; ，装最高的版本就好！&lt;/li&gt;&lt;li&gt;下载后傻瓜式安装即可，安装的目录可以使用默认目录【C:&amp;#x2F;Program Files&amp;#x2F;nodejs&amp;#x2F;】，也可以自定义路径。&lt;/li&gt;&lt;li&gt;安装完成后，检查是否安装成功。在键盘按下&lt;kbd&gt;win&lt;/kbd&gt; + &lt;kbd&gt;R&lt;/kbd&gt;键，输入&lt;code&gt;CMD&lt;/code&gt;，然后回车，打开CMD窗口，执行&lt;code&gt;node -v&lt;/code&gt;命令，看到版本信息，则说明安装成功。&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/6279501e8eb8f.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src= &quot;https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif&quot; data-lazy-src=&quot;https://bu.dusays.com/2022/05/10/627950224668f.png&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;修改&lt;code&gt;npm&lt;/code&gt;源。npm下载各种模块，默认是从国处服务器下载，速度较慢，建议配置成淘宝镜像。打开CMD窗口，运行如下命令:&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm config &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; registry https://registry.npm.taobao.org&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;&lt;/ol&gt;
               &lt;/div&gt;
             &lt;/details&gt;&lt;button type=&quot;button&quot; class=&quot;tab-to-top&quot; aria-label=&quot;scroll to top&quot;&gt;&lt;i class=&quot;fas fa-arrow-up&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
 

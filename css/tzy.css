@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-09 20:53:40
  * @LastEditors: tzy1997
- * @LastEditTime: 2023-07-21 23:39:31
+ * @LastEditTime: 2023-07-23 20:14:56
  */
 /* ---- layout 样式 ---- START */
 :root {
@@ -780,7 +780,7 @@ body,
 @media screen and (max-width: 768px) {
     .reward-img {
         width: 10rem;
-        height: 9rem;
+        height: 10rem;
     }
 }
 
@@ -1203,7 +1203,8 @@ blockquote {
 }
 
 .tk-comment .tk-owo-emotion[alt*=menhera] {
-    width: 300px !important;
+    /* width: 300px !important; */
+    width: 240px !important;
 }
 
 .tk-comment .tk-owo-emotion[alt*=ikun] {
@@ -1216,12 +1217,15 @@ blockquote {
 .tk-comment .tk-owo-emotion[alt*=ikun] {
     margin: 8px 1px;
     display: block !important;
+    border-radius: 6px;
 }
 
 .tk-comment .vemoji[alt|=menhera],
 .tk-comment .tk-owo-emotion[alt*=menhera] {
-    max-width: 300px !important;
-    max-height: 300px !important;
+    /* max-width: 300px !important;
+    max-height: 300px !important; */
+    max-width: 240px !important;
+    max-height: 240px !important;
 }
 
 .tk-comment .vemoji[alt|=ikun],
