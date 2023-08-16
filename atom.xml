@@ -6,7 +6,7 @@
   <link href="https://fe32.top/atom.xml" rel="self"/>
   
   <link href="https://fe32.top/"/>
-  <updated>2023-07-23T16:17:54.132Z</updated>
+  <updated>2023-08-16T14:44:53.437Z</updated>
   <id>https://fe32.top/</id>
   
   <author>
@@ -17,11 +17,74 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>前端如何实现自动检测更新？</title>
+    <link href="https://fe32.top/articles/vue20005/"/>
+    <id>https://fe32.top/articles/vue20005/</id>
+    <published>2023-08-16T14:11:53.000Z</published>
+    <updated>2023-08-16T14:44:53.437Z</updated>
+    
+    
+    <summary type="html">本文介绍用【轮询】的方式来对比每次打包后的指纹，分析文件是否存在变动，如果有变动则提示用户更新。</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://fe32.top/categories/Vue/"/>
+    
+    
+    <category term="Vue3" scheme="https://fe32.top/tags/Vue3/"/>
+    
+    <category term="Vite" scheme="https://fe32.top/tags/Vite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何在 CSS 中设计出漂亮的阴影？</title>
+    <link href="https://fe32.top/articles/css10005/"/>
+    <id>https://fe32.top/articles/css10005/</id>
+    <published>2023-08-16T12:44:35.000Z</published>
+    <updated>2023-08-16T14:42:04.038Z</updated>
+    
+    
+    <summary type="html">在本教程中，我们将学习如何将典型的箱形阴影转换为漂亮、逼真的阴影。</summary>
+    
+    
+    
+    <category term="CSS" scheme="https://fe32.top/categories/CSS/"/>
+    
+    
+    <category term="CSS" scheme="https://fe32.top/tags/CSS/"/>
+    
+    <category term="Box Shadow" scheme="https://fe32.top/tags/Box-Shadow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>推荐几个你可能会用到的 CSS 动画库</title>
+    <link href="https://fe32.top/articles/css10004/"/>
+    <id>https://fe32.top/articles/css10004/</id>
+    <published>2023-08-16T12:29:35.000Z</published>
+    <updated>2023-08-16T14:37:50.174Z</updated>
+    
+    
+    <summary type="html">几个不错的 css 动画库 ~</summary>
+    
+    
+    
+    <category term="CSS" scheme="https://fe32.top/categories/CSS/"/>
+    
+    
+    <category term="CSS" scheme="https://fe32.top/tags/CSS/"/>
+    
+    <category term="CSS动画库" scheme="https://fe32.top/tags/CSS%E5%8A%A8%E7%94%BB%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何将路径字符串数组(string[])转成树结构(treeNode[])？</title>
     <link href="https://fe32.top/articles/vue20004/"/>
     <id>https://fe32.top/articles/vue20004/</id>
     <published>2023-07-23T16:56:12.000Z</published>
-    <updated>2023-07-23T16:17:54.132Z</updated>
+    <updated>2023-08-04T17:04:22.691Z</updated>
     
     
     <summary type="html">vue + element-plus 将路径字符串数组转换成目标树结构，并用el-tree成功渲染。</summary>
@@ -1381,7 +1444,7 @@
     <link href="https://fe32.top/articles/blsh9527/"/>
     <id>https://fe32.top/articles/blsh9527/</id>
     <published>2022-10-14T03:13:37.000Z</published>
-    <updated>2023-05-17T10:01:10.158Z</updated>
+    <updated>2023-08-16T13:44:24.241Z</updated>
     
     
     <summary type="html">分享几款好看又好用的纯静态博客开源博客，无需后端，易上手（有计算机基础），克隆项目，安装依赖，打包部署即可看到效果。</summary>

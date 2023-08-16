@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>如何在 CSS 中设计出漂亮的阴影？ | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="baidu-site-verification" content="codeva-ujex1yc5TZ"><meta name="description" content="在本教程中，我们将学习如何将典型的箱形阴影转换为漂亮、逼真的阴影。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在 CSS 中设计出漂亮的阴影？">
+<meta property="og:url" content="https://fe32.top/articles/css10005/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="在本教程中，我们将学习如何将典型的箱形阴影转换为漂亮、逼真的阴影。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/05/01/626e911ae42cc.png">
+<meta property="article:published_time" content="2023-08-16T12:44:35.000Z">
+<meta property="article:modified_time" content="2023-08-16T14:42:04.038Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="Box Shadow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/05/01/626e911ae42cc.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/css10005/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fjGallery.min.js',
+      css: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何在 CSS 中设计出漂亮的阴影？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-16 22:42:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/swiper-bundle.css"><link rel="stylesheet" href="/css/tzy.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-bg"><div class="loader"><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+// 20230312 add
+setTimeout(function(){ preloader.endLoading();}, 5000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2023/07/16/64b3b7cd1f0c8.png')"><nav id="nav"><span id="blog-info"><a href="/" title="唐志远の博客"><span class="site-name">唐志远の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何在 CSS 中设计出漂亮的阴影？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-16T12:44:35.000Z" title="发表于 2023-08-16 20:44:35">2023-08-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-16T14:42:04.038Z" title="更新于 2023-08-16 22:42:04">2023-08-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS/">CSS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4134</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何在 CSS 中设计出漂亮的阴影？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="tzy-post">
+
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/03/29/64242f3469cdd.webp"></p>
+<p>个人认为，最好的网站和Web应用程序对它们具有切实的”真实”质量。实现这种质量涉及很多因素，阴影是一个很关键的因素。</p>
+<p>然而，当我环顾网络时，很明显，大多数阴影并不像它们所希望的那样丰富，网络上覆盖着模糊的灰色盒子，看起来并不像影子。</p>
+<p>在本教程中，我们将学习如何将典型的箱形阴影转换为漂亮、逼真的阴影。</p>
+<h2 id="为什么要使用阴影？"><a href="#为什么要使用阴影？" class="headerlink" title="为什么要使用阴影？"></a>为什么要使用阴影？</h2><p>我保证，我们很快就会谈到有趣的CSS技巧。但首先，我想退后一步，谈谈为什么阴影存在于CSS中，以及我们如何最大限度地利用它们。</p>
+<p>阴影表示高程，而较大的阴影表示更高的高程。如果我们有策略地使用阴影，我们可以创造深度的错觉，就好像页面上的不同元素在不同级别上浮动在背景之上一样。</p>
+<p>下面是一个示例。拖动”显示”滑块以查看我的意思：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc4ae1eeffc.jpg"></p>
+<p>我希望我构建的应用程序感觉触觉和真实，就好像浏览器是进入不同世界的窗口一样。阴影有助于推销这种幻觉。</p>
+<p>这里也有一个战术上的好处。通过在页眉和对话框上使用不同的阴影，我们给人的印象是对话框比页眉更靠近我们。我们的注意力往往会被吸引到离我们最近的元素上，因此通过提升对话框，我们使用户更有可能首先关注它。我们可以使用高程作为引导注意力的工具。</p>
+<p>当我使用阴影时，我这样做时会考虑到这些目的之一。要么我想增加特定元素的突出性，要么我想让我的应用程序感觉更有触感和逼真感。</p>
+<p>但是，为了实现这些目标，我们需要全面了解应用程序中的阴影。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc46dd21884.jpg"></p>
+<h2 id="创建一致的环境"><a href="#创建一致的环境" class="headerlink" title="创建一致的环境"></a>创建一致的环境</h2><p>很长一段时间，我并没有真正正确地使用阴影😬。</p>
+<p>当我希望一个元素有一个阴影时，我会添加<code>box-shadow</code>属性并修改数字，直到我喜欢结果的外观。</p>
+<p>问题是：通过像这样孤立地创建每个阴影，你最终会得到一堆不协调的阴影。如果我们的目标是创造深度的错觉，我们需要每一个阴影来匹配。否则，它看起来就像一堆模糊的边框：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dcc7df150b9.jpg"></p>
+<p>在自然界中，阴影是从光源投射而来的。阴影的方向取决于光的位置：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc51aa27496.gif"></p>
+<p>通常，我们应该为页面上的所有元素决定一个光源。该光源通常位于上方且略靠左：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc46dd1605e.jpg"></p>
+<p>如果 CSS 有一个真正的照明系统，我们将为一个或多个灯光指定一个位置。可悲的是，CSS没有这样的东西。</p>
+<p>相反，我们通过指定水平偏移和垂直偏移来移动阴影。例如，在上图中，生成的阴影具有 4px 的垂直偏移量和 2px 的水平偏移量。</p>
+<p>这是内聚阴影的第一个技巧：<strong>页面上的每个阴影都应该共享相同的比率</strong>。这将使每个元素看起来都来自同一光源。</p>
+<blockquote>
+<p>相同的比率？<br>您可能想知道为什么我建议对每个元素使用相同的比率。难道每个元素都需要有自己的比例，因为每个元素相对于光源都有一个独特的位置吗？<br>如果光源就在附近，就像人们挤在篝火旁一样，情况确实如此。但如果光源很远，就像太阳一样，这些差异可以忽略不计。一切都会以相同的角度投射阴影。<br>出于实用性，我选择让所有阴影共享相同的角度，因为尝试为每个元素计算唯一角度对我来说听起来太麻烦了。😅</p>
+</blockquote>
+<p>接下来，让我们更多地讨论高程。我们如何创造一种错觉，即一个元素正在向用户抬起？</p>
+<p>我们需要同时调整所有4个变量，以创建一个有凝聚力的体验。</p>
+<p>试试这个演示，并注意值是如何变化的：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc51ad19a75.gif"></p>
+<p>前两个数字（水平和垂直偏移）串联在一起缩放。垂直偏移始终是水平偏移的 2 倍。</p>
+<p>当卡牌升得更高时，还会发生另外两件事：</p>
+<ul>
+<li>模糊半径变<strong>大</strong>。</li>
+<li>阴影变得<strong>不那么不透明</strong>。</li>
+</ul>
+<p>(我还增加了卡片的大小，以获得更逼真的效果。在实践中，跳过此步骤会更容易。)</p>
+<p>这些事情发生的原因可能有复杂的数学原因，但我们可以利用我们作为人类的直觉，存在于一个光明的世界里。</p>
+<p>如果你在一个光线充足的房间里，把手按在你的桌子上（或任何附近的表面），然后慢慢抬起。注意阴影是如何变化的：它离你的手更远（更大的偏移量），它变得更模糊（更大的模糊半径），它开始淡出（较低的不透明度）。如果您无法移动双手，则可以改用房间中的参考对象。比较你周围的不同阴影。</p>
+<p>因为我们在有阴影的环境中有如此多的经验，所以我们真的不必记住一堆新规则。我们只需要在设计阴影时运用我们的直觉。虽然这确实需要心态的转变;我们需要开始将我们的HTML元素视为物理对象。<br>所以，总结一下：</p>
+<p>1.页面上的每个元素都应由相同的全局光源照亮。<br>2.<code>box-shadow</code>属性使用水平和垂直偏移表示光源的位置。为了确保一致性，每个阴影应在这两个数字之间使用相同的比率。<br>3.当元素靠近用户时，偏移量应增加，模糊半径应增加，阴影的不透明度应降低。<br>4.您可以使用我们的直觉跳过其中一些计算。</p>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="压条"><a href="#压条" class="headerlink" title="压条"></a>压条</h3><p>像<code>Blender</code>这样的<code>现代3D插图工具</code>可以通过使用一种称为光线追踪的技术来产生逼真的阴影和照明。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1d23d2a.webp"></p>
+<p>在光线追踪中，数百束光从相机中射出，从场景中的表面反弹数百次。这是一种计算成本高昂的技术;生成单个图像可能需要几分钟到几小时！</p>
+<p>Web用户没有这种耐心，因此<code>box-shadow</code>算法更加简陋。它以我们元素的形状创建一个框，并对其应用基本的模糊算法。</p>
+<p>因此，我们的阴影永远不会看起来逼真，但是我们可以通过一种漂亮的技术来改善很多事情：分层。</p>
+<p>我们将不使用单个框阴影，而是将一些框阴影堆叠在一起，偏移量和半径略有不同：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1d23c45.jpg"></p>
+<p>通过分层多个阴影，我们创造了现实生活中阴影中存在的一些微妙之处。</p>
+<p>这种技术在<code>Tobias Ahlin</code>的精彩博客文章”<a target="_blank" rel="noopener" href="https://tobiasahlin.com/blog/layered-smooth-box-shadows/">Smoother and Sharper Shadows with Layered box-shadow</a>“中进行了详细描述。</p>
+<p>在这篇博文的后面，我将分享一些以编程方式提出这些值的工具！</p>
+<blockquote>
+<p>性能权衡<br>不可否认，分层阴影是美丽的，但它们确实是有代价的。如果我们分层 5 个阴影，我们的设备必须多做 5 倍的工作！<br>这在现代硬件上并不是一个大问题，但它可能会在较旧的廉价移动设备上减慢渲染速度。<br>与往常一样，请务必进行自己的测试！根据我的经验，分层阴影不会对性能产生重大影响，但我也从未尝试过同时使用数十个或数百个阴影。<br>此外，尝试对分层阴影进行动画处理可能是一个坏主意。</p>
+</blockquote>
+<h3 id="颜色匹配的阴影"><a href="#颜色匹配的阴影" class="headerlink" title="颜色匹配的阴影"></a>颜色匹配的阴影</h3><p>到目前为止，我们所有的阴影都使用了半透明的黑色，比如.这实际上并不理想。<code>hsl(0deg 0% 0% / 0.4)</code></p>
+<p>当我们在背景颜色上叠加黑色时，它不仅会使它变暗;它也使它变得不饱和。</p>
+<p>比较这两个框：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1d5398c.jpg"></p>
+<p>左边的框使用透明的黑色。右侧的框与颜色的色调和饱和度相匹配，但会降低亮度。我们最终得到了一个更有活力的盒子！</p>
+<p>当我们对阴影使用较深的颜色时，也会发生类似的效果：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1d6f499.jpg"></p>
+<p>在我看来，这些阴影都不太对劲。左边的饱和度太低，但右边的饱和度不够低;感觉更像是光芒而不是阴影！</p>
+<p>可能需要一些实验才能找到金发姑娘的颜色：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1d65240.jpg"></p>
+<p>通过匹配色调并降低饱和度&#x2F;亮度，我们可以创建一个没有那种“褪色”灰色质量的真实阴影。</p>
+<details class="folding-tag" cyan><summary> 饱和度和亮度之间的关系 </summary>
+              <div class='content'>
+              <p>如果您熟悉颜色格式，您就会知道饱和度和亮度是独立控制的。</p><p>那么，降低亮度似乎也会对饱和度产生影响，是不是有点奇怪？</p><p>例如，这里有两个饱和度百分比相等 （100%） 但感知饱和度非常不同的框：</p><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1d2ee4d.jpg"></p><p>发生这种情况是因为在高&#x2F;低亮度值下，颜色中没有那么多的“颜料”。饱和度不会对整体颜色产生太大影响。</p><p>这在极端情况下最为明显：</p><ul><li><code>hsl(0deg 0% 100%)</code>为纯白色，饱和度为 0%。</li><li><code>hsl(0deg 100% 100%)</code>也是纯白色，即使完全饱和。</li></ul><p>如果我们将亮度设置为 95%，则存在差异，但很微妙：</p><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1e1acb4.jpg"></p><p>对于非常深的颜色也是如此：</p><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1e61cd5.png"></p><p>然而，当我们处于亮度光谱的中间时，全范围的饱和度是可用的：</p><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1e760e8.jpg"></p><p>以下是我的看法：50% 亮度是所有色调的“默认”版本。亮度在 50% 时对饱和度没有影响。</p><p>当我们从50%的最佳点增加或减少亮度时，我们减少了颜色中可用颜料的量。颜色不可能完全饱和，浅色或深色。</p><p>饱和度%是一个相对度量，基于给定亮度下可用的颜料量。</p><p>这就是为什么我们之前必须降低阴影示例中的饱和度！亮度移近50%的最佳点，因此可以获得更广泛的饱和度。为了保持感知的生动度不变，我们必须降低饱和度百分比。</p>
+              </div>
+            </details>
+
+<h2 id="将一切整合在一起"><a href="#将一切整合在一起" class="headerlink" title="将一切整合在一起"></a>将一切整合在一起</h2><p>在本教程中，我们介绍了 3 个不同的想法：</p>
+<ol>
+<li>通过协调我们的阴影来创造一个有凝聚力的环境。</li>
+<li>使用分层创建更逼真的阴影。</li>
+<li>调整颜色以防止”褪色”的灰色阴影。</li>
+</ol>
+<p>下面是一个应用所有这些想法的示例：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1ea56b7.jpg"></p>
+<h3 id="编程工具"><a href="#编程工具" class="headerlink" title="编程工具"></a>编程工具</h3><p>构建了一个工具，允许您使用这些技术生成阴影。它被称为 <a target="_blank" rel="noopener" href="https://www.joshwcomeau.com/shadow-palette/">“阴影调色板生成器”</a>。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1ee9798.webp"></p>
+<p>这个工具的灵感很大程度上来自菲利普·布鲁姆（Philipp Brumm）的精彩创作，<a target="_blank" rel="noopener" href="https://shadows.brumm.af/">shadows.brumm.af</a>。</p>
+<h3 id="融入设计系统"><a href="#融入设计系统" class="headerlink" title="融入设计系统"></a>融入设计系统</h3><p>我们看到的阴影需要根据其高程和环境进行自定义。在一个拥有设计系统和有限设计代币的世界里，这似乎适得其反。我们真的能”标记”这些阴影吗？</p>
+<p>我们绝对可以！虽然它需要一些现代工具的帮助。</p>
+<p>例如，以下是我如何使用 React、styled-components 和 CSS 变量来解决这个问题：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7a1f17002.jpg"></p>
+<p>我有一个静态的<code>ELEVATIONS</code>对象，它定义了 3 个提升。每个阴影的颜色数据使用 CSS 变量<code>--shadow-color</code>。</p>
+<p>每次我更改背景颜色（在<code>Wrapper</code>和<code>BlueWrapper</code>中），我也会更改<code>--shadow-color</code>。这样，任何使用影子的子项都将自动继承此属性。</p>
+<p>如果您没有使用CSS变量的经验，这可能看起来像是完全的魔术。不过，这只是一个例子;随意以不同的方式构建事物！</p>
+<h2 id="继续旅程"><a href="#继续旅程" class="headerlink" title="继续旅程"></a>继续旅程</h2><p>早些时候，我提到我对盒子阴影的策略曾经是“修补值，直到它看起来不错”。老实说，这是我对所有 CSS 的方法。😅</p>
+<p>CSS是一种棘手的语言，因为它是隐式的。我了解了所有关于属性的知识，比如<code>position</code> and <code>flex</code> and <code>overflow</code>，但我对驱动它们的原理一无所知，比如“位置”、“弯曲”和“溢出”，但我对驱动它们的原理一无所知，比如堆叠上下文、假设大小和滚动容器。</p>
+<p>属性有点像函数参数。它们是布局算法和其他复杂内部机制使用的输入。</p>
+<p>几年前，我决定花时间学习CSS是如何工作的。我沿着MDN的兔子洞，偶尔一直钻到坚实的核心。当我遇到一种卑鄙的情况，事情似乎没有意义时，我会解决这个问题，决心戳它，直到我明白发生了什么。这不是一个快速或简单的过程，但天哪，它是有效的。突然之间，事情开始变得如此有意义。CSS是一种奖励那些深入的人的语言。</p>
+<p>在大流行开始之前，我开始想，也许我的经验可以帮助其他开发人员加快这一过程。毕竟，我们大多数人都没有时间（或精力！）花费数年时间探索文档和规范。我辞去了<code>Gatsby Inc.</code>的软件工程师工作，花了一年半的时间构建了最终的CSS课程。几年前我希望我有的课程。</p>
+<p>它被称为<a target="_blank" rel="noopener" href="https://css-for-js.dev/">CSS for JavaScript Developers</a>，它是一个全面的交互式课程，展示了CSS是如何工作的。它是专门为使用React&#x2F;Angular&#x2F;Vue等JavaScript框架的开发人员构建的。有超过200节课，分布在10个模块中。您已经完成了其中之一：本关于阴影设计的教程是从课程中改编而来的！不过，在课程中，也有视频，练习和迷你游戏。如果你发现CSS令人困惑或令人沮丧，我想帮助改变这一点。您可以在 <a target="_blank" rel="noopener" href="https://css-for-js.dev/">css-for-js.dev</a> 上了解更多信息。</p>
+<h2 id="滤镜：阴影"><a href="#滤镜：阴影" class="headerlink" title="滤镜：阴影"></a>滤镜：阴影</h2><p>在本教程中，我们一直在使用<code>box-shadow</code>属性。 <code>box-shadow</code>是一个很棒的全面工具，但它并不是我们在CSS中唯一的阴影选项😮。</p>
+<p>看看：<code>filter: drop-shadow</code></p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7b956b049.jpg"></p>
+<p>语法看起来几乎相同，但它产生的阴影是不同的。这是因为<code>filter</code>属性实际上是 SVG过滤器的 CSS挂钩。<code>drop-shadow</code>使用的是 SVG高斯模糊，这是一种与盒子阴影使用的模糊算法不同的模糊算法。</p>
+<p>两者之间还有其他一些重要的区别，但现在我想专注于<code>drop-shadow</code>的超能力：它勾勒出元素的形状。</p>
+<p>例如，如果我们在具有透明和不透明像素的图像上使用它，阴影将仅适用于不透明像素：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7b96f2cf5.jpg"></p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7b9898ae4.jpg"></p>
+<p>这适用于图像，但也适用于HTML元素！看看我们如何使用它来将阴影应用于包含提示的工具提示：</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/16/64dc7b99ed043.jpg"></p>
+<p>在许多情况下，<code>drop-shadow</code> 比 <code>box-shadow</code> 性能更高，因为<code>filter</code>属性可以进行硬件加速，这意味着 <code>GPU</code> 可以代替 <code>CPU</code> 来管理它。也就是说，这确实取决于浏览器：我注意到<code>Safari</code>尤其会与 <code>drop-shadow</code> 作斗争。具体来说，当过滤器应用于包含文本输入的元素时，它似乎不喜欢。它引入了一些输入延迟。</p>
+<p>我希望本教程能启发您添加或调整一些阴影！老实说，很少有开发人员将这种水平的想法置于他们的阴影中。这意味着大多数用户不习惯看到郁郁葱葱、逼真的阴影。当我们在阴影中付出更多的努力时，<strong>我们的产品就会从人群中脱颖而出</strong>。</p>
+</div>
+
+
+<blockquote>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://www.joshwcomeau.com/css/designing-shadows/">Designing Beautiful Shadows in CSS</a><br>译文：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7034323356459466760">如何用 CSS 中写出超级美丽的阴影效果(估计是机译的，译完就不管了，很拉跨)</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/css10005/">https://fe32.top/articles/css10005/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CSS/">CSS</a><a class="post-meta__tags" href="/tags/Box-Shadow/">Box Shadow</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/05/01/626e911ae42cc.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><div class="ads-wrap"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9697737937582017" data-ad-slot="6053380562"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/articles/css10004/" title="推荐几个你可能会用到的 CSS 动画库"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e911a88b4d.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">推荐几个你可能会用到的 CSS 动画库</div></div></a></div><div class="next-post pull-right"><a href="/articles/vue20005/" title="前端如何实现自动检测更新？"><img class="cover" src="https://bu.dusays.com/2023/08/16/64dcd9d5dece5.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">前端如何实现自动检测更新？</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/articles/css10001/" title="实现元素居中的 10 个CSS方法"><img class="cover" src="https://bu.dusays.com/2022/05/02/626eb19d5292c.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-16</div><div class="title">实现元素居中的 10 个CSS方法</div></div></a></div><div><a href="/articles/amo9485t/" title="2021，CSS 杀疯了！"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e911ae42cc.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-16</div><div class="title">2021，CSS 杀疯了！</div></div></a></div><div><a href="/articles/np2021sm/" title="CSS 实现新拟态(Neumorphism) UI 风格"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e91194b2bb.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-23</div><div class="title">CSS 实现新拟态(Neumorphism) UI 风格</div></div></a></div><div><a href="/articles/c6func118/" title="6 Fun Things You Can Do With Just CSS"><img class="cover" src="https://bu.dusays.com/2022/05/01/626e911a88b4d.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">6 Fun Things You Can Do With Just CSS</div></div></a></div><div><a href="/articles/css10003/" title="Css中有哪些可继承的属性？"><img class="cover" src="https://bu.dusays.com/2023/04/18/643e92d5cd535.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-30</div><div class="title">Css中有哪些可继承的属性？</div></div></a></div><div><a href="/articles/cssnb001/" title="一文吃透 CSS Flex 布局"><img class="cover" src="https://bu.dusays.com/2022/10/30/635e90d68ed74.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-30</div><div class="title">一文吃透 CSS Flex 布局</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://space.bilibili.com/481293298" target="_blank" title="Bilibili"><i class="fab fa-youtube"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给出回复。</div><div id="qq-btn"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="card-widget tzy-ad-swiper"><div class="swiper card-swiper"><div class="swiper-wrapper"><div class="swiper-slide"><a href="https://fe32.top/sponsorWall/"><img src="https://bu.dusays.com/2023/03/29/642449cacc868.png"/></a></div><div class="swiper-slide"><a href="https://fe32.top/@3.7.1/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/6424524c0d728.png"/></a></div><div class="swiper-slide"><a href="https://www.hack-gov.com.cn/" target="_blank"><img src="https://bu.dusays.com/2023/04/14/64395f73abc24.png"/></a></div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div></div><div class="swiper-pagination"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E9%98%B4%E5%BD%B1%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么要使用阴影？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E8%87%B4%E7%9A%84%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">创建一致的环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7"><span class="toc-number">3.</span> <span class="toc-text">技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E6%9D%A1"><span class="toc-number">3.1.</span> <span class="toc-text">压条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2%E5%8C%B9%E9%85%8D%E7%9A%84%E9%98%B4%E5%BD%B1"><span class="toc-number">3.2.</span> <span class="toc-text">颜色匹配的阴影</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E4%B8%80%E5%88%87%E6%95%B4%E5%90%88%E5%9C%A8%E4%B8%80%E8%B5%B7"><span class="toc-number">4.</span> <span class="toc-text">将一切整合在一起</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7"><span class="toc-number">4.1.</span> <span class="toc-text">编程工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%9E%8D%E5%85%A5%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.2.</span> <span class="toc-text">融入设计系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E6%97%85%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">继续旅程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%A4%E9%95%9C%EF%BC%9A%E9%98%B4%E5%BD%B1"><span class="toc-number">6.</span> <span class="toc-text">滤镜：阴影</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20005/" title="前端如何实现自动检测更新？"><img src="https://bu.dusays.com/2023/08/16/64dcd9d5dece5.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="前端如何实现自动检测更新？"/></a><div class="content"><a class="title" href="/articles/vue20005/" title="前端如何实现自动检测更新？">前端如何实现自动检测更新？</a><time datetime="2023-08-16T14:11:53.000Z" title="发表于 2023-08-16 22:11:53">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10005/" title="如何在 CSS 中设计出漂亮的阴影？"><img src="https://bu.dusays.com/2022/05/01/626e911ae42cc.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="如何在 CSS 中设计出漂亮的阴影？"/></a><div class="content"><a class="title" href="/articles/css10005/" title="如何在 CSS 中设计出漂亮的阴影？">如何在 CSS 中设计出漂亮的阴影？</a><time datetime="2023-08-16T12:44:35.000Z" title="发表于 2023-08-16 20:44:35">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10004/" title="推荐几个你可能会用到的 CSS 动画库"><img src="https://bu.dusays.com/2022/05/01/626e911a88b4d.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="推荐几个你可能会用到的 CSS 动画库"/></a><div class="content"><a class="title" href="/articles/css10004/" title="推荐几个你可能会用到的 CSS 动画库">推荐几个你可能会用到的 CSS 动画库</a><time datetime="2023-08-16T12:29:35.000Z" title="发表于 2023-08-16 20:29:35">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20004/" title="如何将路径字符串数组(string[])转成树结构(treeNode[])？"><img src="https://bu.dusays.com/2023/07/23/64bd3a05e0625.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="如何将路径字符串数组(string[])转成树结构(treeNode[])？"/></a><div class="content"><a class="title" href="/articles/vue20004/" title="如何将路径字符串数组(string[])转成树结构(treeNode[])？">如何将路径字符串数组(string[])转成树结构(treeNode[])？</a><time datetime="2023-07-23T16:56:12.000Z" title="发表于 2023-07-24 00:56:12">2023-07-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/ikun0001/" title="分享ikun小鸡仔表情包 300+"><img src="https://bu.dusays.com/2023/07/17/64b553f9bd1ab.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="分享ikun小鸡仔表情包 300+"/></a><div class="content"><a class="title" href="/articles/ikun0001/" title="分享ikun小鸡仔表情包 300+">分享ikun小鸡仔表情包 300+</a><time datetime="2023-07-16T15:35:17.000Z" title="发表于 2023-07-16 23:35:17">2023-07-16</time></div></div></div></div><div class="card-widget ads-wrap"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9697737937582017" data-ad-slot="9637402350" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/website/log/">更新日志</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.startly.cn/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/utils.js"></script><script src="/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fancybox.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="/js/swiper-bundle.js"></script><script defer src="/js/custom/index.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-92YZLM7C2B"></script><script> window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-92YZLM7C2B');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div></div></div><div id="algolia-tips"><span class="algolia-tips-text">Algolia 提供搜索服务</span></div></div></div><div id="search-mask"></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algoliasearch.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/instantsearch.production.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algolia@latest.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><!-- hexo injector body_end end --></body></html>
