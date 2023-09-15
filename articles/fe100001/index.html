@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>前端如何实现埋点上报？ | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="baidu-site-verification" content="codeva-ujex1yc5TZ"><meta name="description" content="只有了解用户，才能服务好用户，那么要如何去了解用户呢？ 最直接有效的方式就是埋点上报。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端如何实现埋点上报？">
+<meta property="og:url" content="https://fe32.top/articles/fe100001/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="只有了解用户，才能服务好用户，那么要如何去了解用户呢？ 最直接有效的方式就是埋点上报。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2023/09/14/6502add885468.png">
+<meta property="article:published_time" content="2023-09-15T12:55:32.000Z">
+<meta property="article:modified_time" content="2023-09-15T10:13:01.977Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="数据埋点">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2023/09/14/6502add885468.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/fe100001/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fjGallery.min.js',
+      css: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '前端如何实现埋点上报？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-15 18:13:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/swiper-bundle.css"><link rel="stylesheet" href="/css/tzy.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-bg"><div class="loader"><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+// 20230312 add
+setTimeout(function(){ preloader.endLoading();}, 5000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">112</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2023/03/31/6426ae7797dda.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="唐志远の博客"><span class="site-name">唐志远の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端如何实现埋点上报？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-15T12:55:32.000Z" title="发表于 2023-09-15 20:55:32">2023-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-15T10:13:01.977Z" title="更新于 2023-09-15 18:13:01">2023-09-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E6%9E%B6%E6%9E%84/">前端工程架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2396</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端如何实现埋点上报？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/09/14/6502b2771460f.png"></p>
+<div class="tzy-post">
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>只有了解用户，才能服务好用户，那么我们该如何去了解用户呢？</p>
+<p>最直接有效的方式就是了解用户的行为，了解用户在网站中做了什么，呆了多久。</p>
+<p>而要去实现这一操作，这就涉及到我们前端的埋点了。</p>
+<h2 id="埋点方式"><a href="#埋点方式" class="headerlink" title="埋点方式"></a>埋点方式</h2><p>在聊如何进行埋点前，先介绍下什么是埋点？</p>
+<p>所谓 <strong>埋点</strong> 是 <strong>数据采集领域（尤其是用户行为数据采集领域）的术语，指的是针对特定用户行为或事件进行捕获、处理和发送的相关技术及其实施过程</strong> 。比如用户某个 icon 点击次数、观看某个视频的时长等等。</p>
+<p>埋点的<strong>技术实质</strong>，是 <strong>先监听软件应用运行过程中的事件，当需要关注的事件发生时进行判断和捕获</strong>。</p>
+<p>特别注意需要明确 <strong>事件发生时间点</strong>、<strong>判别条件</strong>，这里如果遇到不清楚的，需要和开发沟通清楚，避免采集数据与理想存在差异。例如：期望采集某个 app 的某个广告的有效曝光数，有效曝光的判别条件是停留时长超过 1 秒且有效加载出广告内容。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.woshipm.com/data-analysis/1209537.html">从数据产品经理视角，聊聊埋点的意义</a></p>
+</blockquote>
+<p>基于此我们可以知道埋点是实际上是对特定事件或者行为的数据监控和上报，常见的埋点上报方式有 <code>ajax</code>，<code>img</code>，<code>navigator.sendBeacon</code> 下面介绍下这三种埋点上报方式。</p>
+<h3 id="基于-ajax-的埋点上报"><a href="#基于-ajax-的埋点上报" class="headerlink" title="基于 ajax 的埋点上报"></a>基于 ajax 的埋点上报</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>埋点实际上是对关键节点的数据进行上报是和服务端交互的一个过程，所以我们可以和后端约定一个接口通过 ajax 去进行数据上报。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>我们可以封装一个方法，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">buryingPointAjax</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 创建ajax请求</span></span><br><span class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">    <span class="comment">// 定义请求接口</span></span><br><span class="line">    xhr.<span class="title function_">open</span>(<span class="string">&quot;post&quot;</span>, <span class="string">&#x27;/buryingPoint&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// 发送数据</span></span><br><span class="line">    xhr.<span class="title function_">send</span>(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用时，直接调用即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> info = &#123;&#125;</span><br><span class="line"><span class="title function_">buryingPointAjax</span>(info) <span class="comment">// 这样就成功上报了info的对象</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>一般而言，埋点域名并不是当前域名，因此请求会存在跨域风险，且如果 ajax 配置不正确可能会浏览器拦截。因此使用 ajax 这类请求并不是万全之策。</p>
+<h3 id="基于-img-的埋点上报"><a href="#基于-img-的埋点上报" class="headerlink" title="基于 img 的埋点上报"></a>基于 img 的埋点上报</h3><p>上面可以看到如果使用 ajax 的话，会存在跨域的问题。而且数据上报前端主要是负责将数据传递到后端，并不过分强调前后端交互。</p>
+<p>因此我们可以通过一些支持跨域的标签去实现数据上报功能。</p>
+<p><strong>script，link，img 就是我们上报的数据的最好对象</strong>。</p>
+<p>先说结论，这里<strong>推荐使用 img 标签去实现</strong>。</p>
+<h4 id="script-及-link-的缺陷"><a href="#script-及-link-的缺陷" class="headerlink" title="script 及 link 的缺陷"></a>script 及 link 的缺陷</h4><p>因为埋点涉及到请求，<strong>因此我们需要保证 script 和 link 标签的 src 可以正常请求</strong>。</p>
+<p>如果需要请求 script 和 link，我们需要将标签挂载到页面上。</p>
+<h5 id="验证缺陷"><a href="#验证缺陷" class="headerlink" title="验证缺陷"></a>验证缺陷</h5><p>不妨验证下，我们在管理台中加入以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>)</span><br><span class="line">a.<span class="property">src</span> = <span class="string">&#x27;https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.0.28/bdms.js&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个 script 标签，未挂载中页面上，并不会发起请求</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/24/64e71a2dc8629.webp"></p>
+<p>当我们将这个标签挂载中页面上时：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(a)</span><br></pre></td></tr></table></figure>
+
+<p>这时发起了请求</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/24/64e71aa225ecf.webp"></p>
+<h5 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h5><p><strong>当我们使用 script 和 link 进行埋点上报时，需要挂载到页面上，而反复操作 dom 会造成页面性能受影响，而且载入 js&#x2F;css 资源还会阻塞页面渲染，影响用户体验</strong> 。</p>
+<p>因此对于需要频繁上报的埋点而言，script 和 link 并不合适。</p>
+<h4 id="基于-img-做埋点上报"><a href="#基于-img-做埋点上报" class="headerlink" title="基于 img 做埋点上报"></a>基于 img 做埋点上报</h4><p>通常使用 img 标签去做埋点上报，<strong>img 标签加载并不需要挂载到页面上，基于 js 去 new image()，设置其 src 之后就可以直接请求图片</strong>。</p>
+<h5 id="验证-img-优势"><a href="#验证-img-优势" class="headerlink" title="验证 img 优势"></a>验证 img 优势</h5><p>控制台去创建一个 image 标签，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img=<span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">img.<span class="property">src</span>=<span class="string">&quot;https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/MaskGroup.13dfc4f1.png&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到即便未被挂载到页面上依旧发起了请求。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/24/64e71a2dcdb8c.webp"></p>
+<h5 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h5><p>因此当我们做埋点上报时，使用 img 是一个不错的选择。</p>
+<ol>
+<li>img 兼容性好</li>
+<li>无需挂载到页面上，反复操作 dom</li>
+<li>img 的加载不会阻塞 html 的解析，但 img 加载后并不渲染，它需要等待 Render Tree 生成完后才和 Render Tree 一起渲染出来</li>
+</ol>
+<blockquote>
+<p>注：通常埋点上报会使用 gif 图，合法的 GIF 只需要 43 个字节</p>
+</blockquote>
+<h3 id="基于-Navigator-sendBeacon-的埋点上报"><a href="#基于-Navigator-sendBeacon-的埋点上报" class="headerlink" title="基于 Navigator.sendBeacon 的埋点上报"></a>基于 Navigator.sendBeacon 的埋点上报</h3><p><code>Navigator.sendBeacon</code>是目前通用的埋点上报方案，<strong>Navigator.sendBeacon 方法接受两个参数，第一个参数是目标服务器的 URL，第二个参数是所要发送的数据（可选），可以是任意类型（字符串、表单对象、二进制对象等等）</strong>。</p>
+<h4 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h4><p><code>navigator.sendBeacon()</code> 方法可用于通过 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/POST">HTTP POST</a> 将少量数据 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/Asynchronous">异步</a> 传输到 Web 服务器。</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>它主要用于将统计数据发送到 Web 服务器，同时避免了用传统技术（如：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>）发送分析数据的一些问题。</p>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p><code>sendBeacon</code>如果成功进入浏览器的发送队列后，会返回<code>true</code>；如果受到<code>队列总数</code>、<code>数据大小</code>的限制后，会返回<code>false</code>。返回 ture 后，只是表示进入了发送队列，浏览器会尽力保证发送成功，但是否成功了，不会再有任何返回值。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/24/64e71a2dc8fc5.webp"></p>
+<p>这里发了一个 post 请求，将小量的数据发到服务端，用于统计数据</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/08/24/64e71a2dcafde.webp"></p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><p>相较于 img 标签，使用 navigator.sendBeacon 会更规范，数据传输上可传输资源类型会更多。</p>
+<p>对于 ajax 在页面卸载时上报，ajax 有可能没上报完，页面就卸载了导致请求中断，因此 ajax 处理这种情况时必须作为同步操作.</p>
+<p><strong>sendBeacon 是异步的，不会影响当前页到下一个页面的跳转速度，且不受同域限制。这个方法还是异步发出请求，但是请求与当前页面脱离关联，作为浏览器的任务，因此可以保证会把数据发出去，不拖延卸载流程</strong>。</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>该方法在支付宝中可能会被拦截，如果发现支付宝数据上报异常，可以尝试排查这块。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>前端埋点上报常使用<code>ajax</code>，<code>img</code>，<code>navigator.sendBeacon</code>。</p>
+<p>不推荐使用<code>ajax</code>。</p>
+<p>如果考虑兼容性的话，<code>img</code>是不二之选。</p>
+<p>目前最合适的方案是<code>navigator.sendBeacon</code>，不仅是异步的，而且不受同域限制，而且作为浏览器的任务，因此可以保证会把数据发出去，不影响页面卸载。</p>
+<h2 id="常见埋点行为"><a href="#常见埋点行为" class="headerlink" title="常见埋点行为"></a>常见埋点行为</h2><h3 id="点击触发埋点"><a href="#点击触发埋点" class="headerlink" title="点击触发埋点"></a>点击触发埋点</h3><p>绑定点击事件，当点击目标元素时，触发埋点上报。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">clickButton</span>(<span class="params">url, data</span>) &#123;</span><br><span class="line">    navigator.<span class="title function_">sendBeacon</span>(url, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="页面停留时间上报埋点"><a href="#页面停留时间上报埋点" class="headerlink" title="页面停留时间上报埋点"></a>页面停留时间上报埋点</h3><p>路由文件中，初始化一个 startTime，当页面离开时通过路由守卫计算停留时间。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">&#x27;&#x27;</span><span class="comment">// 上报地址</span></span><br><span class="line"><span class="keyword">let</span> startTime = <span class="title class_">Date</span>.<span class="title function_">now</span>()</span><br><span class="line"><span class="keyword">let</span> currentTime = <span class="string">&#x27;&#x27;</span></span><br><span class="line">router.<span class="title function_">beforeEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (to) &#123;</span><br><span class="line">        currentTime = <span class="title class_">Date</span>.<span class="title function_">now</span>()</span><br><span class="line">        stayTime = <span class="built_in">parseInt</span>(currentTime - startTime)</span><br><span class="line">        navigator.<span class="title function_">sendBeacon</span>(url, &#123;<span class="attr">time</span>: stayTime&#125;)</span><br><span class="line">        startTime = <span class="title class_">Date</span>.<span class="title function_">now</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="错误监听埋点"><a href="#错误监听埋点" class="headerlink" title="错误监听埋点"></a>错误监听埋点</h3><p>通过监听函数去接收错误信息。</p>
+<h3 id="vue错误捕获"><a href="#vue错误捕获" class="headerlink" title="vue错误捕获"></a>vue错误捕获</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="property">config</span>.<span class="property">errorHandler</span> = <span class="function">(<span class="params">err</span>) =&gt;</span> &#123; </span><br><span class="line">    navigator.<span class="title function_">sendBeacon</span>(url, &#123;<span class="attr">error</span>: error.<span class="property">message</span>, <span class="attr">text</span>: <span class="string">&#x27;vue运行异常&#x27;</span> &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JS异常与静态资源加载异常"><a href="#JS异常与静态资源加载异常" class="headerlink" title="JS异常与静态资源加载异常"></a>JS异常与静态资源加载异常</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123; </span><br><span class="line">    <span class="keyword">if</span> (error.<span class="property">message</span>) &#123; </span><br><span class="line">        navigator.<span class="title function_">sendBeacon</span>(url, &#123;<span class="attr">error</span>: error.<span class="property">message</span>, <span class="attr">text</span>: <span class="string">&#x27;js执行异常&#x27;</span> &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">        navigator.<span class="title function_">sendBeacon</span>(url, &#123;<span class="attr">error</span>: error.<span class="property">filename</span>, <span class="attr">text</span>: <span class="string">&#x27;资源加载异常&#x27;</span> &#125;)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="请求错误捕获"><a href="#请求错误捕获" class="headerlink" title="请求错误捕获"></a>请求错误捕获</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (response.<span class="property">code</span> == <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(response);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 返回错误逻辑</span></span><br><span class="line">    navigator.<span class="title function_">sendBeacon</span>(url, &#123;<span class="attr">error</span>: error, <span class="attr">text</span>: <span class="string">&#x27;请求错误异常&#x27;</span> &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="内容可见埋点"><a href="#内容可见埋点" class="headerlink" title="内容可见埋点"></a>内容可见埋点</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可见性发生变化后的回调 </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">data</span>) &#123; </span><br><span class="line">    navigator.<span class="title function_">sendBeacon</span>(url, &#123; <span class="attr">target</span>: data[<span class="number">0</span>].<span class="property">target</span>, <span class="attr">text</span>: <span class="string">&#x27;内容可见&#x27;</span> &#125;) </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 交叉观察器配置项 </span></span><br><span class="line"><span class="keyword">let</span> options = &#123;&#125;; </span><br><span class="line"><span class="comment">// 生成交叉观察器 </span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(callback); </span><br><span class="line"><span class="comment">// 获取目标节点 </span></span><br><span class="line"><span class="keyword">let</span> target = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;target&quot;</span>); </span><br><span class="line"><span class="comment">// 监听目标元素 </span></span><br><span class="line">observer.<span class="title function_">observe</span>(target);</span><br></pre></td></tr></table></figure>
+
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>开发的时候可以封装这三种上报方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sendBeacon 上报</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">sendBeacon</span>(<span class="params"> &#123;url = <span class="string">&#x27;&#x27;</span>, params &#125;: reportParams</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (navigator?.<span class="property">sendBeacon</span> &amp;&amp; url) &#123;</span><br><span class="line">      <span class="keyword">const</span> isSuccess = <span class="keyword">await</span> navigator?.<span class="title function_">sendBeacon</span>(url, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(params));</span><br><span class="line">      <span class="keyword">if</span> (isSuccess) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// img 上报</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">sendImg</span>(<span class="params">&#123; img = <span class="string">&#x27;&#x27;</span>, params &#125;: reportParams</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>&lt;boolean&gt;(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> imageData  = <span class="title function_">objectToQueryString</span>(params)</span><br><span class="line">        <span class="keyword">const</span> img_o = <span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">        img_o.<span class="property">onload</span> = <span class="function">() =&gt;</span> <span class="title function_">resolve</span>(<span class="literal">true</span>);</span><br><span class="line">        img_o.<span class="property">onerror</span> = <span class="function">() =&gt;</span> <span class="title function_">reject</span>(<span class="literal">false</span>);</span><br><span class="line">        img_o.<span class="property">src</span> = <span class="string">`<span class="subst">$&#123;img&#125;</span>?<span class="subst">$&#123;imageData&#125;</span>`</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ajax 上报</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">sendAjax</span>(<span class="params">&#123; req = <span class="string">&#x27;&#x27;</span>, params &#125;: reportParams</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>&lt;boolean&gt;(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (req) &#123;</span><br><span class="line">            <span class="title function_">postAction</span>(req, params)</span><br><span class="line">                .<span class="title function_">then</span>(<span class="function">() =&gt;</span> <span class="title function_">resolve</span>(<span class="literal">true</span>))</span><br><span class="line">                .<span class="title function_">catch</span>(<span class="function">() =&gt;</span> <span class="title function_">reject</span>(<span class="literal">false</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">reject</span>(<span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用的时候再导出一个真实上报函数，有由用户决定使用什么上报组合</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基础上报函数</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">reportEvent</span>(<span class="params">params: reportParams, reportType:string[] = [IMG, BEACON, AJAX]</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> finalType = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> reportType) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!finalType) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">await</span> <span class="variable constant_">EVENT_REPORT_FUNCTION_MAP</span>[key](params).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">                    finalType = <span class="literal">true</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(error)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> finalType</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div>
+
+
+<blockquote>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7224132741997281338">教你怎么前端实现埋点上报</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/fe100001/">https://fe32.top/articles/fe100001/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%9F%8B%E7%82%B9/">数据埋点</a><a class="post-meta__tags" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/09/14/6502add885468.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><div class="ads-wrap"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9697737937582017" data-ad-slot="6053380562"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/articles/vue20005/" title="前端如何实现自动检测更新？"><img class="cover" src="https://bu.dusays.com/2023/08/16/64dcd9d5dece5.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">前端如何实现自动检测更新？</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/articles/jsnb9548/" title="JavaScript 将对象数组按字母顺序排序"><img class="cover" src="https://bu.dusays.com/2023/07/07/64a81bc6ce12f.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-07</div><div class="title">JavaScript 将对象数组按字母顺序排序</div></div></a></div><div><a href="/articles/jsnb9527/" title="JavaScript 核心进阶"><img class="cover" src="https://bu.dusays.com/2022/06/09/62a0e411ed838.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-09</div><div class="title">JavaScript 核心进阶</div></div></a></div><div><a href="/articles/jsnb9529/" title="前端基础进阶（二）：执行上下文详细图解"><img class="cover" src="https://bu.dusays.com/2022/06/12/62a5cb5aa2fe2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（二）：执行上下文详细图解</div></div></a></div><div><a href="/articles/jsnb9528/" title="前端基础进阶（一）：内存空间详细图解"><img class="cover" src="https://bu.dusays.com/2022/06/10/62a229f378f16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-10</div><div class="title">前端基础进阶（一）：内存空间详细图解</div></div></a></div><div><a href="/articles/jsnb9530/" title="前端基础进阶（三）：变量对象详解"><img class="cover" src="https://bu.dusays.com/2022/06/12/62a5de91bc968.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">前端基础进阶（三）：变量对象详解</div></div></a></div><div><a href="/articles/jsnb9532/" title="前端基础进阶（五）：闭包"><img class="cover" src="https://bu.dusays.com/2022/06/13/62a742049639e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-13</div><div class="title">前端基础进阶（五）：闭包</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">112</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://space.bilibili.com/481293298" target="_blank" title="Bilibili"><i class="fab fa-youtube"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给出回复。</div><div id="qq-btn"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="card-widget tzy-ad-swiper"><div class="swiper card-swiper"><div class="swiper-wrapper"><div class="swiper-slide"><a href="https://fe32.top/sponsorWall/"><img src="https://bu.dusays.com/2023/03/29/642449cacc868.png"/></a></div><div class="swiper-slide"><a href="https://fe32.top/@3.7.1/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/6424524c0d728.png"/></a></div><div class="swiper-slide"><a href="https://www.hack-gov.com.cn/" target="_blank"><img src="https://bu.dusays.com/2023/04/14/64395f73abc24.png"/></a></div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div><div class="swiper-slide">预留广告位</div></div><div class="swiper-pagination"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%8B%E7%82%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">埋点方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-ajax-%E7%9A%84%E5%9F%8B%E7%82%B9%E4%B8%8A%E6%8A%A5"><span class="toc-number">2.1.</span> <span class="toc-text">基于 ajax 的埋点上报</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">2.1.3.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-img-%E7%9A%84%E5%9F%8B%E7%82%B9%E4%B8%8A%E6%8A%A5"><span class="toc-number">2.2.</span> <span class="toc-text">基于 img 的埋点上报</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#script-%E5%8F%8A-link-%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-number">2.2.1.</span> <span class="toc-text">script 及 link 的缺陷</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%BC%BA%E9%99%B7"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">验证缺陷</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-img-%E5%81%9A%E5%9F%8B%E7%82%B9%E4%B8%8A%E6%8A%A5"><span class="toc-number">2.2.2.</span> <span class="toc-text">基于 img 做埋点上报</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81-img-%E4%BC%98%E5%8A%BF"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">验证 img 优势</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">结论</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-Navigator-sendBeacon-%E7%9A%84%E5%9F%8B%E7%82%B9%E4%B8%8A%E6%8A%A5"><span class="toc-number">2.3.</span> <span class="toc-text">基于 Navigator.sendBeacon 的埋点上报</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">2.3.2.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">2.3.3.</span> <span class="toc-text">补充</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">2.3.4.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">2.3.5.</span> <span class="toc-text">优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">2.3.6.</span> <span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%9F%8B%E7%82%B9%E8%A1%8C%E4%B8%BA"><span class="toc-number">3.</span> <span class="toc-text">常见埋点行为</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E8%A7%A6%E5%8F%91%E5%9F%8B%E7%82%B9"><span class="toc-number">3.1.</span> <span class="toc-text">点击触发埋点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%81%9C%E7%95%99%E6%97%B6%E9%97%B4%E4%B8%8A%E6%8A%A5%E5%9F%8B%E7%82%B9"><span class="toc-number">3.2.</span> <span class="toc-text">页面停留时间上报埋点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%9B%91%E5%90%AC%E5%9F%8B%E7%82%B9"><span class="toc-number">3.3.</span> <span class="toc-text">错误监听埋点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue%E9%94%99%E8%AF%AF%E6%8D%95%E8%8E%B7"><span class="toc-number">3.4.</span> <span class="toc-text">vue错误捕获</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS%E5%BC%82%E5%B8%B8%E4%B8%8E%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%BC%82%E5%B8%B8"><span class="toc-number">3.5.</span> <span class="toc-text">JS异常与静态资源加载异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E9%94%99%E8%AF%AF%E6%8D%95%E8%8E%B7"><span class="toc-number">3.6.</span> <span class="toc-text">请求错误捕获</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%8F%AF%E8%A7%81%E5%9F%8B%E7%82%B9"><span class="toc-number">3.7.</span> <span class="toc-text">内容可见埋点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD"><span class="toc-number">4.</span> <span class="toc-text">后续</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/fe100001/" title="前端如何实现埋点上报？"><img src="https://bu.dusays.com/2023/09/14/6502add885468.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="前端如何实现埋点上报？"/></a><div class="content"><a class="title" href="/articles/fe100001/" title="前端如何实现埋点上报？">前端如何实现埋点上报？</a><time datetime="2023-09-15T12:55:32.000Z" title="发表于 2023-09-15 20:55:32">2023-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20005/" title="前端如何实现自动检测更新？"><img src="https://bu.dusays.com/2023/08/16/64dcd9d5dece5.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="前端如何实现自动检测更新？"/></a><div class="content"><a class="title" href="/articles/vue20005/" title="前端如何实现自动检测更新？">前端如何实现自动检测更新？</a><time datetime="2023-08-16T14:11:53.000Z" title="发表于 2023-08-16 22:11:53">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10005/" title="如何在 CSS 中设计出漂亮的阴影？"><img src="https://bu.dusays.com/2022/05/01/626e911ae42cc.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="如何在 CSS 中设计出漂亮的阴影？"/></a><div class="content"><a class="title" href="/articles/css10005/" title="如何在 CSS 中设计出漂亮的阴影？">如何在 CSS 中设计出漂亮的阴影？</a><time datetime="2023-08-16T12:44:35.000Z" title="发表于 2023-08-16 20:44:35">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/css10004/" title="推荐几个你可能会用到的 CSS 动画库"><img src="https://bu.dusays.com/2022/05/01/626e911a88b4d.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="推荐几个你可能会用到的 CSS 动画库"/></a><div class="content"><a class="title" href="/articles/css10004/" title="推荐几个你可能会用到的 CSS 动画库">推荐几个你可能会用到的 CSS 动画库</a><time datetime="2023-08-16T12:29:35.000Z" title="发表于 2023-08-16 20:29:35">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20004/" title="如何将路径字符串数组(string[])转成树结构(treeNode[])？"><img src="https://bu.dusays.com/2023/07/23/64bd3a05e0625.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="如何将路径字符串数组(string[])转成树结构(treeNode[])？"/></a><div class="content"><a class="title" href="/articles/vue20004/" title="如何将路径字符串数组(string[])转成树结构(treeNode[])？">如何将路径字符串数组(string[])转成树结构(treeNode[])？</a><time datetime="2023-07-23T16:56:12.000Z" title="发表于 2023-07-24 00:56:12">2023-07-24</time></div></div></div></div><div class="card-widget ads-wrap"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9697737937582017" data-ad-slot="9637402350" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/website/log/">更新日志</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.startly.cn/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/utils.js"></script><script src="/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fancybox.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="/js/swiper-bundle.js"></script><script defer src="/js/custom/index.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-92YZLM7C2B"></script><script> window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-92YZLM7C2B');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script>window.$crisp = [];
+window.CRISP_WEBSITE_ID = "58b8ce9e-19e0-46ff-8e8d-6ee1b1b25c45";
+(function () {
+  d = document;
+  s = d.createElement("script");
+  s.src = "https://client.crisp.chat/l.js";
+  s.async = 1;
+  d.getElementsByTagName("head")[0].appendChild(s);
+})();
+$crisp.push(["safe", true])
+
+if (true) {
+  $crisp.push(["do", "chat:hide"])
+  $crisp.push(["on", "chat:closed", function() {
+    $crisp.push(["do", "chat:hide"])
+  }])
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      $crisp.push(["do", "chat:hide"])
+    }
+    function chatBtnShow () {
+      $crisp.push(["do", "chat:show"])
+    }
+  }
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div></div></div><div id="algolia-tips"><span class="algolia-tips-text">Algolia 提供搜索服务</span></div></div></div><div id="search-mask"></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algoliasearch.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/instantsearch.production.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algolia@latest.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><!-- hexo injector body_end end --></body></html>
