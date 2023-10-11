@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-11 17:45:41
+ * @LastEditTime: 2023-10-11 18:15:25
  */
 var card_swiper;
 var home_swiper;
@@ -123,6 +123,7 @@ var _tzy = {
     },
     // 检测 google Ads
     checkAdBlocker : () => {
+        const whiteList = ['/adsTips/']
         fetch('https://pagead2.googlesyndication.com/pagead/show_ads.js', {
             mode: 'no-cors'
         }).then(()=>{
@@ -131,7 +132,11 @@ var _tzy = {
         })
         .catch(() => {
             console.log('Please disable ad blockers');
-            $(".modal-connection").show()
+            whiteList.map(v=>{
+                if(!location.href.includes(v)){
+                    $(".modal-connection").show()
+                }
+            })
         })
     }
 }
