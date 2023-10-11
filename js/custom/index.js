@@ -3,8 +3,8 @@
  * @version: 
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
- * @LastEditors: tzy1997
- * @LastEditTime: 2023-04-15 23:20:22
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-10-11 17:45:41
  */
 var card_swiper;
 var home_swiper;
@@ -121,6 +121,19 @@ var _tzy = {
             t.setSelectionRange(5, 5)),
             t.focus()
     },
+    // 检测 google Ads
+    checkAdBlocker : () => {
+        fetch('https://pagead2.googlesyndication.com/pagead/show_ads.js', {
+            mode: 'no-cors'
+        }).then(()=>{
+            console.log('no ad blockers');
+            $(".modal-connection").hide()
+        })
+        .catch(() => {
+            console.log('Please disable ad blockers');
+            $(".modal-connection").show()
+        })
+    }
 }
 
 _tzy.flinkOnError()
@@ -128,11 +141,13 @@ _tzy.link_to()
 _tzy.tagPageActive()
 _tzy.cardSwiper()
 _tzy.homeSwiper()
-// window.addEventListener('resize', () => {
-//     _tzy.debounce(() => {
-//         console.log(111111);
-//         home_swiper.destroy(true, true);
-//         _tzy.homeSwiper()
-//         // home_swiper.update()
-//     }, 500)
-// })
+_tzy.checkAdBlocker()
+
+/* window.addEventListener('resize', () => {
+    _tzy.debounce(() => {
+        console.log(111111);
+        home_swiper.destroy(true, true);
+        _tzy.homeSwiper()
+        // home_swiper.update()
+    }, 500)
+}) */
