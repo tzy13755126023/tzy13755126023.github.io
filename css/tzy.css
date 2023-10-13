@@ -1,7 +1,7 @@
 /*
  * @Author: tzy1997
  * @Date: 2023-07-24 00:18:00
- * @LastEditTime: 2023-10-11 18:07:33
+ * @LastEditTime: 2023-10-13 18:42:17
  * @Description: 
  * @version: 1.0.1
  * Copyright (c) 2023 by tzy1997, All Rights Reserved. 
@@ -48,6 +48,8 @@
 
 #nav .menus_items .menus_item .menus_item_child li:hover a {
     color: var(--tzy-white) !important;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 body {
