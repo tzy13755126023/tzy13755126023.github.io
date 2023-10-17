@@ -6,7 +6,7 @@
   <link href="https://fe32.top/atom.xml" rel="self"/>
   
   <link href="https://fe32.top/"/>
-  <updated>2023-10-13T08:29:11.017Z</updated>
+  <updated>2023-10-17T09:09:57.767Z</updated>
   <id>https://fe32.top/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>几个非常实用的 Chrome Devtools 技巧</title>
+    <link href="https://fe32.top/articles/skill001/"/>
+    <id>https://fe32.top/articles/skill001/</id>
+    <published>2023-10-17T07:53:32.000Z</published>
+    <updated>2023-10-17T09:09:57.767Z</updated>
+    
+    
+    <summary type="html">分享几个实用的 Chrome Devtools 技巧。</summary>
+    
+    
+    
+    <category term="前端进阶" scheme="https://fe32.top/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/"/>
+    
+    
+    <category term="Chrome Devtools" scheme="https://fe32.top/tags/Chrome-Devtools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>卷王之王：快来看看前端出的新框架！</title>
+    <link href="https://fe32.top/articles/fe100002/"/>
+    <id>https://fe32.top/articles/fe100002/</id>
+    <published>2023-10-17T04:57:45.000Z</published>
+    <updated>2023-10-17T09:09:56.079Z</updated>
+    
+    
+    <summary type="html">Nue 是一个完整的前端开发工具集。Vite，Next.js和Astro等生态系统的替代品。</summary>
+    
+    
+    
+    <category term="前端框架" scheme="https://fe32.top/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+    
+    <category term="前端框架" scheme="https://fe32.top/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>前端如何实现埋点上报？</title>
