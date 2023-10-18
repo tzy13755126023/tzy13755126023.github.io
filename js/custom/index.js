@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-18 12:36:06
+ * @LastEditTime: 2023-10-18 12:41:01
  */
 var card_swiper;
 var home_swiper;
@@ -138,19 +138,16 @@ var _tzy = {
       "/tags/",
       "/categories/",
     ];
-    whiteList.map((v) => {
-      if (!location.href.includes(v)) {
-        if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
-          console.log("no ad blockers");
-          $(".modal-connection").hide();
-        } else {
-          console.log("Please disable ad blockers");
-          $(".modal-connection").show();
-        }
-      } else {
+    const flag = whiteList.find((v) => location.href.includes(v));
+    if (!flag) {
+      if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
+        console.log("no ad blockers");
         $(".modal-connection").hide();
+      } else {
+        console.log("Please disable ad blockers");
+        $(".modal-connection").show();
       }
-    });
+    }
     /* v1 20231011 此版本存在问题 先不删除 后续完善
     fetch('https://pagead2.googlesyndication.com/pagead/show_ads.js', {
         mode: 'no-cors'
