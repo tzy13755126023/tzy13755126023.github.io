@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-18 11:44:37
+ * @LastEditTime: 2023-10-18 12:36:06
  */
 var card_swiper;
 var home_swiper;
@@ -131,12 +131,12 @@ var _tzy = {
   checkAdBlocker: () => {
     // v2 20231018
     const whiteList = [
-      "/about",
-      "/adsTips",
-      "/frdcenter",
-      "/demandWall",
-      "/tags",
-      "/categories",
+      "/about/",
+      "/adsTips/",
+      "/frdcenter/",
+      "/demandWall/",
+      "/tags/",
+      "/categories/",
     ];
     whiteList.map((v) => {
       if (!location.href.includes(v)) {
@@ -147,6 +147,8 @@ var _tzy = {
           console.log("Please disable ad blockers");
           $(".modal-connection").show();
         }
+      } else {
+        $(".modal-connection").hide();
       }
     });
     /* v1 20231011 此版本存在问题 先不删除 后续完善
