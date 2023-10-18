@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-18 10:57:50
+ * @LastEditTime: 2023-10-18 11:00:35
  */
 var card_swiper;
 var home_swiper;
@@ -155,6 +155,17 @@ var _tzy = {
         })
     }) */
   },
+  // 每秒检测 google Ads
+  checkAdsTimes: () => {
+    var timer = null;
+    timer = setInterval(() => {
+      _tzy.checkAdBlocker();
+      console.log($(".ads-wrap > .adsbygoogle >div").length);
+      if ($(".ads-wrap > .adsbygoogle >div").length > 0 && timer) {
+        clearInterval(timer);
+      }
+    }, 1000);
+  },
 };
 
 _tzy.flinkOnError();
@@ -162,16 +173,6 @@ _tzy.link_to();
 _tzy.tagPageActive();
 _tzy.cardSwiper();
 _tzy.homeSwiper();
-_tzy.checkAdBlocker();
-
-var timer = null;
-timer = setInterval(() => {
-  checkAdBlocker();
-  console.log($(".ads-wrap > .adsbygoogle >div").length);
-  if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
-    clearInterval(timer);
-  }
-}, 1000);
 
 /* window.addEventListener('resize', () => {
     _tzy.debounce(() => {
