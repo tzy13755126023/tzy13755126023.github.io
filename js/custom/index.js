@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-18 11:06:49
+ * @LastEditTime: 2023-10-18 11:09:58
  */
 var card_swiper;
 var home_swiper;
@@ -160,11 +160,11 @@ var _tzy = {
     var timer = null;
     timer = setInterval(() => {
       _tzy.checkAdBlocker();
-      console.log($(".ads-wrap > .adsbygoogle >div").length);
+      //   console.log($(".ads-wrap > .adsbygoogle >div").length);
       if ($(".ads-wrap > .adsbygoogle >div").length > 0 && timer) {
         clearInterval(timer);
       }
-    }, 1000);
+    }, 2500);
   },
 };
 
