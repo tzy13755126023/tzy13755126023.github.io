@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-18 11:00:35
+ * @LastEditTime: 2023-10-18 11:06:49
  */
 var card_swiper;
 var home_swiper;
@@ -173,6 +173,7 @@ _tzy.link_to();
 _tzy.tagPageActive();
 _tzy.cardSwiper();
 _tzy.homeSwiper();
+_tzy.checkAdsTimes();
 
 /* window.addEventListener('resize', () => {
     _tzy.debounce(() => {
