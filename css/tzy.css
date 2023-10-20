@@ -1,7 +1,7 @@
 /*
  * @Author: tzy1997
  * @Date: 2023-07-24 00:18:00
- * @LastEditTime: 2023-10-17 16:36:19
+ * @LastEditTime: 2023-10-20 15:09:29
  * @Description: 
  * @version: 1.0.1
  * Copyright (c) 2023 by tzy1997, All Rights Reserved. 
@@ -552,9 +552,9 @@ body,
     border: 1px solid var(--tzy-border) !important;
 }
 
-[data-theme='light'] #aside-content .card-widget#card-wechat {
+/* [data-theme='light'] #aside-content .card-widget#card-wechat {
     background: var(--tzy-theme);
-}
+} */
 
 #aside-content .card-widget#card-wechat {
     background: var(--card-bg);
@@ -564,7 +564,8 @@ body,
     padding: 0;
     cursor: pointer !important;
     border: none;
-    height: 110px;
+    /* height: 110px; */
+    height: 130px;
 }
 
 @media screen and (max-width: 768px) {
@@ -583,8 +584,10 @@ body,
     -webkit-perspective: 1000;
     perspective: 1000;
     position: relative;
-    width: 235px;
-    height: 110px;
+    /* width: 235px; */
+    /* height: 110px; */
+    width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
@@ -607,7 +610,8 @@ body,
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    background: url(https://img.zhheo.com/i/2022/08/31/630efc6e3e794.png) center center no-repeat;
+    /* background: url(https://img.zhheo.com/i/2022/08/31/630efc6e3e794.png) center center no-repeat; */
+    background: url(https://bu.dusays.com/2023/10/20/65322536707be.gif) center center no-repeat;
     background-size: 100%;
 }
 
@@ -616,7 +620,7 @@ body,
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     box-sizing: border-box;
-    background: url(https://bu.dusays.com/2023/03/12/640da6106658f.png) center center no-repeat;
+    background: url(https://bu.dusays.com/2023/10/20/6532253ed8d0d.gif) center center no-repeat;
     background-size: 100%;
 }
 /* -------------------------------------------------------------------------- */

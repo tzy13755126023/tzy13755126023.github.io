@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-18 12:41:01
+ * @LastEditTime: 2023-10-20 11:04:10
  */
 var card_swiper;
 var home_swiper;
@@ -164,7 +164,7 @@ var _tzy = {
         })
     }) */
   },
-  // 每秒检测 google Ads
+  // 每 3s 检测 google Ads
   checkAdsTimes: () => {
     var timer = null;
     timer = setInterval(() => {
@@ -173,7 +173,7 @@ var _tzy = {
       if ($(".ads-wrap > .adsbygoogle >div").length > 0 && timer) {
         clearInterval(timer);
       }
-    }, 2500);
+    }, 3000);
   },
 };
 
