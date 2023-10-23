@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-20 11:04:10
+ * @LastEditTime: 2023-10-23 18:33:30
  */
 var card_swiper;
 var home_swiper;
@@ -130,24 +130,36 @@ var _tzy = {
   // 检测 google Ads
   checkAdBlocker: () => {
     // v2 20231018
-    const whiteList = [
-      "/about/",
-      "/adsTips/",
-      "/frdcenter/",
-      "/demandWall/",
-      "/tags/",
-      "/categories/",
-    ];
-    const flag = whiteList.find((v) => location.href.includes(v));
-    if (!flag) {
-      if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
-        console.log("no ad blockers");
-        $(".modal-connection").hide();
-      } else {
-        console.log("Please disable ad blockers");
+    if ($("body").width() < 768) {
+      const phoneFlag =
+        location.href == "https://fe32.top/" ||
+        location.href.includes("/articles/");
+      if (phoneFlag) {
         $(".modal-connection").show();
+      } else {
+        $(".modal-connection").hide();
+      }
+    } else {
+      const whiteList = [
+        "/about/",
+        "/adsTips/",
+        "/frdcenter/",
+        "/demandWall/",
+        "/tags/",
+        "/categories/",
+      ];
+      const pcFlag = whiteList.find((v) => location.href.includes(v));
+      if (!pcFlag) {
+        if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
+          console.log("no ad blockers");
+          $(".modal-connection").hide();
+        } else {
+          console.log("Please disable ad blockers");
+          $(".modal-connection").show();
+        }
       }
     }
+
     /* v1 20231011 此版本存在问题 先不删除 后续完善
     fetch('https://pagead2.googlesyndication.com/pagead/show_ads.js', {
         mode: 'no-cors'

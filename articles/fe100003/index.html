@@ -1,0 +1,631 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>前端断点调试是如何实现的？ | 唐志远の博客</title><meta name="author" content="Ethan.Tzy"><meta name="copyright" content="Ethan.Tzy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="baidu-site-verification" content="codeva-ujex1yc5TZ"><meta name="description" content="本文概述了浏览器断点调试的基本原理，也介绍了 Vscode Web 代码断点调试能力，详细介绍了各模块中各 CDP 消息通信逻辑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端断点调试是如何实现的？">
+<meta property="og:url" content="https://fe32.top/articles/fe100003/index.html">
+<meta property="og:site_name" content="唐志远の博客">
+<meta property="og:description" content="本文概述了浏览器断点调试的基本原理，也介绍了 Vscode Web 代码断点调试能力，详细介绍了各模块中各 CDP 消息通信逻辑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2023/10/21/65338be5ce691.png">
+<meta property="article:published_time" content="2023-10-23T01:01:11.000Z">
+<meta property="article:modified_time" content="2023-10-23T06:59:08.766Z">
+<meta property="article:author" content="Ethan.Tzy">
+<meta property="article:tag" content="断点调试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2023/10/21/65338be5ce691.png"><link rel="shortcut icon" href="https://bu.dusays.com/2022/05/17/6283c38e6368f.ico"><link rel="canonical" href="https://fe32.top/articles/fe100003/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"KYE9ZA4757","apiKey":"b5a21077c2b61488e5c748ace78c9340","indexName":"blog-tzy1997","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Ethan.Tzy","link":"链接: ","source":"来源: 唐志远の博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fjGallery.min.js',
+      css: 'https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/css/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '前端断点调试是如何实现的？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-23 14:59:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px;left:100px}</style><link rel="stylesheet" href="/css/swiper-bundle.css"><link rel="stylesheet" href="/css/tzy.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="唐志远の博客" type="application/atom+xml">
+</head><body><div class="modal-connection"><div class="content"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""><div class="p-title"> 【检测到您已屏蔽网站广告】</div><div>为了本站的长期运营，请将本站加入广告拦截器的白名单，感谢您的支持！🌹🌹🌹 <a class="wwads-text" title="开启方法" target="_blank" rel="nofollow" href="https://fe32.top/adsTips/">【查看开启方法】</a></div></div></div><div id="loading-box"><div class="loading-bg"><div class="loader"><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div><div class="loader-square"></div></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+// 20230312 add
+setTimeout(function(){ preloader.endLoading();}, 5000);
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="onerror=null;src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">88</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/policy/" target="_blank"><i class="fa-fw fa fa-fw fa-universal-access"></i><span> 隐私墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2023/10/21/6533746e65ea5.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="唐志远の博客"><span class="site-name">唐志远の博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/" target="_self"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/" target="_self"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/" target="_self"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/" target="_self"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/" target="_self"><i class="fa-fw fas fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page" href="/bangumis/" target="_self"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li><li><a class="site-page" href="/movies/" target="_self"><i class="fa-fw fa-fw fas fa-clapperboard"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/" target="_self"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page" href="/specialEffects/" target="_self"><i class="fa-fw fa fa-ship"></i><span> 特效</span></a></li><li><a class="site-page" href="/@3.7.1/wallpaper/" target="_blank"><i class="fa-fw fa-fw fas fa-images"></i><span> 壁纸</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-user-group"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/comments/" target="_self"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></li><li><a class="site-page" href="/frdcenter/" target="_self"><i class="fa-fw fas fa-wifi"></i><span> 朋友圈</span></a></li><li><a class="site-page" href="/link/" target="_self"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-laptop-code"></i><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/sponsorWall/" target="_self"><i class="fa-fw fa-fw fas fa-money-check-alt"></i><span> 赞助墙</span></a></li><li><a class="site-page" href="/website/log" target="_self"><i class="fa-fw fas fa-file-medical-alt"></i><span> 日志墙</span></a></li><li><a class="site-page" href="/demandWall/" target="_self"><i class="fa-fw fa fa-bug"></i><span> 需求墙</span></a></li><li><a class="site-page" href="/policy/" target="_blank"><i class="fa-fw fa fa-fw fa-universal-access"></i><span> 隐私墙</span></a></li><li><a class="site-page" href="/@3.7.1/" target="_blank"><i class="fa-fw fa-fw fas fa-th-list"></i><span> 旧版本</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-user-secret"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/about/" target="_self"><i class="fa-fw fas fa-heart"></i><span> 关于自己</span></a></li><li><a class="site-page" href="/nav/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-infinity"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/music/index.html" target="_blank"><i class="fa-fw fa-fw fas fa-music"></i><span> 音乐长廊</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端断点调试是如何实现的？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-23T01:01:11.000Z" title="发表于 2023-10-23 09:01:11">2023-10-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-23T06:59:08.766Z" title="更新于 2023-10-23 14:59:08">2023-10-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6006</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端断点调试是如何实现的？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2022/11/26/638228a0a2a6d.webp"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为一个前端开发，前端调试的方式一般有如下几种: </p>
+<p>1.代码中直接打印，比如很多时候直接在代码中使用 <code>console</code> 来打印一些变量，或者在 vscode 中使用 <code>Turbo Console Log</code> 等插件生成特色的日志内容。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/65338d0447856.png"></p>
+<p>2.<code>debugger</code>，在代码中输入 <code>debugger 关键字</code>，然后在浏览器中进行断点调试，或者在浏览器中找到源码，然后进行断点调试。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/65338d04461f0.png"></p>
+<p>3.vscode 自带的 web 调试能力。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/65338d044a727.png"></p>
+<p>相比于 console ，debugger 可以看到代码实际的执行路线以及每个变量的变化，代码可以跳着看，也可以针对某个函数步步执行。</p>
+<p>但是 console 与 debugger 方式对代码都有侵入，在开发阶段可能要不断增加和移除来调试，如果不小心忘了，那 mr 又得打回并重新提交了。</p>
+<blockquote>
+<p>🧐 相信很多人在提 mr 都有类似经验。</p>
+</blockquote>
+<p>相对来说，浏览器中找到 source 源码打断点是一个更好的方式，但是还是需要打开 Devtools ，并在 sources 面板找到文件注入断点，操作上也是有点小麻烦。</p>
+<p>因此第 3 种方式，可能是不错的方式，在 vscode 中直接在源码中调试，并能看到具体的变量信息和网页效果。</p>
+<p>实际上，浏览器打断点与在 vscode 打断点本质原理都类似。下面就聊一聊浏览器断点调试和 vscode 断点调试的原理。</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><h3 id="Chrome-Devtools-Protocol"><a href="#Chrome-Devtools-Protocol" class="headerlink" title="Chrome Devtools Protocol"></a>Chrome Devtools Protocol</h3><p>在了解具体场景之前，首先有一个比较重要的概念，那就是 CDP。</p>
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>CDP（Chrome DevTools Protocol）是一种通过网络协议与 Google Chrome 或其他兼容的浏览器进行通信的协议。通过 CDP，开发者可以远程控制浏览器，获取浏览器状态信息，以及执行各种浏览器操作，从而实现自动化测试、性能分析、调试等应用场景。</p>
+<blockquote>
+<p>🥶📚:<br>CDP 最早于 2011 年在 Chrome 15 版本中引入，作为 Chrome DevTools 的核心组件之一而出现。在此之前，开发者通常需要通过浏览器插件或者第三方工具来进行调试和测试，这些工具通常不够标准化和通用，也难以实现远程控制。<br>就跟 Emoji 的历史差不多了，都是乱的，然后规范化，最后大力发展。<br>CDP 的出现解决了这些问题，使得开发者可以通过标准化的协议来远程控制浏览器，获取浏览器状态信息，以及执行各种浏览器操作。CDP 的出现和发展推动了 Web 开发和测试的发展，为开发者带来了更加高效和便捷的开发和测试方式。</p>
+</blockquote>
+<p>CDP 通过 JSON-RPC 协议来进行通信，提供了一套完整的 API，包括 DOM、CSS、网络、调试、安全等方面的接口。实际上，可以使用各种编程语言来编写 CDP 客户端，从而实现与浏览器的交互。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a02a17be4.png"></p>
+<p>上图为 CDP 的 <a target="_blank" rel="noopener" href="https://chromedevtools.github.io/devtools-protocol">官网</a> ，可以看到，CDP 包括很多 Domains，常见的 CDP 信息包括: </p>
+<ul>
+<li>DOM: 提供了对文档对象模型的访问和操作接口，如节点遍历、样式计算、事件处理等。</li>
+<li>CSS: 提供了对样式表的访问和操作接口，如样式计算、应用、修改等。</li>
+<li>Network: 提供了对网络请求和响应的访问和操作接口，如请求拦截、修改、模拟等。</li>
+<li>Console: 提供了对浏览器控制台的访问和操作接口，如日志记录、错误捕获、命令执行等。</li>
+<li>Debugger: 提供了对浏览器调试器的访问和操作接口，如断点设置、单步执行、变量查看等。</li>
+<li>Performance: 提供了对浏览器性能分析的访问和操作接口，如性能指标获取、性能分析报告生成等。</li>
+</ul>
+<p>这几个也是平常开发中最常用到的几个 Domains 了。</p>
+<h4 id="常见-CDP"><a href="#常见-CDP" class="headerlink" title="常见 CDP"></a>常见 CDP</h4><ul>
+<li>Page: Page.navigate: 页面跳转</li>
+<li>Network: Network.enable: 开启网络，可以用来模拟网络开闭能力</li>
+<li>DOM: DOM.getDocument: 获取页面树，比如调试器 Elements 面板的展示</li>
+<li>CSS: CSS.getComputedStyleForNode: 返回给定 nodeId 的所有样式，比如点击 dom 节点，展示 css</li>
+<li>Runtime: Runtime.evaluate: 在当前页面中执行 JavaScript 代码</li>
+<li>Debugger: 下面会提到很多，譬如 Debugger.pause&#x2F;Debugger.setXXX</li>
+</ul>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>chrome 的 Devtools （Front-End Devtools）与 Web Page 之间的调试也是通过 CDP 通信的，如下图所示: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0405a8d3.png"></p>
+<p>除了调试，CDP 额外应用场景也很多，比如刚才提到的自动化测试，通过 CDP 模拟用户行为，操作页面元素等，或者 CDP 获取浏览器的性能指标生成性能报告，还可以通过 CDP 模拟浏览器行为，获取页面数据，实现爬虫等等。</p>
+<h2 id="浏览器断点调试原理"><a href="#浏览器断点调试原理" class="headerlink" title="浏览器断点调试原理"></a>浏览器断点调试原理</h2><p>带着问题出发，可能需要搞懂以下 3 点: </p>
+<p>1.页面与 Devtools 是如何通信的？<br>2.断点操作逻辑通信过程是什么？<br>3.如何实现命中断点并停止代码执行的？</p>
+<h3 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h3><h4 id="增加断点"><a href="#增加断点" class="headerlink" title="增加断点"></a>增加断点</h4><p>在浏览器中，网页的调试能力是由 Devtools 提供的。Devtools 与网页之间的通信利用的是 Websocket，而通信协议则是 CDP。</p>
+<p>除了开发中常用到的元素高亮，日志打印和网络审查，上面也提到了还可以在 sources 面板中使用 debugger。</p>
+<p>如下图所示，找到一行 js 代码，在代码中点击断点调试，可以看到 Protocol Monitor 中有一些 CDP 消息，下面就来具体分析一下相关 CDP 信息。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a043dc200.png"></p>
+<p>点击断点以后，主要有以下一些 CDP 消息在页面与 Devtools 之间通信: </p>
+<ul>
+<li>Debugger.setBreakpointsActive: Activates &#x2F; deactivates all breakpoints on the page.</li>
+<li>Debugger.setBreakpointByUrl: Sets JavaScript breakpoint at given location specified either by URL or URL regex.</li>
+<li>Debugger.getPossibleBreakpoints: Returns possible locations for breakpoint.</li>
+</ul>
+<p>setBreakpointsActive 表示告诉页面要设置一个调试断点了；setBreakpointByUrl 则是告诉页面设置的具体信息；getPossibleBreakpoints 表示设置以后获取正确的断点位置，并展示蓝色小块。</p>
+<p>有时候可能会发现设置了某一行为断点，但是断点的位置并不是指向的位置，而是另外的位置。比如上面截图，如果在 15 行设置断点，则最后展示断点位置为 18 行。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a04639f33.png"></p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a04979126.png"></p>
+<p>整体流程如下图: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a04cc046f.jpg"></p>
+<h4 id="移除断点"><a href="#移除断点" class="headerlink" title="移除断点"></a>移除断点</h4><p>除了在 sources 面板增加断点，还可以取消断点。取消断点的 CDP 非常简单， Devtools 会给 Web Page 发送一个 Debugger.removeBreakpoint 来移除断点。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a04f8a556.png"></p>
+<h4 id="实时断点调试"><a href="#实时断点调试" class="headerlink" title="实时断点调试"></a>实时断点调试</h4><p>当点击完断点以后，页面会走到断点所在的代码位置，同时 Devtools 会接收到一些 CDP 消息，通知它当前断点的状态和上下文信息。</p>
+<p>这里写了一个实例，是关于数字的增减逻辑，并在数字增加的时候，走到断点位置（不需要刷新页面）。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0526eadb.png"></p>
+<p>可以看到，当点击 + 号以后，页面就进入断点调试逻辑，此时 Devtools 会收到 Debugger.paused消息: </p>
+<p>Debugger.paused: Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.</p>
+<p>此时表示页面已经暂停了代码执行，Devtools 可以通过 <code>Debugger.paused</code> 事件中的参数，获取当前断点的上下文信息，如断点所在的函数、变量值、堆栈信息等。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a054dd04c.png"></p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a059aedf6.png"></p>
+<p>点击 “Step Over next function call”（按钮 1），Devtools 会收到 <code>Debugger.resumed</code> 消息，通知继续执行代码。</p>
+<p>Debugger.resumed: Fired when the virtual machine resumed execution.</p>
+<p>随后代码跳到下一行，此时又会收到 <code>Debugger.paused</code> 消息。</p>
+<p>点击 “Resume Script Execution” （按钮 2）按钮，Devtools 会收到 <code>Debugger.resumed</code> 消息，如果还存在断点，则此时也会收到 <code>Debugger.paused</code> 消息。</p>
+<p>此外这里还有一个 <code>Overlay.setPausedInDebuggerMessage</code> 消息，为 Devtools 发送给页面，其信息主要是让页面展示代码停止状态下应该展示的消息，默认为 <code>&#123;&quot;message&quot;:&quot;Paused in debugger&quot;&#125;</code> ，也就是如下图展示的内容: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a05c2903c.png"></p>
+<p>除了上面两个按钮，还有几个调试按钮，如下图绿色区域内: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0603c1e6.png"></p>
+<p>分别是: Step into next function call、Step out of current function、Step、Deactivate breakpoints。</p>
+<ul>
+<li>Step into next function call: 这个按钮用于进入当前行代码所在的函数内部，即单步进入函数中执行。</li>
+<li>Step out of current function: 这个按钮用于跳出当前函数，即单步跳出当前函数执行。</li>
+<li>Step: 这个按钮用于单步执行代码，即逐行执行代码。</li>
+<li>Deactivate breakpoints: 这个按钮用于禁用所有的断点，即暂停调试器的所有断点。</li>
+</ul>
+<p>点击 “Step into next function call”，Devtools 会发送 <code>Debugger.stepInto</code> 消息，并收到 <code>Debugger.resumed</code> 和 <code>Debugger.paused</code> 消息，进入到函数内部。</p>
+<p>Debugger.stepInto: Steps into the function call.</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0bc3911e.png"></p>
+<p>点击 “Step out of current function”，Devtools 会发送 <code>Debugger.stepOut</code> 消息，并收到 <code>Debugger.resumed</code> 和 <code>Debugger.paused</code> 消息，跳出该函数。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0bde7531.png"></p>
+<p>点击 “Step” 按钮，Devtools 则发送 <code>Debugger.stepInto</code> ，代码执行到下一行，每次点击，都会发送 <code>Debugger.stepInto</code> 消息。</p>
+<p>点击 “Deactivate  breakpoints”，Devtools 则发送 <code>Debugger.setBreakpointsActive</code> 消息。如果当前断点状态为执行状态，则参数为 <code>active: false</code> ，同时设置蓝色小块颜色为透明色。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0c46780a.png"></p>
+<p>重新执行代码，断点调试能力失效。</p>
+<p>再点击一次，则参数为 <code>active: true</code> ，断点调试能力生效。</p>
+<h3 id="基本通信源码"><a href="#基本通信源码" class="headerlink" title="基本通信源码"></a>基本通信源码</h3><p>了解完相关断点操作流程以后，再分析一下相关逻辑的源码。</p>
+<p>首先，Devtools 的源码就是 Front-End Devtools，UI 上的逻辑这里就不多分析。关于页面的调试通信逻辑在 DebuggerModel 中: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="title function_">stepInto</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="keyword">const</span> skipList = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="title function_">computeAutoStepSkipList</span>(<span class="string">&quot;StepInto&quot;</span> <span class="comment">/* StepInto  /);  void this.agent.invoke_stepInto(&#123; breakOnAsyncCall: false, skipList &#125;);  &#125;  async stepOver() &#123;   this.#autoSteppingContext = this.#debuggerPausedDetailsInternal?.callFrames[0]?.functionLocation() ?? null;  const skipList = await this.computeAutoStepSkipList(&quot;StepOver&quot; /  StepOver  /);  void this.agent.invoke_stepOver(&#123; skipList &#125;);  &#125;  async stepOut() &#123;   const skipList = await this.computeAutoStepSkipList(&quot;StepOut&quot; /  StepOut */</span>);</span><br><span class="line">   <span class="keyword">if</span> (skipList.<span class="property">length</span> !== <span class="number">0</span>) &#123;</span><br><span class="line">     <span class="keyword">void</span> <span class="variable language_">this</span>.<span class="property">agent</span>.<span class="title function_">invoke_stepOver</span>(&#123; skipList &#125;);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     <span class="keyword">void</span> <span class="variable language_">this</span>.<span class="property">agent</span>.<span class="title function_">invoke_stepOut</span>();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="title function_">pause</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.#isPausingInternal = <span class="literal">true</span>;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="title function_">skipAllPauses</span>(<span class="literal">false</span>);</span><br><span class="line">   <span class="keyword">void</span> <span class="variable language_">this</span>.<span class="property">agent</span>.<span class="title function_">invoke_pause</span>();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>很清晰的看到，上面提到的各种操作逻辑的函数，譬如 <code>pause</code>、<code>stepXXX</code> 等 API。</p>
+<p>这里列举几个操作按钮通信较多的 API。</p>
+<p><code>pause()</code> 的主要逻辑为 2 点: </p>
+<ol>
+<li>设置使页面断点暂停状态为 ture。</li>
+<li>发送 Debugger.paused消息到页面。</li>
+</ol>
+<p><code>stepInto()</code> 的主要逻辑为: </p>
+<ol>
+<li>拿到跳转的 skipList，它是一个字符串数组，用于指定要跳过的函数名称列。在操作调试按钮时，一般都是空数组。</li>
+<li>发送 Debugger.stepInto消息到页面。</li>
+</ol>
+<p>其他 API 逻辑类似。</p>
+<p>再分析一下 chromium 中的断点调试代码逻辑。chromium 中发送 CDP 消息到 Devtools 的逻辑在 <code>devtools_agent_host_impl</code> 中，而断点调试逻辑在 <code>devtools_session</code> 文件中，通过 agent 的 <code>DispatchProtocolMessage</code> 最后调用到 session 的 <code>shoulSendOnIO</code> 函数。</p>
+<p>具体来说，这个函数接收一个包含 CDP 方法的 span 参数，然后检查该方法是否属于一组特定的方法，如果是，则返回 true，表示该 CDP 消息需要转发。</p>
+<blockquote>
+<p>DevToolsSession 是 Chromium 源码中的一个类，代表一个 DevTools 会话。DevToolsSession 负责管理与 DevTools 和页面之间的通信，包括上面提到的调试。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">bool ShouldSendOnIO(crdtp::span&lt;uint8_t&gt; method) &#123;</span><br><span class="line">  static auto* kEntries = new std::vector&lt;crdtp::span&lt;uint8_t&gt;&gt;&#123;</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.getPossibleBreakpoints&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.getScriptSource&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.getStackTrace&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.pause&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.removeBreakpoint&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.resume&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.setBreakpoint&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.setBreakpointByUrl&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Debugger.setBreakpointsActive&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Emulation.setScriptExecutionDisabled&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Page.crash&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Performance.getMetrics&quot;),</span><br><span class="line">      crdtp::SpanFrom(&quot;Runtime.terminateExecution&quot;),</span><br><span class="line">  &#125;;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这里定义了所有发送到 Devtools 的 API。在 chromium 的各种断点调试方法，最后都会调用 <code>DispatchToAgent</code> 方法，并走到 <code>ShouldSendOnIO</code> 逻辑。</p>
+<h3 id="命中断点"><a href="#命中断点" class="headerlink" title="命中断点"></a>命中断点</h3><p>通过上面的分析，了解到了调试器和页面之间的 CDP 通信内容和 API 的基本实现。那 chromium 又是如何停止代码到断点的呢？为何可以停止代码执行呢？</p>
+<p>在 DevTools 中，停止代码执行到断点的核心实现是通过使用 V8 JS 引擎中的断点机制来实现的。当 chromium 执行到一个断点时，V8 会暂停 JS 代码的执行，并将控制权转交给 Devtools。这时候，Devtools 可以执行上述提到的断点调试的各种操作。</p>
+<blockquote>
+<p>这块逻辑的代码在 chromium <code>auction_v8_devtools_agent</code> 和 <code>auction_v8_devtools_session</code> 中，看起来比较复杂，涉及到 AuctionV8DevToolsSession 和 AuctionV8DevToolsAgent 两个类，DevtoolsAgent 提供了一些 Devtools debugger 的服务，并找到对应的 DevtoolsSession 进行通信。V8 将 ws 格式信息转交给了 DevtoolsSession，最后通过 DevtoolsAgent 发送到了 Devtools。</p>
+</blockquote>
+<p>大概逻辑如下: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a0c5dcef0.jpg"></p>
+<p>通过 Devtools Agent，负责接收 Devtools 通信信息，并将断点信息移交给 V8，然后由 V8 来对代码进行停止操作。</p>
+<p>V8 里面的逻辑只能看一个大概，整体逻辑如下: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533aa2684724.jpg"></p>
+<blockquote>
+<p>V8Debugger 是一个抽象，V8DebuggerAgentImpl 类实现了这个类，它是 Debug 类和 V8 调试协议之间的中介，负责将调试消息转换为 V8 调试协议中定义的格式。</p>
+</blockquote>
+<p>关于 V8 断点 Debugger 更底层的逻辑是与 os、cpu 相关，os 提供了系统调用来实现可执行代码的中断。</p>
+<p>中断则是 cpu 执行下一条指令之前，关注一下中断标记，从而判断是否需要中断执行。整体逻辑上对照着 Vue 的渲染原理即可，每次事件循环结束后最后去走一次渲染 DOM。</p>
+<p>V8 本身也是将 JS 转为可执行语言，这也就是为何 JS 可以在浏览器中拥有断点能力了。</p>
+<blockquote>
+<p>这里涉及到一些指令操作，没有深究。</p>
+</blockquote>
+<p>同时，V8 中断代码执行，也会提供一些环境数据到 Devtools，譬如当前变量数值等，这时候 V8 就会将这些调试信息通过 V8 Debug Protocol 协议的格式丢给 Debug，最后丢给 Devtools，从而鼠标悬浮在 sources panel 即可看到对应的数据内容。</p>
+<p><code>Debugger.evaluateOnCallFrame</code> 和 <code>Runtime.getProperties</code> 可以拿到一些环境信息，前者比如一些 number 数字就可以得到。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533aa094ea3b.png"></p>
+<h2 id="Vscode-Web-代码断点调试原理"><a href="#Vscode-Web-代码断点调试原理" class="headerlink" title="Vscode Web 代码断点调试原理"></a>Vscode Web 代码断点调试原理</h2><p>在 Vscode 中调试代码，能让开发者专注于代码本身，一边开发运行一边断点调试查看变量信息，并减少一些脏代码的开发。如下图所示，可以看到，似乎是将浏览器的 Debugger 的逻辑照搬到了 Vscode 中。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533aa4b14612.png"></p>
+<p>在介绍完浏览器断点调试的逻辑以后，我们大概了解了页面与 Devtools 的通信过程和相关 CDP 信息。有了这些基础，我们再分析分析 Vscode 中是如何实现断点调试 Web 代码的。</p>
+<h3 id="launch-json"><a href="#launch-json" class="headerlink" title="launch.json"></a>launch.json</h3><p>在 Vscode 中配置调试后，会生成一个 <code>.vscode/launch.json</code> 文件，其主要是配置需要调试的 url 和远程调试的端口号 port。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;chrome&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;针对 localhost 启动 Chrome&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://localhost:8080&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;webRoot&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Debugging-Architecture-of-VS-Code"><a href="#Debugging-Architecture-of-VS-Code" class="headerlink" title="Debugging Architecture of VS Code"></a>Debugging Architecture of VS Code</h3><p>Vscode 并不只是前端开发者调试 JS 使用，还可以调试其他语言，Python 一些教程就建议使用 Vscode 调试。因此 Vscode 的调试架构高度灵活，可以支持多种编程语言和调试场景，并且可以基于该架构实现各种调试扩展。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a9ea35f8f.png"></p>
+<p>如上图，Vscode 的调试架构中，有 3 个 Core Module: </p>
+<ul>
+<li>Debug Adapter: 调试适配器是 Vscode 和具体调试目标之间的桥梁。适配器主要就是负责将调试请求转换为调试目标，并将调试目标转为调试器需要的结果，其通过 Vscode Debug Protocol 协议通信。Debug Adapter 提供了一组标准的调试接口，包括设置断点、单步执行、查看变量值等。</li>
+<li>Debug Extension: 调试扩展是 Vscode 内置的插件，提供特定语言或者场景的实现。比如可以调试 JS TS Python 等，同时社区也可以提供相关扩展，譬如 Java:<br><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a9e11a18b.png"></li>
+<li>Debug UI: 即 Vscode 的操作界面，它提供了调试器的各种操作和功能，例如设置断点、单步调试、查看变量值等。</li>
+</ul>
+<blockquote>
+<p>🥶📚: 别忘了另外一个 Debugger，即为 launch.json 中的 type，指底层的调试目标，例如 Node.js 运行时、Chrome 浏览器等等。比如断点后的信息需要传递给 chrome，需要去暂定代码执行，并断点逐步执行等。</p>
+</blockquote>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在了解原理之前，先看一些现象: </p>
+<ol>
+<li>当 Vscode 启动调试并走到指定断点时，Chrome 自身调试器也会走到对应的调试逻辑（Devtools 本身也是一个 ws client，任何 client 都会收到 chrome 的 cdp 消息）。<br><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a9d739977.png"><br><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a9d147555.png"></li>
+<li>当在 Vscode 调试面板操作 <code>StepInto</code> 按钮时，Vscode 代码会走到下一步，同时 chrome 调试也会走到下一步。</li>
+<li>当在 Chrome Devtools 中操作 <code>StepInto</code> 按钮时，Chrome Devtools 代码也会走到下一步，同时 Vscode 中代码也会跳转到下一步。</li>
+</ol>
+<p>通过上面 3 种现象可以看出，Vscode Webpage Devtools 关系如下: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a9915c286.jpg"></p>
+<p>细品一下，这时候就可以知道为何需要 Debug Adapter 了。实际上，就是将 CDP 消息转为 DAP。</p>
+<h4 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h4><p>Vscode Chrome Debug 的工作流程如下: </p>
+<ol>
+<li>Vscode 启动 JavaScript 调试器，并配置调试器相关的参数，例如调试类型、调试目标等等。</li>
+<li>JavaScript Debug Extension 会根据配置启动一个 Debug Adapter 进程，并向该进程发送调试请求，请求 Debug Adapter 与 Debugger 之间建立连接。</li>
+<li>Debug Adapter 进程会根据用户的配置，启动相应的 Chrome，并与对应网页（Debugger）建立连接。</li>
+<li>Debug Adapter 进程会将调试结果转换为 Vscode 支持的调试消息格式，即上面提到的 DAP，并将调试消息发送给 Vscode。</li>
+</ol>
+<p>这里的核心就是 Extension，其作用就是调度与控制，比如启动 Adapter 进程，发送与接收调试信息等等，属于大 BOSS，而 Adapter 只是下属。</p>
+<h4 id="JS-Debug-Extension"><a href="#JS-Debug-Extension" class="headerlink" title="JS Debug Extension"></a>JS Debug Extension</h4><p>上面提到，chromium 内部是使用 CDP 协议通信，因此 Extension 想要正确调试 Chrome WebPage，首先就得遵守 Chrome 的玩法。比如，在 Vscode 中点击 StepInto 按钮，这时候会将对应操作信息转化为 CDP 信息，然后再发送给 WebPage。</p>
+<p>Extension 启动 Chrome 的逻辑在 companionBrowserLaunch 中: <a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode-js-debug/blob/main/src/ui/companionBrowserLaunch.ts#L50">https://github.com/microsoft/vscode-js-debug/blob/main/src/ui/companionBrowserLaunch.ts#L50</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> vscode.<span class="property">commands</span>.<span class="title function_">executeCommand</span>(<span class="string">&#x27;js-debug-companion.launchAndAttach&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">proxyUri</span>: tunnel ? <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:$&#123;tunnel.<span class="property">localAddress</span>.<span class="property">port</span>&#125; : <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:$&#123;args.<span class="property">serverPort</span>&#125;,</span><br><span class="line">  <span class="attr">wslInfo</span>: process.<span class="property">env</span>.<span class="property">WSL_DISTRO_NAME</span> &amp;&amp; &#123;</span><br><span class="line">    <span class="attr">execPath</span>: process.<span class="property">execPath</span>,</span><br><span class="line">    <span class="attr">distro</span>: process.<span class="property">env</span>.<span class="property">WSL_DISTRO_NAME</span>,</span><br><span class="line">    <span class="attr">user</span>: process.<span class="property">env</span>.<span class="property">USER</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  ...args,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>另外，Devtools 与 WebPage 是通过 ws 通信的，这里 JavaScript Extension 内部实现与开发者工具调试器和模拟器的通信相似， Extension 与 WebPage 通信也是拿到了页面的 debug ws url，在 Extension 内部创建一个 ws client，通过该 client 监听来自于 WebPage CDP 信息，并转发到会话的 Adapter，最后再交给 Vscode。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a811a8b51.png"><br><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7fd0f33b.png"></p>
+<blockquote>
+<p>看最新的代码，JS Debug Extension 也会负责部分调试 UI 相关逻辑。</p>
+</blockquote>
+<h4 id="Command-实例"><a href="#Command-实例" class="headerlink" title="Command 实例"></a>Command 实例</h4><p>以 <code>StepInto</code> 举例，在 Vscode 中点击该按钮以后，会发送一个 DAP 消息: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;command&quot;</span>: <span class="string">&quot;stepInTo&quot;</span>,</span><br><span class="line">    <span class="string">&quot;seq&quot;</span>: number,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;request&quot;</span>,</span><br><span class="line">    <span class="string">&quot;arguments&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;threadId&quot;</span>: number</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，Exetension 将该消息转为 CDP 消息，并发送给 WebPage: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>: <span class="string">&quot;Debugger.stepInto&quot;</span>,</span><br><span class="line">    <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;callFrameId&quot;</span>: number/string</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WebPage 收到该消息后，返回执行结果到 Extension: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;result&quot;</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Extension 再将该 response 通过 Debug Adapter 转给 Vscode，Vscode 调整 UI: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;body&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;reason&quot;</span>: <span class="string">&quot;OK&quot;</span>,</span><br><span class="line">      <span class="string">&quot;threadId&quot;</span>: number</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;type&quot;</span>: <span class="string">&quot;response&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相关 DAP 格式可以查阅 <a target="_blank" rel="noopener" href="https://microsoft.github.io/debug-adapter-protocol/overview">debug-adapter-protocol</a> </p>
+<p>如果要在 Vscode 中查看实时的 DAP 和 CDP 消息，可以通过如下操作: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7f5e79b9.png"></p>
+<h4 id="源码调试"><a href="#源码调试" class="headerlink" title="源码调试"></a>源码调试</h4><p>上面给到的例子非常简单，js 代码也没有经过构建生成编译后的代码。但是实际场景中开发的项目会引入各种开源库，然后经过诸如 Webpack 等打包构建工具做编译打包，才能在浏览器中运行。编译压缩后的代码一般不具备可读性，因此在编译后代码进行调试成本比较高。</p>
+<p>We all know，SourceMap 存储着源码和生产代码之间的映射关系。譬如这里启动了一个 Vite 项目: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7f11e5b3.png"></p>
+<p>当在源码的 main.ts 中设置断点时，可以看到 Request 中的 url 为 <code>host:port/src/main.ts</code>，即实际传给 WebPage 的断点文件为编译后的文件。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7eaa5467.png"></p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7e5db5bc.png"></p>
+<p>JS Debug Extension 亦是如此。</p>
+<p>当在 Vscode 的源码中增加了一个断点，JS Debug Extension 会根据 sourceMap 将源代码路径映射到编译后的代码路径中，并将这个信息发送给浏览器。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7ca6c02c.png"></p>
+<blockquote>
+<p>所以呀，解析是前端行为。</p>
+</blockquote>
+<h4 id="扩展-SourceMap-加载"><a href="#扩展-SourceMap-加载" class="headerlink" title="扩展: SourceMap 加载"></a>扩展: SourceMap 加载</h4><p>SourceMap 虽然也是静态资源，但是其加载在 Network 面板并不能看到，而是在 Developer Resources 中。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/21/6533a7d721364.png"></p>
+<p>为了启动快，用 Vite 来生成项目。Vite 利用了浏览器原生的 ES modules 功能，根据文件依赖关系，生成依赖树，然后各模块文件模块单独加载。Vite 文件都有单独的 SourceMap，不需要配 SourceMap 依赖。</p>
+<p>可以看到，这里 Vite 默认是直接内嵌的 SourceMap，无需单独请求， 可以在代码文件加载完成后，就直接解析了，红框里面展示的链接就是 Base64 的形式了。</p>
+<blockquote>
+<p>⚠️SourceMap 的解析是交给 Devtools 本身的，Debugger 只负责运行和暂停。因此，如果断点在 SourceMap 解析完成之前触发，则没法告诉 Debugger 正确的地址，可能会出现断点无效情况。</p>
+</blockquote>
+<h2 id="IDE-小程序断点调试"><a href="#IDE-小程序断点调试" class="headerlink" title="IDE 小程序断点调试"></a>IDE 小程序断点调试</h2><h3 id="Devtools-Debug"><a href="#Devtools-Debug" class="headerlink" title="Devtools Debug"></a>Devtools Debug</h3><p>根据上面的介绍，小程序断点调试的最简单办法就是在代码中写上 debugger，然后交给 v8 处理即可。另外还有一种方式就是打开小程序调试器，在 sources panel 中打断点，如下图: </p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/23/6535d04472a3b.png"></p>
+<p>打断点，刷新小程序，即可跳转到断点位置。此时可以看到对应的 CDP 消息中的 Request。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/23/6535d04474881.png"></p>
+<p>可以看到，这里点击的是 56 行，但实际上 Request 中却不是，Devtools 通过 sourceMap 进行了处理，定位到了 64 行。根据上面提到的源码调试逻辑，这里的位置为编译后的代码位置，找到编译产物代码 <code>app.js</code> 即可看到 real position。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/23/6535d04481417.png"></p>
+<h3 id="IDE-Editor-Debug？"><a href="#IDE-Editor-Debug？" class="headerlink" title="IDE Editor Debug？"></a>IDE Editor Debug？</h3><p>考虑到上面提到的 Vscode 有 web 断点调试能力，那 IDE Editor 或许也是可以支持断点调试能力的。</p>
+<p>Vscode 可以直接在编辑器运行项目，然后启动自定义的调试目标（Debugger）。</p>
+<p>IDE 为小程序运行时的载体，与 Vscode 启动 web 项目不一样，其逻辑为编译完成后生成一个编译产物目录，通过静态服务，Simulator 直接加载对应编译产物。因此，IDE 的 Editor 实际上跟 Simulator 没什么联系的。</p>
+<p>假设借用 <strong>Devtools Debug</strong> 的逻辑，当在 Editor 打断点时，捕获所有的断点 DAP 消息，当开启调试时，刷新模拟器，将所有的断点信息转为 CDP 信息发送给模拟器，或许就可以简单实现该能力。</p>
+<p><img src= "https://bu.dusays.com/2022/01/14/1ff50a00bd75c.gif" data-lazy-src="https://bu.dusays.com/2023/10/23/6535d04474881.png"></p>
+<p>当然，考虑到是在源码中打断点，这里的难点应该是在于要实现 sourceMap 解析，而 Debug UI 则可以利用 Vscode JS Extension，或者通过自定义实现一个 Debug UI。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文概述了浏览器断点调试的基本原理，也介绍了 Vscode Web 代码断点调试能力，详细介绍了各模块中各 CDP 消息通信逻辑。阅读本文可以掌握前端各种调试方法的基本原理。</p>
+<blockquote>
+<p>原文链接: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/DGSSDEmAdj8sE_KfN3wQsg">前端断点调试是如何实现的？</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://fe32.top">Ethan.Tzy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://fe32.top/articles/fe100003/">https://fe32.top/articles/fe100003/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fe32.top" target="_blank">唐志远の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95/">断点调试</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/10/21/65338be5ce691.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://npm.elemecdn.com/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3f127558.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" target="_blank"><img class="post-qr-code-img" src="https://bu.dusays.com/2022/05/17/6283c3ee6d872.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/articles/skill001/" title="几个非常实用的 Chrome Devtools 技巧"><img class="cover" src="https://bu.dusays.com/2023/10/17/652e3c79ec949.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">几个非常实用的 Chrome Devtools 技巧</div></div></a></div><div class="next-post pull-right"><a href="/articles/vue20006/" title="解决 Vue3 + Element Plus 树形表格全选多选以及子节点勾选的问题"><img class="cover" src="https://bu.dusays.com/2023/10/23/65361d5beba7d.png" onerror="onerror=null;src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">解决 Vue3 + Element Plus 树形表格全选多选以及子节点勾选的问题</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2021/03/27/0106da541a922.gif'" alt="avatar"/></div><div class="author-info__name">Ethan.Tzy</div><div class="author-info__description">2023年的理想开始实现了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">88</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2938526863&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://bu.dusays.com/2022/05/17/6283c39fcfc2f.png" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="mailto:ethan4116@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/tzy13755126023" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://space.bilibili.com/481293298" target="_blank" title="Bilibili"><i class="fab fa-youtube"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="Rss"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style='text-indent:2em'>如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给出回复。</div><div id="qq-btn"><a id="a-qun" href="https://qm.qq.com/cgi-bin/qm/qr?k=IqfyAyFpCIMln6xPXkjkI_gzF8zx29zK&jump_from=webapi&authKey=jcME5f+e8XES0vAaUTAaI24tsgUMdoIZ0oGwAOoHNpK1HSWdcI9zmSlWVdfw/ax+" target="_blank">加入QQ群 ✨</a></div></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="card-widget tzy-ad-swiper"><div class="swiper card-swiper"><div class="swiper-wrapper"><div class="swiper-slide"><a href="https://fe32.top/sponsorWall/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/642449cacc868.png"/></a></div><div class="swiper-slide"><a href="https://fe32.top/@3.7.1/" target="_blank"><img src="https://bu.dusays.com/2023/03/29/6424524c0d728.png"/></a></div></div><div class="swiper-pagination"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">基本知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome-Devtools-Protocol"><span class="toc-number">2.1.</span> <span class="toc-text">Chrome Devtools Protocol</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81-CDP"><span class="toc-number">2.1.2.</span> <span class="toc-text">常见 CDP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.1.3.</span> <span class="toc-text">应用场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">浏览器断点调试原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">操作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E6%96%AD%E7%82%B9"><span class="toc-number">3.1.1.</span> <span class="toc-text">增加断点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%96%AD%E7%82%B9"><span class="toc-number">3.1.2.</span> <span class="toc-text">移除断点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95"><span class="toc-number">3.1.3.</span> <span class="toc-text">实时断点调试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%80%9A%E4%BF%A1%E6%BA%90%E7%A0%81"><span class="toc-number">3.2.</span> <span class="toc-text">基本通信源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%B8%AD%E6%96%AD%E7%82%B9"><span class="toc-number">3.3.</span> <span class="toc-text">命中断点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vscode-Web-%E4%BB%A3%E7%A0%81%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">Vscode Web 代码断点调试原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#launch-json"><span class="toc-number">4.1.</span> <span class="toc-text">launch.json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Debugging-Architecture-of-VS-Code"><span class="toc-number">4.2.</span> <span class="toc-text">Debugging Architecture of VS Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">4.3.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Workflow"><span class="toc-number">4.3.1.</span> <span class="toc-text">Workflow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JS-Debug-Extension"><span class="toc-number">4.3.2.</span> <span class="toc-text">JS Debug Extension</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Command-%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.3.3.</span> <span class="toc-text">Command 实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E8%B0%83%E8%AF%95"><span class="toc-number">4.3.4.</span> <span class="toc-text">源码调试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E5%B1%95-SourceMap-%E5%8A%A0%E8%BD%BD"><span class="toc-number">4.3.5.</span> <span class="toc-text">扩展: SourceMap 加载</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IDE-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">IDE 小程序断点调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Devtools-Debug"><span class="toc-number">5.1.</span> <span class="toc-text">Devtools Debug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDE-Editor-Debug%EF%BC%9F"><span class="toc-number">5.2.</span> <span class="toc-text">IDE Editor Debug？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/vue20006/" title="解决 Vue3 + Element Plus 树形表格全选多选以及子节点勾选的问题"><img src="https://bu.dusays.com/2023/10/23/65361d5beba7d.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="解决 Vue3 + Element Plus 树形表格全选多选以及子节点勾选的问题"/></a><div class="content"><a class="title" href="/articles/vue20006/" title="解决 Vue3 + Element Plus 树形表格全选多选以及子节点勾选的问题">解决 Vue3 + Element Plus 树形表格全选多选以及子节点勾选的问题</a><time datetime="2023-10-23T07:02:24.000Z" title="发表于 2023-10-23 15:02:24">2023-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/fe100003/" title="前端断点调试是如何实现的？"><img src="https://bu.dusays.com/2023/10/21/65338be5ce691.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="前端断点调试是如何实现的？"/></a><div class="content"><a class="title" href="/articles/fe100003/" title="前端断点调试是如何实现的？">前端断点调试是如何实现的？</a><time datetime="2023-10-23T01:01:11.000Z" title="发表于 2023-10-23 09:01:11">2023-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/skill001/" title="几个非常实用的 Chrome Devtools 技巧"><img src="https://bu.dusays.com/2023/10/17/652e3c79ec949.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="几个非常实用的 Chrome Devtools 技巧"/></a><div class="content"><a class="title" href="/articles/skill001/" title="几个非常实用的 Chrome Devtools 技巧">几个非常实用的 Chrome Devtools 技巧</a><time datetime="2023-10-17T07:53:32.000Z" title="发表于 2023-10-17 15:53:32">2023-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/fe100002/" title="卷王之王：快来看看前端出的新框架！"><img src="https://bu.dusays.com/2023/10/16/652ce0f2b059c.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="卷王之王：快来看看前端出的新框架！"/></a><div class="content"><a class="title" href="/articles/fe100002/" title="卷王之王：快来看看前端出的新框架！">卷王之王：快来看看前端出的新框架！</a><time datetime="2023-10-17T04:57:45.000Z" title="发表于 2023-10-17 12:57:45">2023-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/fe100001/" title="前端如何实现埋点上报？"><img src="https://bu.dusays.com/2023/09/14/6502add885468.png" onerror="this.onerror=null;this.src='https://bu.dusays.com/2022/01/14/82eed74cbb1e0.jpg'" alt="前端如何实现埋点上报？"/></a><div class="content"><a class="title" href="/articles/fe100001/" title="前端如何实现埋点上报？">前端如何实现埋点上报？</a><time datetime="2023-09-15T12:55:32.000Z" title="发表于 2023-09-15 20:55:32">2023-09-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://www.hack-gov.com.cn/posts/21480.html">下载（国家反诈中心） APP</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">修仙导航</p><ul class="ft-links"><li><a href="https://fe32.top/articles/hexo1600/">建站指南</a><a href="https://fe32.top/nav.html">网址导航</a></li><li><a href="https://fe32.top/sponsorWall/">来杯咖啡</a><a href="https://fe32.top/comments/">留点什么</a></li><li><a href="https://fe32.top/about/">关于博主</a><a href="https://fe32.top/archives/">文章归档</a></li><li><a href="https://fe32.top/categories/">文章分类</a><a href="https://fe32.top/tags/">文章标签</a></li><li><a href="https://fe32.top/gallery/">我的相册</a><a href="https://fe32.top/bangumis/">我的追番</a></li><li><a href="https://fe32.top/specialEffects/">一些特效</a><a href="https://fe32.top/website/log/">更新日志</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.zhheo.com/"><img src="https://npm.elemecdn.com/guli-heo/img/avatar2.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.thyuu.com/"><img src="https://npm.elemecdn.com/imgscdn/img/202111191951780.JPG" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://dusays.com/"><img src="https://cdn.dusays.com/avatar.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://bu.dusays.com/2022/11/06/6367af8667f0e.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.startly.cn/"><img src="https://bu.dusays.com/2023/04/15/643a99cb740a4.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:btf.snackbarShow(&quot;预留友链位~~&quot;)"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/utils.js"></script><script src="/js/main.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/fancybox.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/lazyload.iife.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.fe32.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.fe32.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo.fe32.top',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-volume="0.4" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="/js/swiper-bundle.js"></script><script defer src="/js/custom/index.js"></script><script> var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?1773f8575623b779a23176908895ed29";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jo9JJAc5cBaxwwnJ",ck:"Jo9JJAc5cBaxwwnJ"});</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9697737937582017" crossorigin="anonymous"></script><script src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://npm.elemecdn.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://npm.elemecdn.com/aplayer/dist/APlayer.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/js/theme/meting.min.js"></script><script src="https://npm.elemecdn.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/books/"]):not([href="/movies/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div></div></div><div id="algolia-tips"><span class="algolia-tips-text">Algolia 提供搜索服务</span></div></div></div><div id="search-mask"></div><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algoliasearch.umd.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/instantsearch.production.min.js"></script><script src="https://npm.elemecdn.com/ethan4116-blog/lib/@4.7.0/js/algolia@latest.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2315348_g8vs01iykv.js"></script><!-- hexo injector body_end end --></body></html>
