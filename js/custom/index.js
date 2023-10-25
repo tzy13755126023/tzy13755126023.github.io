@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-23 18:33:30
+ * @LastEditTime: 2023-10-25 09:44:46
  */
 var card_swiper;
 var home_swiper;
@@ -131,11 +131,16 @@ var _tzy = {
   checkAdBlocker: () => {
     // v2 20231018
     if ($("body").width() < 768) {
-      const phoneFlag =
-        location.href == "https://fe32.top/" ||
-        location.href.includes("/articles/");
+      const phoneFlag = (location.href =
+        "https://fe32.top/" || location.href.includes("/articles/"));
       if (phoneFlag) {
-        $(".modal-connection").show();
+        if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
+          console.log("no ad blockers");
+          $(".modal-connection").hide();
+        } else {
+          console.log("Please disable ad blockers");
+          $(".modal-connection").show();
+        }
       } else {
         $(".modal-connection").hide();
       }
