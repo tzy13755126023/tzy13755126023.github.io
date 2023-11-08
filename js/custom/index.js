@@ -4,7 +4,7 @@
  * @Author: tzy1997
  * @Date: 2023-03-22 21:06:13
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-25 09:49:35
+ * @LastEditTime: 2023-11-08 10:28:42
  */
 var card_swiper;
 var home_swiper;
@@ -131,8 +131,9 @@ var _tzy = {
   checkAdBlocker: () => {
     // v2 20231018
     if ($("body").width() < 768) {
-      const phoneFlag = (location.href ==
-        "https://fe32.top/" || location.href.includes("/articles/"));
+      const phoneFlag =
+        location.href == "https://fe32.top/" ||
+        location.href.includes("/articles/");
       if (phoneFlag) {
         if ($(".ads-wrap > .adsbygoogle >div").length > 0) {
           console.log("no ad blockers");
@@ -192,6 +193,14 @@ var _tzy = {
       }
     }, 3000);
   },
+  // pjax加载完成（切换页面）后需要执行的函数和代码
+  initAgain: () => {
+    if (location.href == "https://fe32.top/") {
+      _tzy.cardSwiper();
+      _tzy.homeSwiper();
+      _tzy.checkAdsTimes();
+    }
+  },
 };
 
 _tzy.flinkOnError();
@@ -200,6 +209,8 @@ _tzy.tagPageActive();
 _tzy.cardSwiper();
 _tzy.homeSwiper();
 _tzy.checkAdsTimes();
+
+document.addEventListener("pjax:complete", _tzy.initAgain); 
 
 /* window.addEventListener('resize', () => {
     _tzy.debounce(() => {
